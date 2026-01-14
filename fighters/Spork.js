@@ -1,4 +1,4 @@
-import { Fighter } from "./fighter.js";
+import { Fighter } from "./Fighter.js";
 
  export class Spork extends Fighter {
     constructor(x, y, velocity){
