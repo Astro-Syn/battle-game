@@ -8,7 +8,7 @@ export class Stage {
     }
 
     draw(ctx){
-        ctx.drawImage(this.image, 0, 0);
+        ctx.drawImage(this.image, 0, 0,);
     }
 }
 

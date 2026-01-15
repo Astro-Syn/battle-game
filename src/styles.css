@@ -19,3 +19,9 @@ canvas {
 img {
     display: none;
 }
+
+.background {
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    
+}
