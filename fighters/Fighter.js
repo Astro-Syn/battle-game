@@ -5,27 +5,34 @@ export class Fighter {
         this.frames = new Map();
         this.position = {x, y};
         this.velocity = velocity;
-        this.animationFrame = 1;
+        this.animationFrame = 0;
         this.animationTimer = 0;
+        this.state = 'runForward';
+        this.animations = {};
         
     }
 
     update(time, ctx) {
-         const [[, , width]] = this.frames.get(`forwards-${this.animationFrame}`);
+         const [[, , width]] = this.frames.get(this.animations[this.state][this.animationFrame]);
 
 
-    if (time.previous > this.animationTimer + 60){
+    if (time.previous > this.animationTimer + 70){
 
         this.animationTimer = time.previous;
          this.animationFrame++;
-         if (this.animationFrame > 8) this.animationFrame = 1;
+         if (this.animationFrame > 7) this.animationFrame = 0;
     }
         
-
          this.position.x += this.velocity * time.secondsPassed;
 
-    if(this.position.x > ctx.canvas.width - width || this.position.x < 0){
-        this.velocity = -this.velocity;
+    if(this.position.x > ctx.canvas.width - width / 2 ){
+        this.velocity = -150;
+        this.state = 'runBackward';
+    }
+
+    if (this.position.x < width / 2){
+        this.velocity = 150;
+        this.state = 'runForward';
     }
     }
 
@@ -41,7 +48,7 @@ export class Fighter {
     }
 
     draw(ctx){
-        const [[x, y, width, height], [originX, originY],] = this.frames.get(`forwards-${this.animationFrame}`);
+        const [[x, y, width, height], [originX, originY],] = this.frames.get(this.animations[this.state][this.animationFrame]);
         
         ctx.drawImage(this.image, x, y, width, height, this.position.x - originX, this.position.y - originY, width, height); 
 
