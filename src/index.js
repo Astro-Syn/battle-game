@@ -2,6 +2,7 @@ import { Spork } from "../fighters/Spork.js";
 import { Stage } from "./entities/Stage.js";
 import { Vexel } from "../fighters/Vexel.js";
 import { FpsCounter } from "./entities/FpsCounter.js";
+import { BATTLE_FLOOR } from "./constants/stage.js";
 
 
 const GameViewport = {
@@ -20,8 +21,8 @@ window.addEventListener('load', function() {
 
     const entities = [
         new Stage(),
-        new Spork(90, 150, 150),
-        new Vexel(90, 150, -150),
+        new Spork(90, BATTLE_FLOOR, 150),
+        new Vexel(90, BATTLE_FLOOR, -150),
         new FpsCounter()
     ]
    

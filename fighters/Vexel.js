@@ -7,19 +7,17 @@ import { Fighter } from "./Fighter.js";
 
         
         const spriteWidth = 42;
-        const spriteHeight = 59;
+        const spriteHeight = 77;
 
           this.frames = new Map([
-        ['forwards-1', [0, 0, spriteWidth, spriteHeight]],
-        ['forwards-2', [41, 59, spriteWidth, spriteHeight ]],   
-        ['forwards-3', [91, 0, spriteWidth, spriteHeight]],
-        ['forwards-4', [141, 0, spriteWidth, spriteHeight]],   
-        ['forwards-5', [185, 0, spriteWidth, spriteHeight ]],
-        ['forwards-6', [225, 0, spriteWidth, spriteHeight]], 
-        ['forwards-7', [225, 0, spriteWidth, spriteHeight]],  
-        ['forwards-8', [225, 0, spriteWidth, spriteHeight]],  
-        ['forwards-9', [225, 0, spriteWidth, spriteHeight]],    
-        ['forwards-9', [225, 0, spriteWidth, spriteHeight]],   
+        ['forwards-1', [[0, 0, spriteWidth, spriteHeight], [21, 65]]],
+        ['forwards-2', [[85, 0, spriteWidth, spriteHeight ], [21, 65]]],   
+        ['forwards-3', [[159, 0, spriteWidth, spriteHeight], [21, 65]]],
+        ['forwards-4', [[244, 0, spriteWidth, spriteHeight], [21, 65]]],   
+        ['forwards-5', [[322, 0, spriteWidth, spriteHeight ], [21, 65]]],
+        ['forwards-6', [[407, 0, spriteWidth, spriteHeight], [21, 65]]], 
+        ['forwards-7', [[481, 0, spriteWidth, spriteHeight], [21, 65]]],  
+        ['forwards-8', [[557, 0, spriteWidth, spriteHeight], [21, 65]]],  
         
         ]);
     }

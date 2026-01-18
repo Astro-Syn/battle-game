@@ -1,0 +1,1 @@
+export const BATTLE_FLOOR = 200;

@@ -11,14 +11,14 @@ export class Fighter {
     }
 
     update(time, ctx) {
-         const [, , width] = this.frames.get(`forwards-${this.animationFrame}`);
+         const [[, , width]] = this.frames.get(`forwards-${this.animationFrame}`);
 
 
     if (time.previous > this.animationTimer + 60){
 
         this.animationTimer = time.previous;
          this.animationFrame++;
-         if (this.animationFrame > 10) this.animationFrame = 1;
+         if (this.animationFrame > 8) this.animationFrame = 1;
     }
         
 
@@ -29,8 +29,22 @@ export class Fighter {
     }
     }
 
+    drawDebug(ctx){
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.strokeStyle = 'lime';
+        ctx.moveTo(this.position.x - 5, this.position.y);
+        ctx.lineTo(this.position.x + 4, this.position.y);
+        ctx.moveTo(this.position.x, this.position.y - 5);
+        ctx.lineTo(this.position.x, this.position.y + 4);
+        ctx.stroke();
+    }
+
     draw(ctx){
-        const [x, y, width, height] = this.frames.get(`forwards-${this.animationFrame}`);
-        ctx.drawImage(this.image, x, y, width, height, this.position.x, this.position.y, width, height); 
+        const [[x, y, width, height], [originX, originY],] = this.frames.get(`forwards-${this.animationFrame}`);
+        
+        ctx.drawImage(this.image, x, y, width, height, this.position.x - originX, this.position.y - originY, width, height); 
+
+        this.drawDebug(ctx);
     }
 }
