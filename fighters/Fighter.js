@@ -4,18 +4,16 @@ import { BATTLE_FLOOR } from "../src/constants/stage.js";
 export class Fighter {
     constructor(name, x, y, direction){
         this.name = name;        
-        
-        
         this.position = {x, y};
         this.velocity = { x: 0, y: 0};
         this.initialVelocity = {};
         this.direction = direction;
-        
         this.gravity = 0;
         this.frames = new Map();
         this.animationFrame = 0;
         this.animationTimer = 0;
         this.animations = {};
+
         this.image = new Image();
 
         this.states = {
@@ -24,18 +22,26 @@ export class Fighter {
                 update: this.handleRunIdleState.bind(this),
             },
             [CharacterState.RUN_FORWARD]: {
-                init: this.handleRunForwardInit.bind(this),
-                update: this.handleRunForwardState.bind(this),
+                init: this.handleMoveInit.bind(this),
+                update: this.handleMoveState.bind(this),
             },
             [CharacterState.RUN_BACKWARD]: {
-                init: this.handleRunBackwardInit.bind(this),
-                update: this.handleRunBackwardState.bind(this),
+                init: this.handleMoveInit.bind(this),
+                update: this.handleMoveState.bind(this),
             },
              [CharacterState.JUMP_UP]: {
-                init: this.handleJumpUpInit.bind(this),
-                update: this.handleJumpUpState.bind(this),
-            }
-        }
+                init: this.handleJumpInit.bind(this),
+                update: this.handleJumpState.bind(this),
+            },
+            [CharacterState.JUMP_FORWARDS]: {
+                 init: this.handleJumpInit.bind(this),
+                update: this.handleJumpState.bind(this),
+            },
+            [CharacterState.JUMP_BACKWARDS]: {
+                 init: this.handleJumpInit.bind(this),
+                update: this.handleJumpState.bind(this),
+            },
+        };
         this.changeState(CharacterState.IDLE);
     }
 
@@ -54,27 +60,20 @@ export class Fighter {
 
     }
 
-    handleRunForwardInit(){
-        this.velocity.x = 150 * this.direction;
+    handleMoveInit(){
+        this.velocity.x = this.initialVelocity.x[this.currentState] ?? 0;
     }
 
-    handleRunForwardState() {
-
-    }
-
-    handleRunBackwardInit(){
-        this.velocity.x = -150 * this.direction;
-    }
-
-    handleRunBackwardState(){
+    handleMoveState() {
 
     }
 
-    handleJumpUpInit() {
+    handleJumpInit() {
         this.velocity.y = this.initialVelocity.jump;
+        this.handleMoveInit();
     }
 
-    handleJumpUpState(time) {
+    handleJumpState(time) {
         this.velocity.y += this.gravity * time.secondsPassed;
         
         if (this.position.y > BATTLE_FLOOR){
@@ -97,18 +96,26 @@ export class Fighter {
     }
 
     updateAnimation(time) {
-         if (time.previous > this.animationTimer + 70){
+     const animation = this.animations[this.currentState];
+        const [, frameDelay] = animation[this.animationFrame];
+
+         if (time.previous > this.animationTimer + frameDelay){
         this.animationTimer = time.previous;
 
-         this.animationFrame++;
-         if (this.animationFrame > this.animations[this.currentState].length) this.animationFrame = 0;
-    }
+            if(frameDelay > 0) {
+                this.animationFrame++;
+            }
+
+         if (this.animationFrame >= animation.length) {
+            this.animationFrame = 0;
+        }
+        }
     }
 
     update(time, ctx) {
          
-         this.position.x += this.velocity.x * time.secondsPassed;
-         this.position.y += this.velocity.y * time.secondsPassed;
+    this.position.x += (this.velocity.x * this.direction) * time.secondsPassed;
+    this.position.y += this.velocity.y * time.secondsPassed;
     this.states[this.currentState].update(time, ctx);
     this.updateAnimation(time);
     this.updateStageConstraints(ctx);
@@ -126,7 +133,11 @@ export class Fighter {
     }
 
     draw(ctx){
-        const [[x, y, width, height], [originX, originY],] = this.frames.get(this.animations[this.currentState][this.animationFrame]);
+        const [frameKey] = this.animations[this.currentState][this.animationFrame];
+        const [
+            [x, y, width, height], 
+            [originX, originY],
+        ] = this.frames.get(frameKey);
         
         ctx.scale(this.direction, 1);
 

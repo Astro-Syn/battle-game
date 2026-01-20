@@ -41,19 +41,57 @@ import { CharacterState } from "../src/constants/character.js";
         ['jumpUp-4', [[209, 259, 55, spriteHeight], [21, 70]]],
         ['jumpUp-5', [[280, 259, 55, spriteHeight], [21, 70]]],
         ['jumpUp-6', [[351, 259, 55, spriteHeight], [21, 70]]],
+
+          ['jumpForwards-1', [[0, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpForwards-2', [[56, 259, 55, spriteHeight], [21, 70]]],  
+        ['jumpForwards-3', [[125, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpForwards-4', [[209, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpForwards-5', [[280, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpForwards-6', [[351, 259, 55, spriteHeight], [21, 70]]],
+
+          ['jumpBackwards-1', [[0, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpBackwards-2', [[56, 259, 55, spriteHeight], [21, 70]]],  
+        ['jumpBackwards-3', [[125, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpBackwards-4', [[209, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpBackwards-5', [[280, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpBackwards-6', [[351, 259, 55, spriteHeight], [21, 70]]],
         ]);
 
           this.animations = {
-            [CharacterState.IDLE]: ['idle-1', 'idle-2', 'idle-2', 'idle-2', 'idle-2', 'idle-1', 'idle-1', 'idle-1'],
+            [CharacterState.IDLE]: [
+              ['idle-1', 70],  ['idle-2', 70], ['idle-2', 70], ['idle-2', 70], ['idle-2', 70], ['idle-1', 70], ['idle-1', 70],  ['idle-1', 70],
+            ],
 
-            [CharacterState.RUN_FORWARD]: ['forwards-1', 'forwards-2', 'forwards-3', 'forwards-4', 'forwards-5', 'forwards-6', 'forwards-7', 'forwards-8'],
+            [CharacterState.RUN_FORWARD]: [
+              ['forwards-1', 75],  ['forwards-2', 75],  ['forwards-3', 75], ['forwards-4', 75], ['forwards-5', 75], ['forwards-6', 75], ['forwards-7', 75], ['forwards-8', 75]
+            ],
             
-            [CharacterState.RUN_BACKWARD]: ['backwards-1', 'backwards-2', 'backwards-3', 'backwards-4', 'backwards-5', 'backwards-6', 'backwards-7', 'backwards-8'],
+            [CharacterState.RUN_BACKWARD]: [
+              ['backwards-1', 75],  ['backwards-2', 75], ['backwards-3', 75], ['backwards-4', 75], ['backwards-5', 75], ['backwards-6', 75], ['backwards-7', 75], ['backwards-8', 75],
+            ],
 
-            [CharacterState.JUMP_UP]: ['jumpUp-1']
+            [CharacterState.JUMP_UP]: [
+              ['jumpUp-1', 150], ['jumpUp-2', 110], ['jumpUp-3', 110], ['jumpUp-4', 110], ['jumpUp-5', 110], ['jumpUp-6', -1], ['jumpUp-6', -1], ['jumpUp-6', 1]
+            ],
+            [CharacterState.JUMP_FORWARDS]: [
+               ['jumpForwards-1', 120], ['jumpForwards-2', 100], ['jumpForwards-3', 100], 
+               ['jumpForwards-4', 120], ['jumpForwards-5', 100], ['jumpForwards-6', -1], 
+               ['jumpForwards-6', -1], ['jumpForwards-6', -1], 
+            ],
+            [CharacterState.JUMP_BACKWARDS]: [
+               ['jumpBackwards-1', 120], ['jumpBackwards-2', 100], ['jumpBackwards-3', 100], 
+               ['jumpBackwards-4', 120], ['jumpBackwards', 100], ['jumpBackwards-6', -1], 
+               ['jumpBackwards-6', -1], ['jumpBackwards', -1], 
+            ]
         };
 
         this.initialVelocity = {
+          x: {
+            [CharacterState.RUN_FORWARD]: 170,
+            [CharacterState.RUN_BACKWARD]: -110,
+            [CharacterState.JUMP_FORWARDS]: 150,
+            [CharacterState.JUMP_BACKWARDS]: -180,
+          },
           jump: -420,
         }
         this.gravity = 1000;
