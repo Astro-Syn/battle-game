@@ -11,6 +11,11 @@ import { CharacterState } from "../src/constants/character.js";
         const spriteHeight = 59;
 
         this.frames = new Map([
+
+        ['idle-1', [[6, 135, spriteWidth, spriteHeight], [22, 58]]],
+        ['idle-2', [[69, 135, spriteWidth, spriteHeight], [22, 58]]],
+          
+
         ['forwards-1', [[0, 0, 40, spriteHeight], [18, 56]]],
         ['forwards-2', [[42, 0, 52, spriteHeight ], [18, 57]]],   
         ['forwards-3', [[141, 0, 35, spriteHeight], [18, 58]]],   
@@ -28,13 +33,30 @@ import { CharacterState } from "../src/constants/character.js";
         ['backwards-6', [[42, 0, 52, spriteHeight ], [18, 57]]], 
         ['backwards-7', [[0, 0, 40, spriteHeight], [18, 56]]],
         ['backwards-8', [[435, 0, spriteWidth, spriteHeight], [20, 58]]],
+
+        ['jumpUp-1', [[10, 262, spriteWidth, spriteHeight], [21, 65]]],
+        ['jumpUp-2', [[77, 262, spriteWidth, spriteHeight], [21, 65]]],  
+        ['jumpUp-3', [[140, 262, spriteWidth, spriteHeight], [21, 65]]],
+        ['jumpUp-4', [[209, 262, spriteWidth, spriteHeight], [21, 65]]],
+        ['jumpUp-5', [[288, 262, spriteWidth, spriteHeight], [21, 65]]],
+        ['jumpUp-6', [[378, 262, spriteWidth, spriteHeight], [21, 65]]],
         ]);
 
         this.animations = {
+
+            [CharacterState.IDLE]: ['idle-1', 'idle-2', 'idle-2', 'idle-2', 'idle-2', 'idle-1', 'idle-1', 'idle-1'],
+
             [CharacterState.RUN_FORWARD]: ['forwards-1', 'forwards-2', 'forwards-3', 'forwards-4', 'forwards-5', 'forwards-6', 'forwards-7', 'forwards-8'],
 
             [CharacterState.RUN_BACKWARD]: ['backwards-1', 'backwards-2', 'backwards-3', 'backwards-4', 'backwards-5', 'backwards-6', 'backwards-7', 'backwards-8'],
+
+             [CharacterState.JUMP_UP]: ['jumpUp-1' ]
         };
+
+        this.initialVelocity = {
+          jump: -420,
+        };
+         this.gravity = 1000;
     }
  }
  

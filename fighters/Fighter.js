@@ -1,16 +1,23 @@
 import { CharacterState } from "../src/constants/character.js";
+import { BATTLE_FLOOR } from "../src/constants/stage.js";
 
 export class Fighter {
     constructor(name, x, y, direction){
         this.name = name;        
-        this.image = new Image();
-        this.frames = new Map();
+        
+        
         this.position = {x, y};
+        this.velocity = { x: 0, y: 0};
+        this.initialVelocity = {};
         this.direction = direction;
-        this.velocity = 0;
+        
+        this.gravity = 0;
+        this.frames = new Map();
         this.animationFrame = 0;
         this.animationTimer = 0;
         this.animations = {};
+        this.image = new Image();
+
         this.states = {
             [CharacterState.IDLE]: {
                 init: this.handleRunIdleInit.bind(this),
@@ -23,9 +30,13 @@ export class Fighter {
             [CharacterState.RUN_BACKWARD]: {
                 init: this.handleRunBackwardInit.bind(this),
                 update: this.handleRunBackwardState.bind(this),
+            },
+             [CharacterState.JUMP_UP]: {
+                init: this.handleJumpUpInit.bind(this),
+                update: this.handleJumpUpState.bind(this),
             }
         }
-        this.changeState(CharacterState.RUN_BACKWARD);
+        this.changeState(CharacterState.IDLE);
     }
 
     changeState(newState){ 
@@ -35,7 +46,8 @@ export class Fighter {
     }
 
     handleRunIdleInit(){
-        this.velocity = 0;
+        this.velocity.x = 0;
+        this.velocity.y = 0;
     }
 
     handleRunIdleState(){
@@ -43,7 +55,7 @@ export class Fighter {
     }
 
     handleRunForwardInit(){
-        this.velocity = 150 * this.direction;
+        this.velocity.x = 150 * this.direction;
     }
 
     handleRunForwardState() {
@@ -51,11 +63,24 @@ export class Fighter {
     }
 
     handleRunBackwardInit(){
-        this.velocity = -150 * this.direction;
+        this.velocity.x = -150 * this.direction;
     }
 
     handleRunBackwardState(){
 
+    }
+
+    handleJumpUpInit() {
+        this.velocity.y = this.initialVelocity.jump;
+    }
+
+    handleJumpUpState(time) {
+        this.velocity.y += this.gravity * time.secondsPassed;
+        
+        if (this.position.y > BATTLE_FLOOR){
+            this.position.y = BATTLE_FLOOR;
+            this.changeState(CharacterState.IDLE);
+        }
     }
 
     updateStageConstraints(ctx){
@@ -71,20 +96,21 @@ export class Fighter {
     }
     }
 
+    updateAnimation(time) {
+         if (time.previous > this.animationTimer + 70){
+        this.animationTimer = time.previous;
+
+         this.animationFrame++;
+         if (this.animationFrame > this.animations[this.currentState].length) this.animationFrame = 0;
+    }
+    }
+
     update(time, ctx) {
          
-    if (time.previous > this.animationTimer + 70){
-
-        this.animationTimer = time.previous;
-         this.animationFrame++;
-         if (this.animationFrame > 7) this.animationFrame = 0;
-    }
-        
-         this.position.x += this.velocity * time.secondsPassed;
-
-
-
+         this.position.x += this.velocity.x * time.secondsPassed;
+         this.position.y += this.velocity.y * time.secondsPassed;
     this.states[this.currentState].update(time, ctx);
+    this.updateAnimation(time);
     this.updateStageConstraints(ctx);
     }
 

@@ -6,5 +6,6 @@ export const characterDirection = {
 export const CharacterState = {
     IDLE: 'idle',
     RUN_FORWARD: 'runForward',
-    RUN_BACKWARD: 'runBackward'
+    RUN_BACKWARD: 'runBackward',
+    JUMP_UP: 'jumpUp'
 }
