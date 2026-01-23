@@ -2,8 +2,8 @@ import { Fighter } from "./Fighter.js";
 import { CharacterState } from "../src/constants/character.js";
 
  export class Vexel extends Fighter {
-    constructor(x, y, velocity){
-        super('Vexel', x, y, velocity);
+    constructor(x, y, direction, playerId){
+        super('Vexel', x, y, direction, playerId);
         this.image = document.querySelector('img[alt="vexel"]');
 
         
@@ -55,6 +55,8 @@ import { CharacterState } from "../src/constants/character.js";
         ['jumpBackwards-4', [[209, 259, 55, spriteHeight], [21, 70]]],
         ['jumpBackwards-5', [[280, 259, 55, spriteHeight], [21, 70]]],
         ['jumpBackwards-6', [[351, 259, 55, spriteHeight], [21, 70]]],
+
+        ['crouch-1', [[226, 372, spriteWidth, spriteHeight,], [20, 55]]],
         ]);
 
           this.animations = {
@@ -82,7 +84,19 @@ import { CharacterState } from "../src/constants/character.js";
                ['jumpBackwards-1', 120], ['jumpBackwards-2', 100], ['jumpBackwards-3', 100], 
                ['jumpBackwards-4', 120], ['jumpBackwards', 100], ['jumpBackwards-6', -1], 
                ['jumpBackwards-6', -1], ['jumpBackwards', -1], 
-            ]
+            ], 
+              [CharacterState.CROUCH]: [
+                ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0]
+            ],
+            [CharacterState.CROUCH_DOWN]: [
+               ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20],
+               ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20],  ['crouch-1', -2],
+            ],
+            [CharacterState.CROUCH_UP]: [
+               ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20],
+               ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], 
+                ['crouch-1', -2]
+            ],
         };
 
         this.initialVelocity = {

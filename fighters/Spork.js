@@ -3,8 +3,8 @@ import { CharacterState } from "../src/constants/character.js";
 
 
  export class Spork extends Fighter {
-    constructor(x, y, velocity){
-        super('Spork', x, y, velocity);
+    constructor(x, y, direction, playerId){
+        super('Spork', x, y, direction, playerId);
         this.image = document.querySelector('img[alt="spork"]');
 
         const spriteWidth = 50;
@@ -54,7 +54,10 @@ import { CharacterState } from "../src/constants/character.js";
         ['jumpBackwards-4', [[209, 262, spriteWidth, spriteHeight], [21, 65]]],
         ['jumpBackwards-5', [[288, 262, spriteWidth, spriteHeight], [21, 65]]],
         ['jumpBackwards-6', [[378, 262, spriteWidth, spriteHeight], [21, 65]]],
-        ]);
+
+        ['crouch-1', [[458, 267, spriteWidth, spriteHeight], [26, 52]]],
+      
+      ]);
 
          this.animations = {
             [CharacterState.IDLE]: [
@@ -80,7 +83,18 @@ import { CharacterState } from "../src/constants/character.js";
                ['jumpBackwards-1', 120], ['jumpBackwards-2', 100], ['jumpBackwards-3', 100], 
                ['jumpBackwards-4', 120], ['jumpBackwards', 100], ['jumpBackwards-6', -1], 
                ['jumpBackwards-6', -1], ['jumpBackwards', -1], 
-            ]
+            ], 
+            [CharacterState.CROUCH]: [['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0]
+         ],
+            [CharacterState.CROUCH_DOWN]: [
+               ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20],
+               ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20],  ['crouch-1', -2],
+            ],
+            [CharacterState.CROUCH_UP]: [
+               ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20],
+               ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], 
+                ['crouch-1', -2]
+            ],
         };
 
         this.initialVelocity = {

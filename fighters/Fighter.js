@@ -1,9 +1,11 @@
 import { CharacterState } from "../src/constants/character.js";
 import { BATTLE_FLOOR } from "../src/constants/stage.js";
+import * as ctrl from "../src/InputHandler.js";
 
 export class Fighter {
-    constructor(name, x, y, direction){
+    constructor(name, x, y, direction, playerId){
         this.name = name;        
+        this.playerId = playerId;
         this.position = {x, y};
         this.velocity = { x: 0, y: 0};
         this.initialVelocity = {};
@@ -18,59 +20,115 @@ export class Fighter {
 
         this.states = {
             [CharacterState.IDLE]: {
-                init: this.handleRunIdleInit.bind(this),
-                update: this.handleRunIdleState.bind(this),
+                init: this.handleIdleInit.bind(this),
+                update: this.handleIdleState.bind(this),
+                validFrom: [
+                    undefined, CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD, CharacterState.JUMP_BACKWARDS, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_UP, CharacterState.CROUCH_UP
+                
+                ],
             },
             [CharacterState.RUN_FORWARD]: {
                 init: this.handleMoveInit.bind(this),
-                update: this.handleMoveState.bind(this),
+                update: this.handleRunForwardState.bind(this),
+                validFrom: [
+                    CharacterState.IDLE, CharacterState.JUMP_BACKWARDS
+                ],
             },
             [CharacterState.RUN_BACKWARD]: {
                 init: this.handleMoveInit.bind(this),
-                update: this.handleMoveState.bind(this),
+                update: this.handleRunBackwardState.bind(this),
+                validFrom: [
+                    CharacterState.IDLE, CharacterState.RUN_FORWARD
+                ],
             },
              [CharacterState.JUMP_UP]: {
                 init: this.handleJumpInit.bind(this),
                 update: this.handleJumpState.bind(this),
+                validFrom: [
+                    CharacterState.IDLE
+                ],
             },
             [CharacterState.JUMP_FORWARDS]: {
                  init: this.handleJumpInit.bind(this),
                 update: this.handleJumpState.bind(this),
+                validFrom: [
+                    CharacterState.IDLE, CharacterState.RUN_FORWARD
+                ],
             },
             [CharacterState.JUMP_BACKWARDS]: {
                  init: this.handleJumpInit.bind(this),
                 update: this.handleJumpState.bind(this),
+                validFrom: [
+                    CharacterState.IDLE, CharacterState.JUMP_BACKWARDS
+                ],
             },
+            [CharacterState.CROUCH]: {
+                init: () => {},
+                update: () => {},
+                validFrom: [CharacterState.CROUCH_DOWN],
+            },
+
+            [CharacterState.CROUCH_UP]: {
+                init: () => {},
+                update: this.handleCrouchUpState.bind(this),
+                validFrom: [CharacterState.CROUCH],
+            }, 
+            [CharacterState.CROUCH_DOWN]: {
+                init: () => {},
+                update: this.handleCrouchDownState.bind(this),
+                validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD],
+            }
         };
         this.changeState(CharacterState.IDLE);
     }
 
     changeState(newState){ 
+        if(newState === this.currentState || !this.states[newState].validFrom.includes(this.currentState)) return;
         this.currentState = newState;
         this.animationFrame = 0;
         this.states[this.currentState].init();
     }
 
-    handleRunIdleInit(){
+    handleIdleInit(){
         this.velocity.x = 0;
         this.velocity.y = 0;
     }
 
-    handleRunIdleState(){
-
-    }
 
     handleMoveInit(){
         this.velocity.x = this.initialVelocity.x[this.currentState] ?? 0;
     }
 
-    handleMoveState() {
-
-    }
+  
 
     handleJumpInit() {
         this.velocity.y = this.initialVelocity.jump;
         this.handleMoveInit();
+    }
+
+    handleIdleState() {
+        if(ctrl.isLeft(this.playerId)) this.changeState(CharacterState.RUN_BACKWARD);
+        if(ctrl.isRight(this.playerId)) this.changeState(CharacterState.RUN_FORWARD);
+    }
+
+    handleRunForwardState(){
+        if(!ctrl.isRight(this.playerId)) this.changeState(CharacterState.IDLE);
+    }
+
+    handleRunBackwardState(){
+        if(!ctrl.isLeft(this.playerId)) this.changeState(CharacterState.IDLE);
+    }
+
+    handleCrouchDownState(){
+        if(this.animations[this.currentState][this.animationFrame][1] === -2){
+            this.changeState(CharacterState.CROUCH);
+        }
+    }
+
+    handleCrouchUpState(){
+         if(this.animations[this.currentState][this.animationFrame][1] === -2){
+            this.changeState(CharacterState.IDLE);
+        }
     }
 
     handleJumpState(time) {
@@ -81,6 +139,10 @@ export class Fighter {
             this.changeState(CharacterState.IDLE);
         }
     }
+
+   
+
+       
 
     updateStageConstraints(ctx){
 
