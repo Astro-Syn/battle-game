@@ -2,6 +2,7 @@ import { characterDirection } from "./constants/character.js";
 import { Ctrl, ctrls } from "./constants/ctrl.js";
 
 const heldKeys = new Set();
+const gamePads = new Map();
 
 function handleKeyDown(e){
     e.preventDefault();
@@ -14,9 +15,28 @@ function handleKeyUp(e){
 
 }
 
+function handleGamepadConnected(e) {
+    const {gamepad: {index, axes, buttons }} = e;
+
+    gamePads.set(index, {axes, buttons});
+}
+
+function handleGamepadDisconnected(e) {
+    const {gamepad: {index}} = e;
+
+    gamePads.delete(index);
+}
+
+
 export function registerKeyEvents(){
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
+}
+
+
+export function regGamepadEvents(){
+     window.addEventListener('gamepadconnected', handleGamepadConnected);
+    window.addEventListener('gamepaddisconnected', handleGamepadDisconnected);
 }
 
 export const isKeyDown = (code) => heldKeys.has(code);

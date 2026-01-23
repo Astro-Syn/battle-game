@@ -5,6 +5,7 @@ import { FpsCounter } from "./entities/FpsCounter.js";
 import { BATTLE_FLOOR } from "./constants/stage.js";
 import { characterDirection} from "./constants/character.js";
 import { registerKeyEvents } from "./InputHandler.js";
+import { Shadow } from "../fighters/Shadow.js";
 
 export class BattleGame {
     constructor(){
@@ -16,6 +17,7 @@ export class BattleGame {
     
     this.entities = [
         new Stage(),
+        ...this.characters.map(character => new Shadow(character)),
        ...this.characters,
         new FpsCounter(),
     ]

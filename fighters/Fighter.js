@@ -100,14 +100,13 @@ export class Fighter {
     }
 
   
-
     handleJumpInit() {
         this.velocity.y = this.initialVelocity.jump;
         this.handleMoveInit();
     }
 
     handleCrouchDownInit(){
-
+        this.handleIdleInit();
     }
 
     handleIdleState() {
@@ -154,7 +153,6 @@ export class Fighter {
     }
    
 
-       
 
     updateStageConstraints(ctx){
 
