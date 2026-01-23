@@ -4,7 +4,7 @@ import { Vexel } from "../fighters/Vexel.js";
 import { FpsCounter } from "./entities/FpsCounter.js";
 import { BATTLE_FLOOR } from "./constants/stage.js";
 import { characterDirection} from "./constants/character.js";
-import { registerKeyEvents } from "./InputHandler.js";
+import { pollGamepads, registerKeyEvents, regGamepadEvents } from "./InputHandler.js";
 import { Shadow } from "../fighters/Shadow.js";
 
 export class BattleGame {
@@ -56,6 +56,7 @@ draw(){
         previous:  time
         }
         
+        pollGamepads();
         this.update();
         this.draw();
     }
@@ -63,7 +64,9 @@ draw(){
 
 
     start(){
-       registerKeyEvents()
+       registerKeyEvents();
+        regGamepadEvents();
+
     window.requestAnimationFrame(this.frame.bind(this));
     }
       
