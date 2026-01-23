@@ -42,14 +42,14 @@ import { CharacterState } from "../src/constants/character.js";
         ['jumpUp-5', [[280, 259, 55, spriteHeight], [21, 70]]],
         ['jumpUp-6', [[351, 259, 55, spriteHeight], [21, 70]]],
 
-          ['jumpForwards-1', [[0, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpForwards-1', [[0, 259, 55, spriteHeight], [21, 70]]],
         ['jumpForwards-2', [[56, 259, 55, spriteHeight], [21, 70]]],  
         ['jumpForwards-3', [[125, 259, 55, spriteHeight], [21, 70]]],
         ['jumpForwards-4', [[209, 259, 55, spriteHeight], [21, 70]]],
         ['jumpForwards-5', [[280, 259, 55, spriteHeight], [21, 70]]],
         ['jumpForwards-6', [[351, 259, 55, spriteHeight], [21, 70]]],
 
-          ['jumpBackwards-1', [[0, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpBackwards-1', [[0, 259, 55, spriteHeight], [21, 70]]],
         ['jumpBackwards-2', [[56, 259, 55, spriteHeight], [21, 70]]],  
         ['jumpBackwards-3', [[125, 259, 55, spriteHeight], [21, 70]]],
         ['jumpBackwards-4', [[209, 259, 55, spriteHeight], [21, 70]]],

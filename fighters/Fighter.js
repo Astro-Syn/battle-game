@@ -64,7 +64,7 @@ export class Fighter {
             },
             [CharacterState.CROUCH]: {
                 init: () => {},
-                update: () => {},
+                update: this.handleCrouchState.bind(this),
                 validFrom: [CharacterState.CROUCH_DOWN],
             },
 
@@ -74,7 +74,7 @@ export class Fighter {
                 validFrom: [CharacterState.CROUCH],
             }, 
             [CharacterState.CROUCH_DOWN]: {
-                init: () => {},
+                init: this.handleCrouchDownInit.bind(this),
                 update: this.handleCrouchDownState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD],
             }
@@ -106,17 +106,26 @@ export class Fighter {
         this.handleMoveInit();
     }
 
+    handleCrouchDownInit(){
+
+    }
+
     handleIdleState() {
-        if(ctrl.isLeft(this.playerId)) this.changeState(CharacterState.RUN_BACKWARD);
-        if(ctrl.isRight(this.playerId)) this.changeState(CharacterState.RUN_FORWARD);
+        if(ctrl.isUp(this.playerId)) this.changeState(CharacterState.JUMP_UP);
+        if(ctrl.isDown(this.playerId)) this.changeState(CharacterState.CROUCH_DOWN);
+        if(ctrl.isBackward(this.playerId, this.direction)) this.changeState(CharacterState.RUN_BACKWARD);
+        if(ctrl.isForward(this.playerId, this.direction)) this.changeState(CharacterState.RUN_FORWARD);
     }
 
     handleRunForwardState(){
-        if(!ctrl.isRight(this.playerId)) this.changeState(CharacterState.IDLE);
+        if(!ctrl.isForward(this.playerId, this.direction)) this.changeState(CharacterState.IDLE);
+        if(ctrl.isUp(this.playerId)) this.changeState(CharacterState.JUMP_FORWARDS);
     }
 
     handleRunBackwardState(){
-        if(!ctrl.isLeft(this.playerId)) this.changeState(CharacterState.IDLE);
+        if(!ctrl.isBackward(this.playerId, this.direction)) this.changeState(CharacterState.IDLE);
+         if(ctrl.isUp(this.playerId)) this.changeState(CharacterState.JUMP_BACKWARDS);
+         if(ctrl.isDown(this.playerId)) this.changeState(CharacterState.CROUCH_DOWN);
     }
 
     handleCrouchDownState(){
@@ -140,6 +149,9 @@ export class Fighter {
         }
     }
 
+    handleCrouchState(){
+        if(!ctrl.isDown(this.playerId)) this.changeState(CharacterState.CROUCH_UP);
+    }
    
 
        
