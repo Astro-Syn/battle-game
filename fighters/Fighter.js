@@ -1,4 +1,4 @@
-import { CharacterState } from "../src/constants/character.js";
+import { characterDirection, CharacterState } from "../src/constants/character.js";
 import { BATTLE_FLOOR } from "../src/constants/stage.js";
 import * as ctrl from "../src/InputHandler.js";
 
@@ -18,12 +18,14 @@ export class Fighter {
 
         this.image = new Image();
 
+        this.opponent;
+
         this.states = {
             [CharacterState.IDLE]: {
                 init: this.handleIdleInit.bind(this),
                 update: this.handleIdleState.bind(this),
                 validFrom: [
-                    undefined, CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD, CharacterState.JUMP_BACKWARDS, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_UP, CharacterState.CROUCH_UP
+                    undefined, CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD, CharacterState.JUMP_BACKWARDS, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_UP, CharacterState.CROUCH_UP, 
                 
                 ],
             },
@@ -45,7 +47,7 @@ export class Fighter {
                 init: this.handleJumpStartInit.bind(this),
                 update: this.handleJumpStartState.bind(this),
                 validFrom: [
-                    CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD,
+                    CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD, 
                 ]
             }, 
 
@@ -60,14 +62,14 @@ export class Fighter {
                  init: this.handleJumpInit.bind(this),
                 update: this.handleJumpState.bind(this),
                 validFrom: [
-                    CharacterState.JUMP_START, 
+                    CharacterState.JUMP_START
                 ],
             },
             [CharacterState.JUMP_BACKWARDS]: {
                  init: this.handleJumpInit.bind(this),
                 update: this.handleJumpState.bind(this),
                 validFrom: [
-                    CharacterState.JUMP_START,
+                    CharacterState.JUMP_START
                 ],
             },
             [CharacterState.CROUCH]: {
@@ -89,6 +91,8 @@ export class Fighter {
         };
         this.changeState(CharacterState.IDLE);
     }
+
+    getDirection = () => this.position.x >= this.opponent.position.x ? characterDirection.LEFT : characterDirection.RIGHT;
 
     changeState(newState){ 
         if(newState === this.currentState || !this.states[newState].validFrom.includes(this.currentState)) return;
@@ -155,9 +159,9 @@ export class Fighter {
     handleJumpStartState(){
         if(this.animations[this.currentState][this.animationFrame][1] === -2){
             if(ctrl.isBackward(this.playerId, this.direction)){
-                this.changeState(CharacterState.RUN_BACKWARD)
+                this.changeState(CharacterState.JUMP_BACKWARDS)
             } else if (ctrl.isForward(this.playerId, this.direction)) {
-                this.changeState(CharacterState.RUN_FORWARD);
+                this.changeState(CharacterState.JUMP_FORWARDS);
             } else {
                 this.changeState(CharacterState.JUMP_UP);
             }
@@ -213,6 +217,9 @@ export class Fighter {
          
     this.position.x += (this.velocity.x * this.direction) * time.secondsPassed;
     this.position.y += this.velocity.y * time.secondsPassed;
+
+    this.direction = this.getDirection();
+
     this.states[this.currentState].update(time, ctx);
     this.updateAnimation(time);
     this.updateStageConstraints(ctx);

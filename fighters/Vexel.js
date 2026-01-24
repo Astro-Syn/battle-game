@@ -75,12 +75,13 @@ import { CharacterState } from "../src/constants/character.js";
             ],
 
             [CharacterState.JUMP_START]: [
-               ['jumpFinish', 50], ['jumpFinish', -2], ['jumpFinish', -2], 
+               ['jumpFinish', 50], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2],['jumpFinish', -2], ['jumpFinish', -2],['jumpFinish', -2],
             ],
 
             [CharacterState.JUMP_UP]: [
               ['jumpUp-1', 150], ['jumpUp-2', 110], ['jumpUp-3', 110], ['jumpUp-4', 110], ['jumpUp-5', 110], ['jumpUp-6', -1], ['jumpUp-6', -1], ['jumpUp-6', 1]
             ],
+
             [CharacterState.JUMP_FORWARDS]: [
                ['jumpForwards-1', 120], ['jumpForwards-2', 100], ['jumpForwards-3', 100], 
                ['jumpForwards-4', 120], ['jumpForwards-5', 100], ['jumpForwards-6', -1], 
@@ -92,7 +93,7 @@ import { CharacterState } from "../src/constants/character.js";
                ['jumpBackwards-6', -1], ['jumpBackwards', -1], 
             ], 
              [CharacterState.JUMP_FINISH]: [
-               ['jumpFinish', 30], ['jumpFinish', 100], ['jumpFinish', -2], 
+               ['jumpFinish', 30], ['jumpFinish', 100], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], 
             ],
             
               [CharacterState.CROUCH]: [

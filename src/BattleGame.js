@@ -13,7 +13,10 @@ export class BattleGame {
          this.characters = [
          new Spork(90, BATTLE_FLOOR, characterDirection.LEFT, 0),
         new Vexel(180, BATTLE_FLOOR, characterDirection.RIGHT, 1),
-    ]
+    ];
+
+    this.characters[0].opponent = this.characters[1];
+    this.characters[1].opponent = this.characters[0];
     
     this.entities = [
         new Stage(),

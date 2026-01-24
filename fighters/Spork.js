@@ -73,7 +73,7 @@ import { CharacterState } from "../src/constants/character.js";
             [CharacterState.RUN_BACKWARD]: [['backwards-1', 75],  ['backwards-2', 75], ['backwards-3', 75], ['backwards-4', 75], ['backwards-5', 75], ['backwards-6', 75], ['backwards-7', 75], ['backwards-8', 75]],
 
             [CharacterState.JUMP_START]: [
-               ['jumpFinish', 50], ['jumpFinish', -2], 
+               ['jumpFinish', 50], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], 
             ],
 
             [CharacterState.JUMP_UP]: [
@@ -92,7 +92,7 @@ import { CharacterState } from "../src/constants/character.js";
             ], 
 
             [CharacterState.JUMP_FINISH]: [
-               ['jumpFinish', 30], ['jumpFinish', 100], ['jumpFinish', -2], 
+               ['jumpFinish', 30], ['jumpFinish', 100], ['jumpFinish', 100], ['jumpFinish', 100], ['jumpFinish', 100], ['jumpFinish', 100], ['jumpFinish', 100], ['jumpFinish', -2], 
             ],
 
             [CharacterState.CROUCH]: [['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0]
