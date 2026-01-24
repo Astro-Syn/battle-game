@@ -5,12 +5,16 @@ import { GamepadThumbStick } from "./constants/ctrl.js";
 const heldKeys = new Set();
 const gamePads = new Map();
 
+const mappedKeys = ctrls.map(({keyboard}) => Object.values(keyboard)).flat();
+
 function handleKeyDown(e){
+    if (!mappedKeys.includes(e.code)) return;
     e.preventDefault();
     heldKeys.add(e.code);
 }
 
 function handleKeyUp(e){
+    if (!mappedKeys.includes(e.code)) return;
      e.preventDefault();
     heldKeys.delete(e.code);
 
@@ -67,9 +71,23 @@ export const isLeft = (id) => isKeyDown(ctrls[id].keyboard[Ctrl.LEFT])
     -ctrls[id].gamePad[GamepadThumbStick.DEADZONE]
 )
 
-export const isRight = (id) => isKeyDown(ctrls[id].keyboard[Ctrl.RIGHT]);
-export const isUp = (id) => isKeyDown(ctrls[id].keyboard[Ctrl.UP]);
-export const isDown = (id) => isKeyDown(ctrls[id].keyboard[Ctrl.DOWN]);
+export const isRight = (id) => isKeyDown(ctrls[id].keyboard[Ctrl.RIGHT])
+|| isButtonDown(id, ctrls[id].gamePad[Ctrl.RIGHT])
+|| isAxeGreater(id, ctrls[id].gamePad[GamepadThumbStick.HORIZONTAL_AXE_ID],
+    -ctrls[id].gamePad[GamepadThumbStick.DEADZONE]
+)
+export const isUp = (id) => isKeyDown(ctrls[id].keyboard[Ctrl.UP])
+|| isButtonDown(id, ctrls[id].gamePad[Ctrl.UP])
+|| isAxeGreater(id, ctrls[id].gamePad[GamepadThumbStick.VERTICAL_AXE_ID],
+    -ctrls[id].gamePad[GamepadThumbStick.DEADZONE]
+)
+
+export const isDown = (id) => isKeyDown(ctrls[id].keyboard[Ctrl.DOWN])
+|| isButtonDown(id, ctrls[id].gamePad[Ctrl.DOWN])
+|| isAxeGreater(id, ctrls[id].gamePad[GamepadThumbStick.VERTICAL_AXE_ID],
+    -ctrls[id].gamePad[GamepadThumbStick.DEADZONE]
+)
+
 
 export const isForward = (id, direction) => direction === characterDirection.RIGHT ? isRight(id) : isLeft(id);
 export const isBackward = (id, direction) => direction === characterDirection.LEFT ? isRight(id) : isLeft(id);

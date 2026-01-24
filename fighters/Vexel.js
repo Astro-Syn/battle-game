@@ -42,6 +42,8 @@ import { CharacterState } from "../src/constants/character.js";
         ['jumpUp-5', [[280, 259, 55, spriteHeight], [21, 70]]],
         ['jumpUp-6', [[351, 259, 55, spriteHeight], [21, 70]]],
 
+        ['jumpFinish', [[351, 259, 55, spriteWidth, spriteHeight], [21, 70]]],
+
         ['jumpForwards-1', [[0, 259, 55, spriteHeight], [21, 70]]],
         ['jumpForwards-2', [[56, 259, 55, spriteHeight], [21, 70]]],  
         ['jumpForwards-3', [[125, 259, 55, spriteHeight], [21, 70]]],
@@ -72,6 +74,10 @@ import { CharacterState } from "../src/constants/character.js";
               ['backwards-1', 75],  ['backwards-2', 75], ['backwards-3', 75], ['backwards-4', 75], ['backwards-5', 75], ['backwards-6', 75], ['backwards-7', 75], ['backwards-8', 75],
             ],
 
+            [CharacterState.JUMP_START]: [
+               ['jumpFinish', 50], ['jumpFinish', -2], ['jumpFinish', -2], 
+            ],
+
             [CharacterState.JUMP_UP]: [
               ['jumpUp-1', 150], ['jumpUp-2', 110], ['jumpUp-3', 110], ['jumpUp-4', 110], ['jumpUp-5', 110], ['jumpUp-6', -1], ['jumpUp-6', -1], ['jumpUp-6', 1]
             ],
@@ -85,6 +91,10 @@ import { CharacterState } from "../src/constants/character.js";
                ['jumpBackwards-4', 120], ['jumpBackwards', 100], ['jumpBackwards-6', -1], 
                ['jumpBackwards-6', -1], ['jumpBackwards', -1], 
             ], 
+             [CharacterState.JUMP_FINISH]: [
+               ['jumpFinish', 30], ['jumpFinish', 100], ['jumpFinish', -2], 
+            ],
+            
               [CharacterState.CROUCH]: [
                 ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0], ['crouch-1', 0]
             ],
