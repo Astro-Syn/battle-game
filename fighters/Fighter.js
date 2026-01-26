@@ -220,7 +220,6 @@ export class Fighter {
 
 
     updateStageConstraints(time, ctx){
-
     if(this.position.x > ctx.canvas.width - this.pushBox.width ){
        this.position.x = ctx.canvas.width - this.pushBox.width;
     }
@@ -235,6 +234,7 @@ export class Fighter {
                 (this.opponent.position.x + this.opponent.pushBox.x) - (this.pushBox.x + this.pushBox.width),
                 this.pushBox.width,
             );
+        
 
             if([
                 CharacterState.IDLE, CharacterState.CROUCH, CharacterState.JUMP_UP, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_BACKWARDS,

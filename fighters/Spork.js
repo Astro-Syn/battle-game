@@ -1,5 +1,5 @@
 import { Fighter } from "./Fighter.js";
-import { CharacterState, PushBox } from "../src/constants/character.js";
+import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.js";
 
 
  export class Spork extends Fighter {
@@ -73,7 +73,7 @@ import { CharacterState, PushBox } from "../src/constants/character.js";
             [CharacterState.RUN_BACKWARD]: [['backwards-1', 75],  ['backwards-2', 75], ['backwards-3', 75], ['backwards-4', 75], ['backwards-5', 75], ['backwards-6', 75], ['backwards-7', 75], ['backwards-8', 75]],
 
             [CharacterState.JUMP_START]: [
-               ['jumpFinish', 50], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], 
+               ['jumpFinish', 50], ['jumpFinish', 50], ['jumpFinish', 50], ['jumpFinish', 50], ['jumpFinish', 50], ['jumpFinish', 50], ['jumpFinish', 50], ['jumpFinish', FrameDelay.TRANSITION], 
             ],
 
             [CharacterState.JUMP_UP]: [
@@ -99,12 +99,12 @@ import { CharacterState, PushBox } from "../src/constants/character.js";
          ],
             [CharacterState.CROUCH_DOWN]: [
                ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20],
-               ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20],  ['crouch-1', -2],
+               ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20],  ['crouch-1', FrameDelay.TRANSITION],
             ],
             [CharacterState.CROUCH_UP]: [
                ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20],
                ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], 
-                ['crouch-1', -2]
+                ['crouch-1', FrameDelay.TRANSITION]
             ],
         };
 

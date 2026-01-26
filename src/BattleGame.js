@@ -6,6 +6,7 @@ import { BATTLE_FLOOR } from "./constants/stage.js";
 import { characterDirection} from "./constants/character.js";
 import { pollGamepads, registerKeyEvents, regGamepadEvents } from "./InputHandler.js";
 import { Shadow } from "../fighters/Shadow.js";
+import { StatusBar } from "./entities/ol/StatusBar.js";
 
 export class BattleGame {
     constructor(){
@@ -23,6 +24,7 @@ export class BattleGame {
         ...this.characters.map(character => new Shadow(character)),
        ...this.characters,
         new FpsCounter(),
+        new StatusBar(this.characters),
     ]
 
     this.frameTime = {

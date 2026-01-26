@@ -7,6 +7,16 @@ body {
     flex-direction: column;
 }
 
+#startGame{
+    font-family: monospace;
+    color: lime;
+    font-size: 24px;
+    background: black;
+}
+
+.randol{
+    z-index: 10;
+}
 
 canvas {
     background: lime;

@@ -17,6 +17,11 @@ export const CharacterState = {
     CROUCH_UP: 'crouchUp',
 }
 
+export const FrameDelay = {
+    FREEZE: 0,
+    TRANSITION: -2,
+}
+
 export const PushBox = {
     IDLE: [-16, -60, 23, 55],
     JUMP: [-16, -60, 21, 55],
