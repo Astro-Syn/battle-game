@@ -1,5 +1,5 @@
 import { Fighter } from "./Fighter.js";
-import { CharacterState } from "../src/constants/character.js";
+import { CharacterState, PushBox } from "../src/constants/character.js";
 
  export class Vexel extends Fighter {
     constructor(x, y, direction, playerId){
@@ -13,52 +13,52 @@ import { CharacterState } from "../src/constants/character.js";
 
           this.frames = new Map([
 
-        ['idle-1', [[5, 172, spriteWidth, spriteHeight], [21, 70]]],
-        ['idle-2', [[85, 172, spriteWidth, spriteHeight], [21, 70]]],
+        ['idle-1', [[[5, 172, spriteWidth, spriteHeight], [21, 70]], PushBox.IDLE]],
+        ['idle-2', [[[85, 172, spriteWidth, spriteHeight], [21, 70]], PushBox.IDLE]],
        
 
-        ['forwards-1', [[0, 0, spriteWidth, spriteHeight], [21, 65]]],
-        ['forwards-2', [[85, 0, spriteWidth, spriteHeight ], [21, 65]]],   
-        ['forwards-3', [[159, 0, spriteWidth, spriteHeight], [21, 65]]],
-        ['forwards-4', [[244, 0, spriteWidth, spriteHeight], [21, 65]]],   
-        ['forwards-5', [[322, 0, spriteWidth, spriteHeight ], [21, 65]]],
-        ['forwards-6', [[407, 0, spriteWidth, spriteHeight], [21, 65]]], 
-        ['forwards-7', [[481, 0, spriteWidth, spriteHeight], [21, 65]]],  
-        ['forwards-8', [[557, 0, 124, spriteHeight], [21, 65]]],
+        ['forwards-1', [[[0, 0, spriteWidth, spriteHeight], [21, 65]], PushBox.IDLE]],
+        ['forwards-2', [[[85, 0, spriteWidth, spriteHeight ], [21, 65]], PushBox.IDLE]],   
+        ['forwards-3', [[[159, 0, spriteWidth, spriteHeight], [21, 65]], PushBox.IDLE]],
+        ['forwards-4', [[[244, 0, spriteWidth, spriteHeight], [21, 65]], PushBox.IDLE]],   
+        ['forwards-5', [[[322, 0, spriteWidth, spriteHeight ], [21, 65]], PushBox.IDLE]],
+        ['forwards-6', [[[407, 0, spriteWidth, spriteHeight], [21, 65]], PushBox.IDLE]], 
+        ['forwards-7', [[[481, 0, spriteWidth, spriteHeight], [21, 65]], PushBox.IDLE]],  
+        ['forwards-8', [[[557, 0, 124, spriteHeight], [21, 65]], PushBox.IDLE]],
 
-          ['backwards-1', [[481, 0, spriteWidth, spriteHeight], [21, 65]]],
-        ['backwards-2', [[407, 0, spriteWidth, spriteHeight], [21, 65]]],
-        ['backwards-3', [[322, 0, spriteWidth, spriteHeight ], [21, 65]]],
-        ['backwards-4', [[244, 0, spriteWidth, spriteHeight], [21, 65]]],
-        ['backwards-5', [[159, 0, spriteWidth, spriteHeight], [21, 65]]],
-        ['backwards-6', [[85, 0, spriteWidth, spriteHeight ], [21, 65]]],
-        ['backwards-7', [[0, 0, spriteWidth, spriteHeight], [21, 65]]],
-        ['backwards-8', [[557, 0, 124, spriteHeight], [21, 65]]],
+          ['backwards-1', [[[481, 0, spriteWidth, spriteHeight], [21, 65]], PushBox.IDLE]],
+        ['backwards-2', [[[407, 0, spriteWidth, spriteHeight], [21, 65]], PushBox.IDLE]],
+        ['backwards-3', [[[322, 0, spriteWidth, spriteHeight ], [21, 65]], PushBox.IDLE]],
+        ['backwards-4', [[[244, 0, spriteWidth, spriteHeight], [21, 65]], PushBox.IDLE]],
+        ['backwards-5', [[[159, 0, spriteWidth, spriteHeight], [21, 65]], PushBox.IDLE]],
+        ['backwards-6', [[[85, 0, spriteWidth, spriteHeight ], [21, 65]], PushBox.IDLE]],
+        ['backwards-7', [[[0, 0, spriteWidth, spriteHeight], [21, 65]], PushBox.IDLE]],
+        ['backwards-8', [[[557, 0, 124, spriteHeight], [21, 65]], PushBox.IDLE]],
 
-        ['jumpUp-1', [[0, 259, 55, spriteHeight], [21, 70]]],
-        ['jumpUp-2', [[56, 259, 55, spriteHeight], [21, 70]]],  
-        ['jumpUp-3', [[125, 259, 55, spriteHeight], [21, 70]]],
-        ['jumpUp-4', [[209, 259, 55, spriteHeight], [21, 70]]],
-        ['jumpUp-5', [[280, 259, 55, spriteHeight], [21, 70]]],
-        ['jumpUp-6', [[351, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpUp-1', [[[0, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
+        ['jumpUp-2', [[[56, 259, 55, spriteHeight], [21, 70]],  PushBox.JUMP]],  
+        ['jumpUp-3', [[[125, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
+        ['jumpUp-4', [[[209, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
+        ['jumpUp-5', [[[280, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
+        ['jumpUp-6', [[[351, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
 
-        ['jumpFinish', [[351, 259, 55, spriteWidth, spriteHeight], [21, 70]]],
+        ['jumpFinish', [[[351, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
 
-        ['jumpForwards-1', [[0, 259, 55, spriteHeight], [21, 70]]],
-        ['jumpForwards-2', [[56, 259, 55, spriteHeight], [21, 70]]],  
-        ['jumpForwards-3', [[125, 259, 55, spriteHeight], [21, 70]]],
-        ['jumpForwards-4', [[209, 259, 55, spriteHeight], [21, 70]]],
-        ['jumpForwards-5', [[280, 259, 55, spriteHeight], [21, 70]]],
-        ['jumpForwards-6', [[351, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpForwards-1', [[[0, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
+        ['jumpForwards-2', [[[56, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],  
+        ['jumpForwards-3', [[[125, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
+        ['jumpForwards-4', [[[209, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
+        ['jumpForwards-5', [[[280, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
+        ['jumpForwards-6', [[[351, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
 
-        ['jumpBackwards-1', [[0, 259, 55, spriteHeight], [21, 70]]],
-        ['jumpBackwards-2', [[56, 259, 55, spriteHeight], [21, 70]]],  
-        ['jumpBackwards-3', [[125, 259, 55, spriteHeight], [21, 70]]],
-        ['jumpBackwards-4', [[209, 259, 55, spriteHeight], [21, 70]]],
-        ['jumpBackwards-5', [[280, 259, 55, spriteHeight], [21, 70]]],
-        ['jumpBackwards-6', [[351, 259, 55, spriteHeight], [21, 70]]],
+        ['jumpBackwards-1', [[[0, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
+        ['jumpBackwards-2', [[[56, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],  
+        ['jumpBackwards-3', [[[125, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
+        ['jumpBackwards-4', [[[209, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
+        ['jumpBackwards-5', [[[280, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
+        ['jumpBackwards-6', [[[351, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
 
-        ['crouch-1', [[226, 372, spriteWidth, spriteHeight,], [20, 55]]],
+        ['crouch-1', [[[226, 372, spriteWidth, spriteHeight], [20, 55]], PushBox.CROUCH]],
         ]);
 
           this.animations = {

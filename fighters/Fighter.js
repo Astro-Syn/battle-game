@@ -1,6 +1,7 @@
 import { characterDirection, CharacterState } from "../src/constants/character.js";
 import { BATTLE_FLOOR } from "../src/constants/stage.js";
 import * as ctrl from "../src/InputHandler.js";
+import { rectsOverlap } from "../src/utils/collisions.js";
 
 export class Fighter {
     constructor(name, x, y, direction, playerId){
@@ -19,6 +20,8 @@ export class Fighter {
         this.image = new Image();
 
         this.opponent;
+
+        this.pushBox = { x: 0, y: 0, width: 0, height: 0 };
 
         this.states = {
             [CharacterState.IDLE]: {
@@ -91,8 +94,33 @@ export class Fighter {
         };
         this.changeState(CharacterState.IDLE);
     }
+    
+    hasCollidedWithOpponent = () => rectsOverlap(
+        this.position.x + this.pushBox.x, 
+        this.position.y + this.pushBox.y, 
+        this.pushBox.width, this.pushBox.height, 
+        this.opponent.position.x + this.opponent.pushBox.x, 
+        this.opponent.position.y + this.opponent.pushBox.y, 
+        this.opponent.pushBox.width, 
+        this.opponent.pushBox.height
+    )
 
-    getDirection = () => this.position.x >= this.opponent.position.x ? characterDirection.LEFT : characterDirection.RIGHT;
+    
+
+    getDirection(){
+       if (this.position.x + this.pushBox.x + this.pushBox.width <= this.opponent.position.x + this.opponent.pushBox.x){
+        return characterDirection.RIGHT;
+       } else if (this.position.x + this.pushBox.x >= this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width){
+        return characterDirection.LEFT;
+       }
+       
+       return this.direction;
+    }
+    getPushBox(frameKey){
+        const [, [x, y, width, height]] = this.frames.get(frameKey);
+
+        return { x, y, width, height };
+    }
 
     changeState(newState){ 
         if(newState === this.currentState || !this.states[newState].validFrom.includes(this.currentState)) return;
@@ -183,28 +211,54 @@ export class Fighter {
    
 
 
-    updateStageConstraints(ctx){
+    updateStageConstraints(time, ctx){
 
-        const WIDTH = 32;
-
-    if(this.position.x > ctx.canvas.width - WIDTH ){
-       this.position.x = ctx.canvas.width - WIDTH;
+    if(this.position.x > ctx.canvas.width - this.pushBox.width ){
+       this.position.x = ctx.canvas.width - this.pushBox.width;
     }
 
-    if (this.position.x < WIDTH){    
-        this.position.x = WIDTH;
+    if (this.position.x < this.pushBox.width){    
+        this.position.x = this.pushBox.width;
+    }
+
+    if(this.hasCollidedWithOpponent()){
+        if (this.position.x <= this.opponent.position.x){
+            this.position.x = Math.max(
+                (this.opponent.position.x + this.opponent.pushBox.x) - (this.pushBox.x + this.pushBox.width),
+                this.pushBox.width,
+
+            );
+
+            if([
+                CharacterState.IDLE, CharacterState.CROUCH, CharacterState.JUMP_UP, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_BACKWARDS,
+            ].includes(this.opponent.currentState)){
+                this.opponent.position.x += 66 * time.secondsPassed;
+            }
+        }
+        if(this.position.x >= this.opponent.position.x){
+            this.position.x = Math.min(
+                (this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width) + (this.pushBox.width + this.pushBox.x),
+                ctx.canvas.width - this.pushBox.width,
+            );
+              if([
+                CharacterState.IDLE, CharacterState.CROUCH, CharacterState.JUMP_UP, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_BACKWARDS,
+            ].includes(this.opponent.currentState)){
+                this.opponent.position.x -= 66 * time.secondsPassed;
+            }
+        }
     }
     }
 
     updateAnimation(time) {
      const animation = this.animations[this.currentState];
-        const [, frameDelay] = animation[this.animationFrame];
+        const [frameKey, frameDelay] = animation[this.animationFrame];
 
          if (time.previous > this.animationTimer + frameDelay){
         this.animationTimer = time.previous;
 
             if(frameDelay > 0) {
                 this.animationFrame++;
+                this.pushBox = this.getPushBox(frameKey);
             }
 
          if (this.animationFrame >= animation.length) {
@@ -218,30 +272,55 @@ export class Fighter {
     this.position.x += (this.velocity.x * this.direction) * time.secondsPassed;
     this.position.y += this.velocity.y * time.secondsPassed;
 
-    this.direction = this.getDirection();
+    if([CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD].includes(this.currentState)){
+        this.direction = this.getDirection();
+    }
+
+    
 
     this.states[this.currentState].update(time, ctx);
     this.updateAnimation(time);
-    this.updateStageConstraints(ctx);
+    this.updateStageConstraints(time, ctx);
     }
 
     drawDebug(ctx){
+        const [frameKey] = this.animations[this.currentState][this.animationFrame];
+        const pushBox = this.getPushBox(frameKey);
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'lime';
+        ctx.fillStyle = '#ff55cc55'
+        ctx.fillRect(
+            Math.floor(this.position.x + pushBox.x) + 0.5,
+            Math.floor(this.position.y + pushBox.y) + 0.5,
+            pushBox.width,
+            pushBox.height,
+        );
+        ctx.stroke();
+
+        ctx.rect(
+            Math.floor(this.position.x + pushBox.x) + 0.5,
+            Math.floor(this.position.y + pushBox.y) + 0.5,
+            pushBox.width,
+            pushBox.height,
+        )
+
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.strokeStyle = 'lime';
-        ctx.moveTo(Math.floor(this.position.x) - 4.5, Math.floor(this.position.y));
-        ctx.lineTo(Math.floor(this.position.x) + 4.5, Math.floor(this.position.y));
-        ctx.moveTo(Math.floor(this.position.x), Math.floor(this.position.y) - 4.5);
-        ctx.lineTo(Math.floor(this.position.x), Math.floor(this.position.y) + 4.5);
+        ctx.moveTo(Math.floor(this.position.x) - 4, Math.floor(this.position.y));
+        ctx.lineTo(Math.floor(this.position.x) + 5, Math.floor(this.position.y));
+        ctx.moveTo(Math.floor(this.position.x), + 0.5, Math.floor(this.position.y) - 5);
+        ctx.lineTo(Math.floor(this.position.x), + 0.5, Math.floor(this.position.y) + 4);
         ctx.stroke();
     }
 
     draw(ctx){
         const [frameKey] = this.animations[this.currentState][this.animationFrame];
-        const [
+        const [[
             [x, y, width, height], 
             [originX, originY],
-        ] = this.frames.get(frameKey);
+        ]] = this.frames.get(frameKey);
         
         ctx.scale(this.direction, 1);
 

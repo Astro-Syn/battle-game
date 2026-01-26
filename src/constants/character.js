@@ -16,3 +16,10 @@ export const CharacterState = {
     CROUCH_DOWN: 'crouchDown',
     CROUCH_UP: 'crouchUp',
 }
+
+export const PushBox = {
+    IDLE: [-16, -60, 23, 55],
+    JUMP: [-16, -60, 21, 55],
+    BEND: [-16, -58, 21, 65],
+    CROUCH: [-16, -50, 21, 55],
+}
