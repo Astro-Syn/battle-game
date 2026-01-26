@@ -94,6 +94,8 @@ export class Fighter {
         };
         this.changeState(CharacterState.IDLE);
     }
+
+    isAnimationCompleted = () => this.animations[this.currentState][this.animationFrame][1] === -2;
     
     hasCollidedWithOpponent = () => rectsOverlap(
         this.position.x + this.pushBox.x, 
@@ -102,22 +104,29 @@ export class Fighter {
         this.opponent.position.x + this.opponent.pushBox.x, 
         this.opponent.position.y + this.opponent.pushBox.y, 
         this.opponent.pushBox.width, 
-        this.opponent.pushBox.height
-    )
+        this.opponent.pushBox.height,
+    );
 
-    
+    resetVelocities(){
+        this.velocity.x = 0;
+        this.velocity.y = 0;
+    }
+
 
     getDirection(){
        if (this.position.x + this.pushBox.x + this.pushBox.width <= this.opponent.position.x + this.opponent.pushBox.x){
         return characterDirection.RIGHT;
-       } else if (this.position.x + this.pushBox.x >= this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width){
+       } else if (
+        this.position.x + this.pushBox.x 
+        >= this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width
+    ){
         return characterDirection.LEFT;
        }
        
        return this.direction;
     }
     getPushBox(frameKey){
-        const [, [x, y, width, height]] = this.frames.get(frameKey);
+        const [, [x, y, width, height] = [0, 0, 0, 0]] = this.frames.get(frameKey);
 
         return { x, y, width, height };
     }
@@ -130,8 +139,7 @@ export class Fighter {
     }
 
     handleIdleInit(){
-        this.velocity.x = 0;
-        this.velocity.y = 0;
+        this.resetVelocities();
     }
 
 
@@ -146,11 +154,11 @@ export class Fighter {
     }
 
     handleCrouchDownInit(){
-        this.handleIdleInit();
+        this.resetVelocities();
     }
 
     handleJumpStartInit(){
-        this.handleIdleInit();
+        this.resetVelocities();
     }
 
     handleIdleState() {
@@ -173,13 +181,13 @@ export class Fighter {
     }
 
     handleCrouchDownState(){
-        if(this.animations[this.currentState][this.animationFrame][1] === -2){
+        if(this.isAnimationCompleted()){
             this.changeState(CharacterState.CROUCH);
         }
     }
 
     handleCrouchUpState(){
-         if(this.animations[this.currentState][this.animationFrame][1] === -2){
+         if(this.isAnimationCompleted()){
             this.changeState(CharacterState.IDLE);
         }
     }
@@ -222,11 +230,10 @@ export class Fighter {
     }
 
     if(this.hasCollidedWithOpponent()){
-        if (this.position.x <= this.opponent.position.x){
+        if(this.position.x <= this.opponent.position.x){
             this.position.x = Math.max(
                 (this.opponent.position.x + this.opponent.pushBox.x) - (this.pushBox.x + this.pushBox.width),
                 this.pushBox.width,
-
             );
 
             if([
@@ -235,6 +242,7 @@ export class Fighter {
                 this.opponent.position.x += 66 * time.secondsPassed;
             }
         }
+
         if(this.position.x >= this.opponent.position.x){
             this.position.x = Math.min(
                 (this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width) + (this.pushBox.width + this.pushBox.x),
@@ -296,7 +304,7 @@ export class Fighter {
             pushBox.width,
             pushBox.height,
         );
-        ctx.stroke();
+        
 
         ctx.rect(
             Math.floor(this.position.x + pushBox.x) + 0.5,
@@ -305,11 +313,13 @@ export class Fighter {
             pushBox.height,
         )
 
+        ctx.stroke();
+
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.strokeStyle = 'lime';
-        ctx.moveTo(Math.floor(this.position.x) - 4, Math.floor(this.position.y));
-        ctx.lineTo(Math.floor(this.position.x) + 5, Math.floor(this.position.y));
+        ctx.moveTo(Math.floor(this.position.x) - 4, Math.floor(this.position.y) - 0.5);
+        ctx.lineTo(Math.floor(this.position.x) + 5, Math.floor(this.position.y) - 0.5);
         ctx.moveTo(Math.floor(this.position.x), + 0.5, Math.floor(this.position.y) - 5);
         ctx.lineTo(Math.floor(this.position.x), + 0.5, Math.floor(this.position.y) + 4);
         ctx.stroke();
