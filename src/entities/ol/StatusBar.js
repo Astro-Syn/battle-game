@@ -45,12 +45,12 @@ export class StatusBar {
         this.drawFrame(ctx, 'health-bar', 250, 20);
         this.drawFrame(ctx, 'health-bar', 50, 20);
         const timeString = String(this.time).padStart(2, '00');     
-        this.drawFrame(ctx, `time-${timeString.charAt(0)}`, 178, 33);  
-        this.drawFrame(ctx, `time-${timeString.charAt(1)}`, 198, 33);  
+        this.drawFrame(ctx, `time-${timeString.charAt(0)}`, 180, 30);  
+        this.drawFrame(ctx, `time-${timeString.charAt(1)}`, 205, 30);  
 
         const [{name: name1}, {name: name2}] = this.characters;
 
-        this.drawFrame(ctx, `tag-${name1.toLowerCase()}`, 32, 33);
-         this.drawFrame(ctx, `tag-${name2.toLowerCase()}`, 32, 33);
+        this.drawFrame(ctx, `tag-${name1.toLowerCase()}`, 52, 33);
+         this.drawFrame(ctx, `tag-${name2.toLowerCase()}`, 52, 33);
     }
 }
