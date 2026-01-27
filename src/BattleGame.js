@@ -1,5 +1,5 @@
 import { Spork } from "../fighters/Spork.js";
-import { Stage } from "./entities/Stage.js";
+import { Level } from "./entities/Level.js";
 import { Vexel } from "../fighters/Vexel.js";
 import { FpsCounter } from "./entities/FpsCounter.js";
 import { BATTLE_FLOOR } from "./constants/stage.js";
@@ -7,6 +7,8 @@ import { characterDirection} from "./constants/character.js";
 import { pollGamepads, registerKeyEvents, regGamepadEvents } from "./InputHandler.js";
 import { Shadow } from "../fighters/Shadow.js";
 import { StatusBar } from "./entities/ol/StatusBar.js";
+import { Camera } from "./Camera.js";
+
 
 export class BattleGame {
     constructor(){
@@ -18,9 +20,11 @@ export class BattleGame {
 
     this.characters[0].opponent = this.characters[1];
     this.characters[1].opponent = this.characters[0];
+
+    this.camera = new Camera(600, 0, this.characters);
     
     this.entities = [
-        new Stage(),
+        new Level(),
         ...this.characters.map(character => new Shadow(character)),
        ...this.characters,
         new FpsCounter(),
@@ -42,14 +46,15 @@ export class BattleGame {
 }
 
 update(){
+    this.camera.update(this.frameTime, this.ctx);
      for (const entity of this.entities){
-        entity.update(this.frameTime, this.ctx);
+        entity.update(this.frameTime, this.ctx, this.camera);
     }
 }
 
 draw(){
      for (const entity of this.entities){
-        entity.draw(this.ctx);
+        entity.draw(this.ctx, this.camera);
     }
 }
 

@@ -91,9 +91,6 @@ export class StatusBar {
         this.drawFrame(ctx, `${redFrame}-${timeString.charAt(0)}`, 185, 30);  
         this.drawFrame(ctx, `${redFrame}-${timeString.charAt(1)}`, 200, 30);  
 
-       
-
-      
     }
 
     draw(ctx) {
