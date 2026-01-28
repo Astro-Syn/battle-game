@@ -1,3 +1,6 @@
+export const PUSH_FRICTION = 66;
+export const CHARACTER_START_DISTANCE = 88;
+
 export const characterDirection = {
     LEFT: -1,
     RIGHT: 1,

@@ -2,8 +2,8 @@ import { Spork } from "../fighters/Spork.js";
 import { Level } from "./entities/Level.js";
 import { Vexel } from "../fighters/Vexel.js";
 import { FpsCounter } from "./entities/FpsCounter.js";
-import { BATTLE_FLOOR } from "./constants/stage.js";
-import { characterDirection} from "./constants/character.js";
+import { BATTLE_FLOOR, BATTLE_MID_POINT, BATTLE_PADDING } from "./constants/stage.js";
+import { CHARACTER_START_DISTANCE, characterDirection} from "./constants/character.js";
 import { pollGamepads, registerKeyEvents, regGamepadEvents } from "./InputHandler.js";
 import { Shadow } from "../fighters/Shadow.js";
 import { StatusBar } from "./entities/ol/StatusBar.js";
@@ -14,14 +14,14 @@ export class BattleGame {
     constructor(){
         this.ctx = this.getContext();
          this.characters = [
-         new Spork(390, BATTLE_FLOOR, characterDirection.LEFT, 0),
-        new Vexel(780, BATTLE_FLOOR, characterDirection.RIGHT, 1),
+         new Spork(BATTLE_MID_POINT + BATTLE_PADDING - CHARACTER_START_DISTANCE, BATTLE_FLOOR, characterDirection.LEFT, 0),
+        new Vexel(BATTLE_MID_POINT + BATTLE_PADDING - CHARACTER_START_DISTANCE, BATTLE_FLOOR, characterDirection.RIGHT, 1),
     ];
 
     this.characters[0].opponent = this.characters[1];
     this.characters[1].opponent = this.characters[0];
 
-    this.camera = new Camera(600, -10, this.characters);
+    this.camera = new Camera(BATTLE_MID_POINT + BATTLE_PADDING - (this.ctx.canvas.width / 2), -10, this.characters);
     
     this.entities = [
         new Level(),
