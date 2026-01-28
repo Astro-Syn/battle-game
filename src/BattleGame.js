@@ -21,7 +21,7 @@ export class BattleGame {
     this.characters[0].opponent = this.characters[1];
     this.characters[1].opponent = this.characters[0];
 
-    this.camera = new Camera(600, 0, this.characters);
+    this.camera = new Camera(600, -10, this.characters);
     
     this.entities = [
         new Level(),
