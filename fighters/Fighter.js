@@ -219,20 +219,20 @@ export class Fighter {
    
 
 
-    updateStageConstraints(time, ctx){
-    if(this.position.x > ctx.canvas.width - this.pushBox.width ){
-       this.position.x = ctx.canvas.width - this.pushBox.width;
+    updateStageConstraints(time, ctx, camera){
+    if(this.position.x > camera.position.x + ctx.canvas.width - this.pushBox.width ){
+       this.position.x = camera.position.x + ctx.canvas.width - this.pushBox.width;
     }
 
-    if (this.position.x < this.pushBox.width){    
-        this.position.x = this.pushBox.width;
+    if (this.position.x < camera.position.x +  this.pushBox.width){    
+        this.position.x = camera.position.x + this.pushBox.width;
     }
 
     if(this.hasCollidedWithOpponent()){
         if(this.position.x <= this.opponent.position.x){
             this.position.x = Math.max(
                 (this.opponent.position.x + this.opponent.pushBox.x) - (this.pushBox.x + this.pushBox.width),
-                this.pushBox.width,
+                camera.position.x + this.pushBox.width,
             );
         
 
@@ -246,7 +246,7 @@ export class Fighter {
         if(this.position.x >= this.opponent.position.x){
             this.position.x = Math.min(
                 (this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width) + (this.pushBox.width + this.pushBox.x),
-                ctx.canvas.width - this.pushBox.width,
+                camera.position.x + ctx.canvas.width - this.pushBox.width,
             );
               if([
                 CharacterState.IDLE, CharacterState.CROUCH, CharacterState.JUMP_UP, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_BACKWARDS,
@@ -275,7 +275,7 @@ export class Fighter {
         }
     }
 
-    update(time, ctx) {
+    update(time, ctx, camera) {
          
     this.position.x += (this.velocity.x * this.direction) * time.secondsPassed;
     this.position.y += this.velocity.y * time.secondsPassed;
@@ -288,10 +288,10 @@ export class Fighter {
 
     this.states[this.currentState].update(time, ctx);
     this.updateAnimation(time);
-    this.updateStageConstraints(time, ctx);
+    this.updateStageConstraints(time, ctx, camera);
     }
 
-    drawDebug(ctx){
+    drawDebug(ctx, camera){
         const [frameKey] = this.animations[this.currentState][this.animationFrame];
         const pushBox = this.getPushBox(frameKey);
 
@@ -299,17 +299,17 @@ export class Fighter {
         ctx.strokeStyle = 'lime';
         ctx.fillStyle = '#ff55cc55'
         ctx.fillRect(
-            Math.floor(this.position.x + pushBox.x) + 0.5,
-            Math.floor(this.position.y + pushBox.y) + 0.5,
-            pushBox.width,
+            Math.floor(this.position.x + (pushBox.x * this.direction) - camera.position.x) + 0.5,
+            Math.floor(this.position.y + pushBox.y - camera.position.y) + 0.5,
+            pushBox.width * this.direction,
             pushBox.height,
         );
         
 
         ctx.rect(
-            Math.floor(this.position.x + pushBox.x) + 0.5,
-            Math.floor(this.position.y + pushBox.y) + 0.5,
-            pushBox.width,
+            Math.floor(this.position.x + (pushBox.x * this.direction) - camera.position.x) + 0.5,
+            Math.floor(this.position.y + pushBox.y - camera.position.y) + 0.5,
+            pushBox.width * this.direction,
             pushBox.height,
         )
 
@@ -318,14 +318,14 @@ export class Fighter {
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.strokeStyle = 'lime';
-        ctx.moveTo(Math.floor(this.position.x) - 4, Math.floor(this.position.y) - 0.5);
-        ctx.lineTo(Math.floor(this.position.x) + 5, Math.floor(this.position.y) - 0.5);
-        ctx.moveTo(Math.floor(this.position.x), + 0.5, Math.floor(this.position.y) - 5);
-        ctx.lineTo(Math.floor(this.position.x), + 0.5, Math.floor(this.position.y) + 4);
+        ctx.moveTo(Math.floor(this.position.x - camera.position.x) - 4, Math.floor(this.position.y - camera.position.y) - 0.5);
+        ctx.lineTo(Math.floor(this.position.x - camera.position.x) + 5, Math.floor(this.position.y - camera.position.y) - 0.5);
+        ctx.moveTo(Math.floor(this.position.x - camera.position.x), + 0.5, Math.floor(this.position.y - camera.position.y) - 5);
+        ctx.lineTo(Math.floor(this.position.x - camera.position.x), + 0.5, Math.floor(this.position.y - camera.position.y) + 4);
         ctx.stroke();
     }
 
-    draw(ctx){
+    draw(ctx, camera){
         const [frameKey] = this.animations[this.currentState][this.animationFrame];
         const [[
             [x, y, width, height], 
@@ -334,9 +334,9 @@ export class Fighter {
         
         ctx.scale(this.direction, 1);
 
-        ctx.drawImage(this.image, x, y, width, height, Math.floor(this.position.x * this.direction) - originX, Math.floor(this.position.y) - originY, width, height); 
+        ctx.drawImage(this.image, x, y, width, height, Math.floor((this.position.x - camera.position.x) * this.direction) - originX, Math.floor(this.position.y - camera.position.y) - originY, width, height); 
         ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-        this.drawDebug(ctx);
+        this.drawDebug(ctx, camera);
     }
 }

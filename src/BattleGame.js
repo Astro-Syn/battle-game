@@ -14,8 +14,8 @@ export class BattleGame {
     constructor(){
         this.ctx = this.getContext();
          this.characters = [
-         new Spork(90, BATTLE_FLOOR, characterDirection.LEFT, 0),
-        new Vexel(180, BATTLE_FLOOR, characterDirection.RIGHT, 1),
+         new Spork(390, BATTLE_FLOOR, characterDirection.LEFT, 0),
+        new Vexel(780, BATTLE_FLOOR, characterDirection.RIGHT, 1),
     ];
 
     this.characters[0].opponent = this.characters[1];

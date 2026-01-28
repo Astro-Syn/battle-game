@@ -27,8 +27,8 @@ export class Level {
     draw(ctx, camera){
         this.drawFrame(ctx, 'level-bg', -100, -10 );
        this.drawFrame(ctx, 'level-buildings-back', Math.floor(25 - (camera.position.x / 1.58)), -10 -camera.position.y);
-        this.drawFrame(ctx, 'level-floor', Math.floor(190 - camera.position.x), 170 - camera.position.y);
-        this.drawFrame(ctx, 'level-buildings-front', Math.floor(390 - (camera.position.x / 1.5)), 95 - camera.position.y);
+        this.drawFrame(ctx, 'level-floor', Math.floor(200 - (camera.position.x / 1.5)), 170 - camera.position.y);
+        this.drawFrame(ctx, 'level-buildings-front', Math.floor(200 - (camera.position.x / 1.5)), 95 - camera.position.y);
     }
 }
 
