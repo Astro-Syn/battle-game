@@ -25,10 +25,13 @@ export class Level {
     }
 
     draw(ctx, camera){
-        this.drawFrame(ctx, 'level-bg', Math.floor(250 - (camera.position.x / 1.50)), -10 -camera.position.y);
-       this.drawFrame(ctx, 'level-buildings-back', Math.floor(25 - (camera.position.x / 1.58)), -15 -camera.position.y);
-        this.drawFrame(ctx, 'level-floor', Math.floor(200 - (camera.position.x / 1.5)), 170 - camera.position.y);
-        this.drawFrame(ctx, 'level-buildings-front', Math.floor(200 - (camera.position.x / 1.5)), 95 - camera.position.y);
+        this.drawFrame(ctx, 'level-bg', Math.floor(250 - (camera.position.x / 1.65)), 15 -camera.position.y);
+        
+       this.drawFrame(ctx, 'level-buildings-back', Math.floor(25 - (camera.position.x / 1.58)), -30 -camera.position.y);
+
+        this.drawFrame(ctx, 'level-floor', Math.floor(200 - (camera.position.x / 1.5)), 195 - camera.position.y);
+
+        this.drawFrame(ctx, 'level-buildings-front', Math.floor(200 - (camera.position.x / 1.5)), 115 - camera.position.y);
     }
 }
 
