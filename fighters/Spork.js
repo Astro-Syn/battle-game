@@ -3,8 +3,8 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
 
 
  export class Spork extends Fighter {
-    constructor(x, y, direction, playerId){
-        super('Spork', x, y, direction, playerId);
+    constructor(playerId){
+        super('Spork', playerId);
         this.image = document.querySelector('img[alt="spork"]');
 
         const spriteWidth = 50;

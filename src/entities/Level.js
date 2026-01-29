@@ -1,3 +1,5 @@
+import { drawFrame } from "../utils/ctx.js";
+
 export class Level {
     constructor() {
         this.image = document.querySelector('img[alt="bg"]');
@@ -14,14 +16,7 @@ export class Level {
     }
 
       drawFrame(ctx, frameKey, x, y){
-        const [srcX, srcY, srcWidth, srcHeight] = this.frames.get(frameKey);
-
-        
-        ctx.drawImage(
-            this.image, 
-            srcX, srcY, srcWidth, srcHeight, x, y, srcWidth, srcHeight,
-        )
-       
+     drawFrame(ctx, this.image, this.frames.get(frameKey), x, y);
     }
 
     draw(ctx, camera){

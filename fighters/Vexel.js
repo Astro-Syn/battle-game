@@ -2,8 +2,8 @@ import { Fighter } from "./Fighter.js";
 import { CharacterState, PushBox } from "../src/constants/character.js";
 
  export class Vexel extends Fighter {
-    constructor(x, y, direction, playerId){
-        super('Vexel', x, y, direction, playerId);
+    constructor(playerId){
+        super('Vexel', playerId);
         this.image = document.querySelector('img[alt="vexel"]');
 
         
