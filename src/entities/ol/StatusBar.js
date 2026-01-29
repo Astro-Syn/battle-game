@@ -21,6 +21,8 @@ export class StatusBar {
             ['player-1-score', [6, 118, 27, 16]],
             ['player-2-score', [48, 119, 33, 16]],
 
+           
+
 
             [`${TIME_FRAME_KEYS[0]}-1`, [3, 66, 14, 16]],
             [`${TIME_FRAME_KEYS[0]}-2`, [14, 66, 14, 16]],
@@ -44,6 +46,16 @@ export class StatusBar {
             [`${TIME_FRAME_KEYS[1]}-9`, [114, 98, 14, 16]],
             [`${TIME_FRAME_KEYS[1]}-0`, [129, 98, 14, 16]],
 
+            ['score-1', [10, 152, 11, 9]],
+            ['score-2', [25, 152, 11, 9]],
+            ['score-3', [39, 152, 11, 9]],
+            ['score-4', [54, 152, 11, 9]],
+            ['score-5', [69, 163, 11, 9]],
+            ['score-6', [11, 163, 11, 9]],
+            ['score-7', [25, 163, 11, 9]],
+            ['score-8', [39, 163, 11, 9]],
+            ['score-9', [55, 163, 11, 9]],
+            ['score-0', [69, 163, 11, 9]],
         
 
         ]);        
@@ -78,26 +90,12 @@ export class StatusBar {
      
     }
 
-    playerDisplay(ctx){
-        this.drawFrame(ctx, 'player-1-score', 10, 2);
-        this.drawFrame(ctx, 'player-2-score', 250, 2);
-    }
-
-    drawScore(ctx, score, x){
-        const strValue = String(score);
-        const buffer = ((6 * 12) - strValue.length * 12);
-
-        for(let i = 0; i < strValue.length; i++ ){
-            this.drawFrame(ctx, `score-${strValue[i]}`, x + buffer + i * 12, 1);
-        }
-    }
+    
 
     nameDisplay(ctx){
         this.drawFrame(ctx, 'spork-name', 250, 35);
         this.drawFrame(ctx, 'vexel-name', 50, 35);
     }
-
-
 
     timeDisplay(ctx){
           const timeString = String(Math.max(this.time, 0)).padStart(2, '00');
@@ -108,16 +106,34 @@ export class StatusBar {
 
     }
 
+ drawScore(ctx, score, x){
+        const strValue = String(score);
+        const buffer = ((6 * 9) - strValue.length * 9);
+
+        for(let i = 0; i < strValue.length; i++ ){
+            this.drawFrame(ctx, `score-${strValue[i]}`, x + buffer + i * 9, 1);
+        }
+    }
+
+    drawScoreName(ctx, name, x, y){
+
+    }
+
 
     drawScores(ctx){
-        this.playerDisplay(ctx);
+        
+        this.drawFrame(ctx, 'player-1-score', 10, 2);       
+        this.drawFrame(ctx, 'player-2-score', 250, 2);
+        
+
         this.drawScore(ctx, 1, 45);
+        this.drawScore(ctx, 60000, 177);
         this.drawScore(ctx, 1, 309);
     }
 
     draw(ctx) {
+         this.drawScores(ctx);
         this.healthBarDisplay(ctx);
-        this.drawScores(ctx);
         this.nameDisplay(ctx);
         this.timeDisplay(ctx);
       
