@@ -18,6 +18,12 @@ export const CharacterState = {
     CROUCH: 'crouch',
     CROUCH_DOWN: 'crouchDown',
     CROUCH_UP: 'crouchUp',
+    LIGHT_MEELE: 'lightMeele',
+    MED_MEELE: 'medMeele',
+    HEAVY_MEELE: 'heavyMeele',
+    LIGHT_KICK: 'lightKick', 
+    MED_KICK: 'medKick',
+    HEAVY_KICK: 'heavyKick',
 }
 
 export const FrameDelay = {
