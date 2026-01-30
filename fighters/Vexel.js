@@ -59,6 +59,9 @@ import { CharacterState, PushBox } from "../src/constants/character.js";
         ['jumpBackwards-6', [[[351, 259, 55, spriteHeight], [21, 70]], PushBox.JUMP]],
 
         ['crouch-1', [[[226, 372, spriteWidth, spriteHeight], [20, 55]], PushBox.CROUCH]],
+
+        ['lightMeele', [[[89, 453, 55, spriteHeight], [21, 70]], PushBox.IDLE]],
+        ['lightMeele', [[[157, 453, spriteWidth, spriteHeight], [21, 70]], PushBox.IDLE]],
         ]);
 
           this.animations = {
