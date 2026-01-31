@@ -174,11 +174,18 @@ export class Fighter {
     }
 
     handleIdleState() {
-        if(ctrl.isUp(this.playerId)) this.changeState(CharacterState.JUMP_START);
-        if(ctrl.isDown(this.playerId)) this.changeState(CharacterState.CROUCH_DOWN);
-        if(ctrl.isBackward(this.playerId, this.direction)) this.changeState(CharacterState.RUN_BACKWARD);
-        if(ctrl.isForward(this.playerId, this.direction)) this.changeState(CharacterState.RUN_FORWARD);
+        if(ctrl.isUp(this.playerId)) {
+            this.changeState(CharacterState.JUMP_START);
+        } else if (ctrl.isDown(this.playerId)) {
+            this.changeState(CharacterState.CROUCH_DOWN);
+        }
+        else if (ctrl.isBackward(this.playerId, this.direction)) {
+            this.changeState(CharacterState.RUN_BACKWARD);
+        }
+        else if(ctrl.isForward(this.playerId, this.direction)) {
+            this.changeState(CharacterState.RUN_FORWARD);
     }
+}
 
     handleRunForwardState(){
         if(!ctrl.isForward(this.playerId, this.direction)) this.changeState(CharacterState.IDLE);
