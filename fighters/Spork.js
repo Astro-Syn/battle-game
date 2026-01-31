@@ -58,6 +58,9 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
         ['jumpFinish', [[[288, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
 
         ['crouch-1', [[[458, 267, spriteWidth, spriteHeight], [26, 52]], PushBox.CROUCH]],
+
+        ['lightMeele-1'[[[12, 342, spriteWidth, spriteHeight], [26, 52]], PushBox.IDLE]],
+        ['lightMeele-2'[[[88, 342, 59, spriteHeight], [26, 52]], PushBox.IDLE]],
       
       ]);
 
@@ -105,6 +108,9 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
                ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20],
                ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], 
                 ['crouch-1', FrameDelay.TRANSITION]
+            ],
+            [CharacterState.LIGHT_MEELE] : [
+            ['lightMeele-1', 33], ['lightMeele-2', 66], ['lightMeele-1', 66], ['lightMeele-1', FrameDelay.TRANSITION], 
             ],
         };
 

@@ -31,7 +31,7 @@ export class Fighter {
                 init: this.handleIdleInit.bind(this),
                 update: this.handleIdleState.bind(this),
                 validFrom: [
-                    undefined, CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD, CharacterState.JUMP_BACKWARDS, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_UP, CharacterState.CROUCH_UP, 
+                    undefined, CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD, CharacterState.JUMP_BACKWARDS, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_UP, CharacterState.CROUCH_UP, CharacterState.LIGHT_MEELE,
                 
                 ],
             },
@@ -93,6 +93,11 @@ export class Fighter {
                 init: this.handleCrouchDownInit.bind(this),
                 update: this.handleCrouchDownState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD],
+            }, 
+            [CharacterState.LIGHT_MEELE]: {
+                init: this.handleLightMeeleInit.bind(this),
+                update: this.handleLightMeeleState.bind(this),
+                validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
             }
         };
         this.changeState(CharacterState.IDLE);
@@ -164,6 +169,10 @@ export class Fighter {
         this.resetVelocities();
     }
 
+    handleLightMeeleInit(){
+        this.handleIdleInit();
+    }
+
     handleIdleState() {
         if(ctrl.isUp(this.playerId)) this.changeState(CharacterState.JUMP_START);
         if(ctrl.isDown(this.playerId)) this.changeState(CharacterState.CROUCH_DOWN);
@@ -218,6 +227,11 @@ export class Fighter {
 
     handleCrouchState(){
         if(!ctrl.isDown(this.playerId)) this.changeState(CharacterState.CROUCH_UP);
+    }
+
+    handleLightMeeleState(){
+        if(!this.isAnimationCompleted()) return;
+        this.changeState(CharacterState.IDLE);
     }
    
 
