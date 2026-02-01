@@ -1,4 +1,5 @@
 import { CHARACTER_START_DISTANCE, characterDirection, CharacterState } from "../src/constants/character.js";
+import { Ctrl } from "../src/constants/ctrl.js";
 import { BATTLE_FLOOR, BATTLE_MID_POINT, BATTLE_PADDING } from "../src/constants/stage.js";
 import * as ctrl from "../src/InputHandler.js";
 import { rectsOverlap } from "../src/utils/collisions.js";
@@ -185,6 +186,9 @@ export class Fighter {
         else if(ctrl.isForward(this.playerId, this.direction)) {
             this.changeState(CharacterState.RUN_FORWARD);
     }
+    else if (ctrl.isCtrlDown(this.playerId, Ctrl.LIGHT_MEELE)){
+        this.changeState(CharacterState.LIGHT_MEELE);
+    }
 }
 
     handleRunForwardState(){
@@ -201,7 +205,7 @@ export class Fighter {
 
     handleCrouchDownState(){
         if(this.isAnimationCompleted()){
-            this.changeState(CharacterState.CROUCH);
+            this.changeState(CharacterState.CROUCH);    
         }
     }
 

@@ -1,5 +1,5 @@
 import { Fighter } from "./Fighter.js";
-import { CharacterState, PushBox } from "../src/constants/character.js";
+import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.js";
 
  export class Vexel extends Fighter {
     constructor(playerId){
@@ -60,8 +60,8 @@ import { CharacterState, PushBox } from "../src/constants/character.js";
 
         ['crouch-1', [[[226, 372, spriteWidth, spriteHeight], [20, 55]], PushBox.CROUCH]],
 
-        ['lightMeele-2', [[[89, 453, 55, spriteHeight], [21, 70]], PushBox.IDLE]],
-        ['lightMeele-1', [[[157, 453, spriteWidth, spriteHeight], [21, 70]], PushBox.IDLE]],
+        ['lightMeele-1', [[[22, 456, 61, spriteHeight], [14, 69]], PushBox.IDLE]],
+        ['lightMeele-2', [[[91, 455, spriteWidth, spriteHeight], [16, 69]], PushBox.IDLE]],
         ]);
 
           this.animations = {
@@ -110,6 +110,9 @@ import { CharacterState, PushBox } from "../src/constants/character.js";
                ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20],
                ['crouch-1', 20], ['crouch-1', 20], ['crouch-1', 20], 
                 ['crouch-1', -2]
+            ],
+            [CharacterState.LIGHT_MEELE] : [
+            ['lightMeele-1', 33], ['lightMeele-2', 66], ['lightMeele-1', 66], ['lightMeele-2', FrameDelay.TRANSITION], 
             ],
         };
 

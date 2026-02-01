@@ -62,6 +62,9 @@ export const isButtonUp = (padId, button) => !gamePads.get(padId)?.buttons[butto
 export const isAxeGreater = (padId, axeId, value) => gamePads.get(padId)?.axes[axeId] >= value;
 export const isAxeLower = (padId, axeId, value) => gamePads.get(padId)?.axes[axeId] <= value;
 
+export const isCtrlDown = (id, ctrl) => isKeyDown(ctrls[id].keyboard[ctrl])
+|| isButtonDown(id, ctrls[id].gamePad[ctrl]);
+
 export const isKeyDown = (code) => heldKeys.has(code);
 export const isKeyUp = (code) => !heldKeys.has(code);
 
@@ -74,7 +77,7 @@ export const isLeft = (id) => isKeyDown(ctrls[id].keyboard[Ctrl.LEFT])
 export const isRight = (id) => isKeyDown(ctrls[id].keyboard[Ctrl.RIGHT])
 || isButtonDown(id, ctrls[id].gamePad[Ctrl.RIGHT])
 || isAxeGreater(id, ctrls[id].gamePad[GamepadThumbStick.HORIZONTAL_AXE_ID],
-    -ctrls[id].gamePad[GamepadThumbStick.DEADZONE]
+    ctrls[id].gamePad[GamepadThumbStick.DEADZONE]
 )
 export const isUp = (id) => isKeyDown(ctrls[id].keyboard[Ctrl.UP])
 || isButtonDown(id, ctrls[id].gamePad[Ctrl.UP])

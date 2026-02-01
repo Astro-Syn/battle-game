@@ -110,7 +110,7 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
                 ['crouch-1', FrameDelay.TRANSITION]
             ],
             [CharacterState.LIGHT_MEELE] : [
-            ['lightMeele-1', 33], ['lightMeele-2', 66], ['lightMeele-1', 66], ['lightMeele-1', FrameDelay.TRANSITION], 
+            ['lightMeele-1', 33], ['lightMeele-2', 66], ['lightMeele-1', 33], ['lightMeele-1', FrameDelay.TRANSITION], ['lightMeele-2', 66], ['lightMeele-1', 33]
             ],
         };
 
