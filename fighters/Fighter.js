@@ -32,7 +32,7 @@ export class Fighter {
                 init: this.handleIdleInit.bind(this),
                 update: this.handleIdleState.bind(this),
                 validFrom: [
-                    undefined, CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD, CharacterState.JUMP_BACKWARDS, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_UP, CharacterState.CROUCH_UP, CharacterState.LIGHT_MEELE,
+                    undefined, CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD, CharacterState.JUMP_BACKWARDS, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_UP, CharacterState.CROUCH_UP, CharacterState.LIGHT_MEELE, CharacterState.MED_MEELE, CharacterState.HEAVY_MEELE
                 
                 ],
             },
@@ -99,7 +99,18 @@ export class Fighter {
                 init: this.handleLightMeeleInit.bind(this),
                 update: this.handleLightMeeleState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
-            }
+            },
+             [CharacterState.MED_MEELE]: {
+                init: this.handleMedMeeleInit.bind(this),
+                update: this.handleMedMeeleState.bind(this),
+                validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
+            },
+             [CharacterState.HEAVY_MEELE]: {
+                init: this.handleHeavyMeeleInit.bind(this),
+                update: this.handleMedMeeleState.bind(this),
+                validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
+            },
+
         };
         this.changeState(CharacterState.IDLE);
     }
@@ -174,6 +185,18 @@ export class Fighter {
         this.handleIdleInit();
     }
 
+    handleMedMeeleInit(){
+        this.resetVelocities();
+    }
+
+
+    handleHeavyMeeleInit(){
+        this.resetVelocities();
+    }
+
+
+
+
     handleIdleState() {
         if(ctrl.isUp(this.playerId)) {
             this.changeState(CharacterState.JUMP_START);
@@ -186,10 +209,18 @@ export class Fighter {
         else if(ctrl.isForward(this.playerId, this.direction)) {
             this.changeState(CharacterState.RUN_FORWARD);
     }
-    else if (ctrl.isCtrlDown(this.playerId, Ctrl.LIGHT_MEELE)){
+    else if (ctrl.isLightPunch(this.playerId)){
         this.changeState(CharacterState.LIGHT_MEELE);
     }
+      else if (ctrl.isMedMeele(this.playerId)){
+        this.changeState(CharacterState.MED_MEELE);
+    }
+      else if (ctrl.isHeavyMeele(this.playerId)){
+        this.changeState(CharacterState.HEAVY_MEELE);
+    }
 }
+    
+
 
     handleRunForwardState(){
         if(!ctrl.isForward(this.playerId, this.direction)) this.changeState(CharacterState.IDLE);
@@ -241,9 +272,18 @@ export class Fighter {
     }
 
     handleLightMeeleState(){
+        if(this.animationFrame < 2) return;
+        if(ctrl.isLightPunch(this.playerId)) this.animationFrame = 0;
         if(!this.isAnimationCompleted()) return;
         this.changeState(CharacterState.IDLE);
     }
+
+    handleMedMeeleState(){
+        if(!this.isAnimationCompleted()) return;
+        this.changeState(CharacterState.IDLE);
+    }
+
+
    
 
 

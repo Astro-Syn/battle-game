@@ -60,8 +60,15 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
 
         ['crouch-1', [[[226, 372, spriteWidth, spriteHeight], [20, 55]], PushBox.CROUCH]],
 
-        ['lightMeele-1', [[[22, 456, 61, spriteHeight], [14, 69]], PushBox.IDLE]],
-        ['lightMeele-2', [[[91, 455, spriteWidth, spriteHeight], [16, 69]], PushBox.IDLE]],
+        ['lightMeele-1', [[[22, 455, 61, spriteHeight], [13, 70]], PushBox.IDLE]],
+        ['lightMeele-2', [[[91, 455, spriteWidth, spriteHeight], [16, 70]], PushBox.IDLE]],
+
+        ['medMeele-1', [[[91, 455, spriteWidth, spriteHeight], [16, 70]], PushBox.IDLE]],
+        ['medMeele-2', [[[166, 455, 57, spriteHeight], [16, 70]], PushBox.IDLE]],
+
+         ['heavyMeele-1', [[[18, 544, spriteWidth, spriteHeight], [35, 54]], PushBox.IDLE]],
+        ['heavyMeele-2', [[[79, 544, spriteWidth, spriteHeight], [35, 54]], PushBox.IDLE]],
+        ['heavyMeele-3', [[[153, 544, 67, spriteHeight], [35, 54]], PushBox.IDLE]],
         ]);
 
           this.animations = {
@@ -114,6 +121,17 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
             [CharacterState.LIGHT_MEELE] : [
             ['lightMeele-1', 33], ['lightMeele-2', 66], ['lightMeele-1', 66], ['lightMeele-2', FrameDelay.TRANSITION], 
             ],
+
+             [CharacterState.MED_MEELE] : [
+               ['medMeele-1', 11], ['medMeele-2', 33], ['medMeele-2', 33], ['medMeele-1', 11], ['medMeele-2', 33], ['medMeele-2', 33], ['medMeele-1', 11], ['medMeele-1', FrameDelay.TRANSITION],
+            ],
+
+
+             [CharacterState.HEAVY_MEELE] : [
+               ['medMeele-1', 33], ['medMeele-2', 33], ['heavyMeele-1', 33], ['heavyMeele-2', 66], ['medMeele-2', 66], ['heavyMeele-1', 33], ['heavyMeele-2', 66], ['medMeele-2', FrameDelay.TRANSITION], 
+            
+            ]
+
         };
 
         this.initialVelocity = {

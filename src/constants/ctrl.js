@@ -31,7 +31,9 @@ export const ctrls = [
             [Ctrl.RIGHT]: 15,
             [Ctrl.UP]: 12,
             [Ctrl.DOWN]: 13,
-            [Ctrl.LIGHT_MEELE]: 0,
+            [Ctrl.LIGHT_MEELE]: 2,
+            [Ctrl.MED_MEELE]: 3,
+            [Ctrl.HEAVY_MEELE]: 5,
 
         },
 
@@ -40,7 +42,9 @@ export const ctrls = [
             [Ctrl.RIGHT]: 'ArrowRight',
             [Ctrl.UP]: 'ArrowUp',
             [Ctrl.DOWN]: 'ArrowDown',
-            [Ctrl.LIGHT_MEELE]: 'KeyO',
+            [Ctrl.LIGHT_MEELE]: 'ControlLeft',
+             [Ctrl.MED_MEELE]: 'AltLeft',
+            [Ctrl.HEAVY_MEELE]: 'Space',
         },
         },
         {
@@ -55,7 +59,9 @@ export const ctrls = [
             [Ctrl.RIGHT]: 15,
             [Ctrl.UP]: 12,
             [Ctrl.DOWN]: 13,
-            [Ctrl.LIGHT_MEELE]: 0,
+             [Ctrl.LIGHT_MEELE]: 2,
+            [Ctrl.MED_MEELE]: 3,
+            [Ctrl.HEAVY_MEELE]: 5,
         },
     
           keyboard: {
@@ -64,6 +70,8 @@ export const ctrls = [
             [Ctrl.UP]: 'KeyW',
             [Ctrl.DOWN]: 'KeyS',
             [Ctrl.LIGHT_MEELE]: 'KeyQ',
+             [Ctrl.MED_MEELE]: 'KeyV',
+            [Ctrl.HEAVY_MEELE]: 'KeyE',
         },
     },
 ]

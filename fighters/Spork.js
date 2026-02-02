@@ -59,8 +59,17 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
 
         ['crouch-1', [[[458, 267, spriteWidth, spriteHeight], [26, 52]], PushBox.CROUCH]],
 
-        ['lightMeele-1'[[[12, 342, spriteWidth, spriteHeight], [26, 52]], PushBox.IDLE]],
-        ['lightMeele-2'[[[88, 342, 59, spriteHeight], [26, 52]], PushBox.IDLE]],
+        ['lightMeele-1', [[[14, 345, spriteWidth, spriteHeight], [35, 54]], PushBox.IDLE]],
+        ['lightMeele-2', [[[88, 347, 59, spriteHeight], [30, 52]], PushBox.IDLE]],
+
+
+          ['medMeele-1', [[[14, 345, spriteWidth, spriteHeight], [21, 52]], PushBox.IDLE]],
+         ['medMeele-2', [[[179, 346, spriteWidth, spriteHeight], [21, 52]], PushBox.IDLE]],
+       
+
+        ['heavyMeele-1', [[[15, 409, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE]],
+        ['heavyMeele-2', [[[91, 409, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE]],
+        ['heavyMeele-3', [[[174, 409, 76, spriteHeight], [21, 55]], PushBox.IDLE]],
       
       ]);
 
@@ -110,8 +119,17 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
                 ['crouch-1', FrameDelay.TRANSITION]
             ],
             [CharacterState.LIGHT_MEELE] : [
-            ['lightMeele-1', 33], ['lightMeele-2', 66], ['lightMeele-1', 33], ['lightMeele-1', FrameDelay.TRANSITION], ['lightMeele-2', 66], ['lightMeele-1', 33]
+            ['lightMeele-1', 33], ['lightMeele-2', 66], ['lightMeele-1', 66], ['lightMeele-2', FrameDelay.TRANSITION], 
             ],
+
+            [CharacterState.MED_MEELE] : [
+               ['medMeele-1', 11], ['medMeele-2', 33], ['medMeele-2', 33], ['medMeele-1', 11], ['medMeele-2', 33], ['medMeele-2', 33], ['medMeele-1', 11], ['medMeele-1', FrameDelay.TRANSITION],
+            ],
+
+            [CharacterState.HEAVY_MEELE] : [
+               ['medMeele-1', 33], ['medMeele-2', 33], ['heavyMeele-2', 33], ['heavyMeele-3', 66], ['heavyMeele-3', 66], ['heavyMeele-1', 33], ['heavyMeele-2', 66], ['medMeele-2', FrameDelay.TRANSITION], 
+            
+            ]
         };
 
         this.initialVelocity = {
