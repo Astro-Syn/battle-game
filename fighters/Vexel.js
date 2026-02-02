@@ -66,9 +66,19 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
         ['medMeele-1', [[[91, 455, spriteWidth, spriteHeight], [16, 70]], PushBox.IDLE]],
         ['medMeele-2', [[[166, 455, 57, spriteHeight], [16, 70]], PushBox.IDLE]],
 
-         ['heavyMeele-1', [[[18, 544, spriteWidth, spriteHeight], [35, 54]], PushBox.IDLE]],
-        ['heavyMeele-2', [[[79, 544, spriteWidth, spriteHeight], [35, 54]], PushBox.IDLE]],
-        ['heavyMeele-3', [[[153, 544, 67, spriteHeight], [35, 54]], PushBox.IDLE]],
+         ['heavyMeele-1', [[[18, 544, spriteWidth, spriteHeight], [15, 70]], PushBox.IDLE]],
+        ['heavyMeele-2', [[[79, 544, spriteWidth, spriteHeight], [15, 70]], PushBox.IDLE]],
+        ['heavyMeele-3', [[[153, 544, 67, spriteHeight], [15, 70]], PushBox.IDLE]],
+
+          ['lightKick-1', [[[15, 649, spriteWidth, spriteHeight], [13, 70]], PushBox.IDLE]],
+        ['lightKick-2', [[[81, 653, 61, spriteHeight], [16, 70]], PushBox.IDLE]],
+
+           ['medKick-1', [[[15, 649, spriteWidth, spriteHeight], [13, 70]], PushBox.IDLE]],
+        ['medKick-2', [[[81, 653, 61, spriteHeight], [16, 70]], PushBox.IDLE]],
+
+         ['heavyKick-1', [[[20, 741, spriteWidth, spriteHeight], [15, 70]], PushBox.IDLE]],
+        ['heavyKick-2', [[[87, 741, spriteWidth, spriteHeight], [15, 70]], PushBox.IDLE]],  
+        ['heavyKick-3', [[[166, 741, 62, spriteHeight], [15, 70]], PushBox.IDLE]],
         ]);
 
           this.animations = {
@@ -128,9 +138,22 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
 
 
              [CharacterState.HEAVY_MEELE] : [
-               ['medMeele-1', 33], ['medMeele-2', 33], ['heavyMeele-1', 33], ['heavyMeele-2', 66], ['medMeele-2', 66], ['heavyMeele-1', 33], ['heavyMeele-2', 66], ['medMeele-2', FrameDelay.TRANSITION], 
+               ['medMeele-1', 33], ['medMeele-2', 33], ['heavyMeele-2', 33], ['heavyMeele-3', 66], ['heavyMeele-3', 66], ['heavyMeele-1', 33], ['heavyMeele-2', 66], ['medMeele-2', FrameDelay.TRANSITION], 
             
-            ]
+            ],
+
+                  [CharacterState.LIGHT_KICK] : [
+            ['lightKick-1', 33], ['lightKick-2', 66], ['lightKick-1', 66], ['lightKick-2', FrameDelay.TRANSITION], 
+            ],
+
+            [CharacterState.MED_KICK] : [
+               ['medKick-1', 11], ['medKick-2', 33], ['medKick-2', 33], ['medKick-1', 11], ['medKick-2', 33], ['medKick-2', 33], ['medKick-1', 11], ['medKick-1', FrameDelay.TRANSITION],
+            ],
+
+            [CharacterState.HEAVY_KICK] : [
+               ['medKick-1', 33], ['medKick-2', 33], ['heavyKick-2', 33], ['heavyKick-3', 66], ['heavyKick-3', 66], ['heavyKick-1', 33], ['heavyKick-2', 66], ['medKick-2', FrameDelay.TRANSITION], 
+            
+            ],
 
         };
 

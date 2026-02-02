@@ -129,5 +129,9 @@ export const isForward = (id, direction) => direction === characterDirection.RIG
 export const isBackward = (id, direction) => direction === characterDirection.LEFT ? isRight(id) : isLeft(id);
 
 export const isLightPunch = (id) => isCtrlPressed(id, Ctrl.LIGHT_MEELE);
-export const isMedMeele = (id) => isCtrlPressed(id, Ctrl.MED_MEELE_MEELE);
+export const isMedMeele = (id) => isCtrlPressed(id, Ctrl.MED_MEELE);
 export const isHeavyMeele = (id) => isCtrlPressed(id, Ctrl.HEAVY_MEELE);
+
+export const isLightKick = (id) => isCtrlPressed(id, Ctrl.LIGHT_KICK);
+export const isMedKick = (id) => isCtrlPressed(id, Ctrl.MED_KICK);
+export const isHeavyKick = (id) => isCtrlPressed(id, Ctrl.HEAVY_KICK);

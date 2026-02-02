@@ -70,6 +70,18 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
         ['heavyMeele-1', [[[15, 409, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE]],
         ['heavyMeele-2', [[[91, 409, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE]],
         ['heavyMeele-3', [[[174, 409, 76, spriteHeight], [21, 55]], PushBox.IDLE]],
+
+        ['lightKick-1', [[[15, 488, 54, spriteHeight], [35, 54]], PushBox.IDLE]],
+        ['lightKick-2', [[[71, 491, 59, spriteHeight], [30, 52]], PushBox.IDLE]],
+
+
+         ['medKick-1', [[[15, 488, 54, spriteHeight], [21, 52]], PushBox.IDLE]],
+         ['medKick-2', [[[71, 491, 59, spriteHeight], [21, 52]], PushBox.IDLE]],
+       
+
+        ['heavyKick-1', [[[15, 568, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE]],
+        ['heavyKick-2', [[[75, 570, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE]],
+        ['heavyKick-3', [[[144, 571, 59, spriteHeight], [21, 55]], PushBox.IDLE]],
       
       ]);
 
@@ -129,7 +141,20 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
             [CharacterState.HEAVY_MEELE] : [
                ['medMeele-1', 33], ['medMeele-2', 33], ['heavyMeele-2', 33], ['heavyMeele-3', 66], ['heavyMeele-3', 66], ['heavyMeele-1', 33], ['heavyMeele-2', 66], ['medMeele-2', FrameDelay.TRANSITION], 
             
-            ]
+            ],
+             [CharacterState.LIGHT_KICK] : [
+            ['lightKick-1', 33], ['lightKick-2', 66], ['lightKick-1', 66], ['lightKick-2', FrameDelay.TRANSITION], 
+            ],
+
+            [CharacterState.MED_KICK] : [
+               ['medKick-1', 11], ['medKick-2', 33], ['medKick-2', 33], ['medKick-1', 11], ['medKick-2', 33], ['medKick-2', 33], ['medKick-1', 11], ['medKick-1', FrameDelay.TRANSITION],
+            ],
+
+            [CharacterState.HEAVY_KICK] : [
+               ['medKick-1', 33], ['medKick-2', 33], ['heavyKick-2', 33], ['heavyKick-3', 66], ['heavyKick-3', 66], ['heavyKick-1', 33], ['heavyKick-2', 66], ['medKick-2', FrameDelay.TRANSITION], 
+            
+            ],
+
         };
 
         this.initialVelocity = {
