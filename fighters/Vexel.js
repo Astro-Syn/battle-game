@@ -13,8 +13,8 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
 
           this.frames = new Map([
 
-        ['idle-1', [[[5, 172, spriteWidth, spriteHeight], [21, 70]], PushBox.IDLE, [[-8, -88, 24, 16], [-26, -74, 48, 42], [-26, -31, 40, 32]]]],
-        ['idle-2', [[[85, 172, spriteWidth, spriteHeight], [21, 70]], PushBox.IDLE]],
+        ['idle-1', [[[5, 172, spriteWidth, spriteHeight], [21, 70]], PushBox.IDLE, [[-8, -72, 24, 16], [-26, -74, 48, 42], [-26, -31, 40, 32]]]],
+        ['idle-2', [[[85, 172, spriteWidth, spriteHeight], [21, 70]], PushBox.IDLE, [[-8, -72, 24, 16], [-26, -74, 48, 42], [-26, -31, 40, 32]]]],
        
 
         ['forwards-1', [[[0, 0, spriteWidth, spriteHeight], [21, 65]], PushBox.IDLE]],

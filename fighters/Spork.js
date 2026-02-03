@@ -12,8 +12,8 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
 
         this.frames = new Map([
 
-        ['idle-1', [[[6, 135, spriteWidth, spriteHeight], [22, 58]], PushBox.IDLE]],
-        ['idle-2', [[[69, 135, spriteWidth, spriteHeight], [22, 58]], PushBox.IDLE]],
+        ['idle-1', [[[6, 135, spriteWidth, spriteHeight], [22, 58]], PushBox.IDLE, [[-8, -72, 24, 16], [-26, -74, 48, 42], [-26, -31, 40, 32]]]],
+        ['idle-2', [[[69, 135, spriteWidth, spriteHeight], [22, 58]], PushBox.IDLE, [[-8, -72, 24, 16], [-26, -74, 48, 42], [-26, -31, 40, 32]]]],
           
 
         ['forwards-1', [[[0, 0, 40, spriteHeight], [18, 56]], PushBox.IDLE]],
@@ -111,8 +111,8 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
             ],
             [CharacterState.JUMP_BACKWARDS]: [
                ['jumpBackwards-1', 120], ['jumpBackwards-2', 100], ['jumpBackwards-3', 100], 
-               ['jumpBackwards-4', 120], ['jumpBackwards', 100], ['jumpBackwards-6', -1], 
-               ['jumpBackwards-6', -1], ['jumpBackwards', -1], 
+               ['jumpBackwards-4', 120], ['jumpBackwards-4', 100], ['jumpBackwards-6', -1], 
+               ['jumpBackwards-6', -1], ['jumpBackwards-6', -1], 
             ], 
 
             [CharacterState.JUMP_FINISH]: [

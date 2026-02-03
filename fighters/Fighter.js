@@ -25,7 +25,11 @@ export class Fighter {
 
         this.opponent;
 
-        this.pushBox = { x: 0, y: 0, width: 0, height: 0 };
+        this.boxes = 
+        { 
+            push: { x: 0, y: 0, width: 0, height: 0 },
+        hurt: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+        };
 
         this.states = {
             [CharacterState.IDLE]: {
@@ -134,13 +138,13 @@ export class Fighter {
     isAnimationCompleted = () => this.animations[this.currentState][this.animationFrame][1] === -2;
     
     hasCollidedWithOpponent = () => rectsOverlap(
-        this.position.x + this.pushBox.x, 
-        this.position.y + this.pushBox.y, 
-        this.pushBox.width, this.pushBox.height, 
-        this.opponent.position.x + this.opponent.pushBox.x, 
-        this.opponent.position.y + this.opponent.pushBox.y, 
-        this.opponent.pushBox.width, 
-        this.opponent.pushBox.height,
+        this.position.x + this.boxes.push.x, 
+        this.position.y + this.boxes.push.y, 
+        this.boxes.push.width, this.boxes.push.height, 
+        this.opponent.position.x + this.opponent.boxes.push.x, 
+        this.opponent.position.y + this.opponent.boxes.push.y, 
+        this.opponent.boxes.push.width, 
+        this.opponent.boxes.push.height,
     );
 
     resetVelocities(){
@@ -150,21 +154,27 @@ export class Fighter {
 
 
     getDirection(){
-       if (this.position.x + this.pushBox.x + this.pushBox.width <= this.opponent.position.x + this.opponent.pushBox.x){
+       if (this.position.x + this.boxes.push.x + this.boxes.push.width <= this.opponent.position.x + this.opponent.boxes.push.x){
         return characterDirection.RIGHT;
        } else if (
-        this.position.x + this.pushBox.x 
-        >= this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width
+        this.position.x + this.boxes.push.x 
+        >= this.opponent.position.x + this.opponent.boxes.push.x + this.opponent.boxes.push.width
     ){
         return characterDirection.LEFT;
        }
        
        return this.direction;
     }
-    getPushBox(frameKey){
-        const [, [x, y, width, height] = [0, 0, 0, 0]] = this.frames.get(frameKey);
+    getBoxes(frameKey){
+        const [,
+             [x = 0, y = 0, width = 0, height = 0] = [],
+             [head = [0, 0, 0, 0], body = [0, 0, 0, 0], feet = [0, 0, 0, 0]] = [],
+            ] = this.frames.get(frameKey);
 
-        return { x, y, width, height };
+        return {
+            push: {x, y, width, height},
+            hurt: [head, body, feet],
+            };
     }
 
     changeState(newState){ 
@@ -325,19 +335,19 @@ export class Fighter {
 
 
     updateStageConstraints(time, ctx, camera){
-    if(this.position.x > camera.position.x + ctx.canvas.width - this.pushBox.width ){
-       this.position.x = camera.position.x + ctx.canvas.width - this.pushBox.width;
+    if(this.position.x > camera.position.x + ctx.canvas.width - this.boxes.push.width ){
+       this.position.x = camera.position.x + ctx.canvas.width - this.boxes.push.width;
     }
 
-    if (this.position.x < camera.position.x +  this.pushBox.width){    
-        this.position.x = camera.position.x + this.pushBox.width;
+    if (this.position.x < camera.position.x +  this.boxes.push.width){    
+        this.position.x = camera.position.x + this.boxes.push.width;
     }
 
     if(this.hasCollidedWithOpponent()){
         if(this.position.x <= this.opponent.position.x){
             this.position.x = Math.max(
-                (this.opponent.position.x + this.opponent.pushBox.x) - (this.pushBox.x + this.pushBox.width),
-                camera.position.x + this.pushBox.width,
+                (this.opponent.position.x + this.opponent.pushBox.x) - (this.boxes.push.x + this.boxes.push.width),
+                camera.position.x + this.boxes.push.width,
             );
         
 
@@ -350,8 +360,8 @@ export class Fighter {
 
         if(this.position.x >= this.opponent.position.x){
             this.position.x = Math.min(
-                (this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width) + (this.pushBox.width + this.pushBox.x),
-                camera.position.x + ctx.canvas.width - this.pushBox.width,
+                (this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width) + (this.boxes.push.width + this.boxes.push.x),
+                camera.position.x + ctx.canvas.width - this.boxes.push.width,
             );
               if([
                 CharacterState.IDLE, CharacterState.CROUCH, CharacterState.JUMP_UP, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_BACKWARDS,
@@ -364,20 +374,19 @@ export class Fighter {
 
     updateAnimation(time) {
      const animation = this.animations[this.currentState];
-        const [frameKey, frameDelay] = animation[this.animationFrame];
+        const [, frameDelay] = animation[this.animationFrame];
 
-         if (time.previous > this.animationTimer + frameDelay){
+         if (time.previous <= this.animationTimer + frameDelay) return;
         this.animationTimer = time.previous;
 
-            if(frameDelay > 0) {
+            if(frameDelay <= 0) return;
                 this.animationFrame++;
-                this.pushBox = this.getPushBox(frameKey);
-            }
+              
+            
+         if (this.animationFrame >= animation.length) this.animationFrame = 0;
+        
+         this.boxes = this.getBoxes(animation[this.animationFrame][0]);
 
-         if (this.animationFrame >= animation.length) {
-            this.animationFrame = 0;
-        }
-        }
     }
 
     update(time, ctx, camera) {
@@ -398,24 +407,24 @@ export class Fighter {
 
     drawDebug(ctx, camera){
         const [frameKey] = this.animations[this.currentState][this.animationFrame];
-        const pushBox = this.getPushBox(frameKey);
+        const boxes = this.getBoxes(frameKey);
 
         ctx.beginPath();
         ctx.strokeStyle = 'lime';
         ctx.fillStyle = '#ff55cc55'
         ctx.fillRect(
-            Math.floor(this.position.x + (pushBox.x * this.direction) - camera.position.x) + 0.5,
-            Math.floor(this.position.y + pushBox.y - camera.position.y) + 0.5,
-            pushBox.width * this.direction,
-            pushBox.height,
+            Math.floor(this.position.x + (boxes.push.x * this.direction) - camera.position.x) + 0.5,
+            Math.floor(this.position.y + boxes.push.y - camera.position.y) + 0.5,
+            boxes.push.width * this.direction,
+            boxes.push.height,
         );
         
 
         ctx.rect(
-            Math.floor(this.position.x + (pushBox.x * this.direction) - camera.position.x) + 0.5,
-            Math.floor(this.position.y + pushBox.y - camera.position.y) + 0.5,
-            pushBox.width * this.direction,
-            pushBox.height,
+            Math.floor(this.position.x + (boxes.push.x * this.direction) - camera.position.x) + 0.5,
+            Math.floor(this.position.y + boxes.push.y - camera.position.y) + 0.5,
+            boxes.push.width * this.direction,
+            boxes.push.height,
         )
 
         ctx.stroke();
