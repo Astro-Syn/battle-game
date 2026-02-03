@@ -32,7 +32,7 @@ export class Fighter {
                 init: this.handleIdleInit.bind(this),
                 update: this.handleIdleState.bind(this),
                 validFrom: [
-                    undefined, CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD, CharacterState.JUMP_BACKWARDS, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_UP, CharacterState.CROUCH_UP, CharacterState.LIGHT_MEELE, CharacterState.MED_MEELE, CharacterState.HEAVY_MEELE
+                    undefined, CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD, CharacterState.JUMP_BACKWARDS, CharacterState.JUMP_FORWARDS, CharacterState.JUMP_UP, CharacterState.CROUCH_UP, CharacterState.LIGHT_MEELE, CharacterState.MED_MEELE, CharacterState.HEAVY_MEELE, CharacterState.LIGHT_KICK, CharacterState.MED_KICK, CharacterState.HEAVY_KICK,
                 
                 ],
             },
@@ -110,6 +110,22 @@ export class Fighter {
                 update: this.handleMedMeeleState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
             },
+            [CharacterState.LIGHT_KICK]: {
+                init: this.handleLightMeeleInit.bind(this),
+                update: this.handleLightKickState.bind(this),
+                validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
+            },
+             [CharacterState.MED_KICK]: {
+                init: this.handleMedMeeleInit.bind(this),
+                update: this.handleMedMeeleState.bind(this),
+                validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
+            },
+             [CharacterState.HEAVY_KICK]: {
+                init: this.handleHeavyMeeleInit.bind(this),
+                update: this.handleMedKickState.bind(this),
+                validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
+            },
+            
 
         };
         this.changeState(CharacterState.IDLE);
@@ -218,6 +234,15 @@ export class Fighter {
       else if (ctrl.isHeavyMeele(this.playerId)){
         this.changeState(CharacterState.HEAVY_MEELE);
     }
+     else if (ctrl.isLightKick(this.playerId)){
+        this.changeState(CharacterState.LIGHT_KICK);
+    }
+      else if (ctrl.isMedKick(this.playerId)){
+        this.changeState(CharacterState.MED_KICK);
+    }
+      else if (ctrl.isHeavyKick(this.playerId)){
+        this.changeState(CharacterState.HEAVY_KICK);
+    }
 }
     
 
@@ -279,6 +304,18 @@ export class Fighter {
     }
 
     handleMedMeeleState(){
+        if(!this.isAnimationCompleted()) return;
+        this.changeState(CharacterState.IDLE);
+    }
+
+        handleLightKickState(){
+        if(this.animationFrame < 2) return;
+        if(ctrl.isLightPunch(this.playerId)) this.animationFrame = 0;
+        if(!this.isAnimationCompleted()) return;
+        this.changeState(CharacterState.IDLE);
+    }
+
+    handleMedKickState(){
         if(!this.isAnimationCompleted()) return;
         this.changeState(CharacterState.IDLE);
     }

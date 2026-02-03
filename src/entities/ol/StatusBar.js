@@ -87,11 +87,9 @@ export class StatusBar {
     healthBarDisplay(ctx){
          this.drawFrame(ctx, 'health-bar-1', 250, 20);
         this.drawFrame(ctx, 'health-bar-2', 50, 20);
-     
     }
 
     
-
     nameDisplay(ctx){
         this.drawFrame(ctx, 'spork-name', 250, 35);
         this.drawFrame(ctx, 'vexel-name', 50, 35);
