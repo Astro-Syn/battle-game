@@ -1,5 +1,5 @@
 import { Fighter } from "./Fighter.js";
-import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.js";
+import { CharacterState, FrameDelay, PushBox, HurtBoxSpork } from "../src/constants/character.js";
 
 
  export class Spork extends Fighter {
@@ -12,77 +12,76 @@ import { CharacterState, FrameDelay, PushBox } from "../src/constants/character.
 
         this.frames = new Map([
 
-        ['idle-1', [[[6, 135, spriteWidth, spriteHeight], [22, 58]], PushBox.IDLE, [[-8, -72, 24, 16], [-26, -74, 48, 42], [-26, -31, 40, 32]]]],
-        ['idle-2', [[[69, 135, spriteWidth, spriteHeight], [22, 58]], PushBox.IDLE, [[-8, -72, 24, 16], [-26, -74, 48, 42], [-26, -31, 40, 32]]]],
+        ['idle-1', [[[6, 135, spriteWidth, spriteHeight], [22, 58]], PushBox.IDLE, HurtBoxSpork.IDLE]],
+        ['idle-2', [[[69, 135, spriteWidth, spriteHeight], [22, 58]], PushBox.IDLE, HurtBoxSpork.IDLE]],
           
 
-        ['forwards-1', [[[0, 0, 40, spriteHeight], [18, 56]], PushBox.IDLE]],
-        ['forwards-2', [[[42, 0, 52, spriteHeight ], [18, 57]], PushBox.IDLE]],   
-        ['forwards-3', [[[141, 0, 35, spriteHeight], [18, 58]], PushBox.IDLE]],   
-        ['forwards-4', [[[182, 0, spriteWidth, spriteHeight ], [20, 58]], PushBox.IDLE]],
-        ['forwards-5', [[[228, 0, spriteWidth, spriteHeight], [20, 58]], PushBox.IDLE]], 
-        ['forwards-6', [[[272, 0, 57, spriteHeight], [20, 58]], PushBox.IDLE]],  
-        ['forwards-7', [[[388, 0, 52, spriteHeight], [20, 58]], PushBox.IDLE]],  
-        ['forwards-8', [[[435, 0, spriteWidth, spriteHeight], [20, 58]], PushBox.IDLE]],  
+        ['forwards-1', [[[0, 0, 40, spriteHeight], [18, 56]], PushBox.IDLE, HurtBoxSpork.FORWARDS]],
+        ['forwards-2', [[[42, 0, 52, spriteHeight], [18, 57]], PushBox.IDLE, HurtBoxSpork.FORWARDS]],  
+        ['forwards-3', [[[141, 0, 35, spriteHeight], [18, 58]], PushBox.IDLE, HurtBoxSpork.FORWARDS]],  
+        ['forwards-4', [[[182, 0, spriteWidth, spriteHeight ], [20, 58]], PushBox.IDLE, HurtBoxSpork.FORWARDS]],
+        ['forwards-5', [[[228, 0, spriteWidth, spriteHeight], [20, 58]], PushBox.IDLE, HurtBoxSpork.FORWARDS]],
+        ['forwards-6', [[[272, 0, 57, spriteHeight], [20, 58]], PushBox.IDLE, HurtBoxSpork.FORWARDS]],
+        ['forwards-7', [[[388, 0, 52, spriteHeight], [20, 58]], PushBox.IDLE, HurtBoxSpork.FORWARDS]],
+        ['forwards-8', [[[435, 0, spriteWidth, spriteHeight], [20, 58]], PushBox.IDLE, HurtBoxSpork.FORWARDS]],
 
-        ['backwards-1', [[[388, 0, 52, spriteHeight], [20, 58]], PushBox.IDLE]],
-        ['backwards-2', [[[272, 0, 57, spriteHeight], [20, 58]], PushBox.IDLE]],
-        ['backwards-3', [[[228, 0, spriteWidth, spriteHeight], [20, 58]], PushBox.IDLE]], 
-        ['backwards-4', [[[182, 0, spriteWidth, spriteHeight], [18, 57]], PushBox.IDLE]],
-        ['backwards-5', [[[141, 0, 35, spriteHeight], [18, 58]], PushBox.IDLE]],   
-        ['backwards-6', [[[42, 0, 52, spriteHeight ], [18, 57]], PushBox.IDLE]], 
-        ['backwards-7', [[[0, 0, 40, spriteHeight], [18, 56]], PushBox.IDLE]],
-        ['backwards-8', [[[435, 0, spriteWidth, spriteHeight], [20, 58]], PushBox.IDLE]],
+        ['backwards-1', [[[388, 0, 52, spriteHeight], [20, 58]], PushBox.IDLE, HurtBoxSpork.BACKWARDS]],
+        ['backwards-2', [[[272, 0, 57, spriteHeight], [20, 58]], PushBox.IDLE, HurtBoxSpork.BACKWARDS]],
+        ['backwards-3', [[[228, 0, spriteWidth, spriteHeight], [20, 58]], PushBox.IDLE, HurtBoxSpork.BACKWARDS]],
+        ['backwards-4', [[[182, 0, spriteWidth, spriteHeight], [18, 57]], PushBox.IDLE, HurtBoxSpork.BACKWARDS]],
+        ['backwards-5', [[[141, 0, 35, spriteHeight], [18, 58]], PushBox.IDLE, HurtBoxSpork.BACKWARDS]],
+        ['backwards-6', [[[42, 0, 52, spriteHeight ], [18, 57]], PushBox.IDLE, HurtBoxSpork.BACKWARDS]],
+        ['backwards-7', [[[0, 0, 40, spriteHeight], [18, 56]], PushBox.IDLE, HurtBoxSpork.BACKWARDS]],
+        ['backwards-8', [[[435, 0, spriteWidth, spriteHeight], [20, 58]], PushBox.IDLE, HurtBoxSpork.BACKWARDS]],
 
-        ['jumpUp-1', [[[10, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
-        ['jumpUp-2', [[[77, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],  
-        ['jumpUp-3', [[[140, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
-        ['jumpUp-4', [[[209, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
-        ['jumpUp-5', [[[288, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
-        ['jumpUp-6', [[[378, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
+        ['jumpUp-1', [[[10, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpUp-2', [[[77, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]], 
+        ['jumpUp-3', [[[140, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpUp-4', [[[209, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpUp-5', [[[288, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpUp-6', [[[378, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
 
-        ['jumpForwards-1', [[[10, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
-        ['jumpForwards-2', [[[77, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],  
-        ['jumpForwards-3', [[[140, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
-        ['jumpForwards-4', [[[209, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
-        ['jumpForwards-5', [[[288, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
-        ['jumpForwards-6', [[[378, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
+        ['jumpForwards-1', [[[10, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpForwards-2', [[[77, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpForwards-3', [[[140, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpForwards-4', [[[209, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpForwards-5', [[[288, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpForwards-6', [[[378, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
 
-         ['jumpBackwards-1', [[[10, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
-        ['jumpBackwards-2', [[[77, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],  
-        ['jumpBackwards-3', [[[140, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
-        ['jumpBackwards-4', [[[209, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
-        ['jumpBackwards-5', [[[288, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
-        ['jumpBackwards-6', [[[378, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
+         ['jumpBackwards-1', [[[10, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpBackwards-2', [[[77, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],  
+        ['jumpBackwards-3', [[[140, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpBackwards-4', [[[209, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpBackwards-5', [[[288, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
+        ['jumpBackwards-6', [[[378, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
 
-        ['jumpFinish', [[[288, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP]],
+        ['jumpFinish', [[[288, 262, spriteWidth, spriteHeight], [21, 65]], PushBox.JUMP, HurtBoxSpork.JUMP]],
 
-        ['crouch-1', [[[458, 267, spriteWidth, spriteHeight], [26, 52]], PushBox.CROUCH]],
+        ['crouch-1', [[[458, 267, spriteWidth, spriteHeight], [26, 52]], PushBox.CROUCH, HurtBoxSpork.CROUCH]],
 
-        ['lightMeele-1', [[[14, 345, spriteWidth, spriteHeight], [35, 54]], PushBox.IDLE]],
-        ['lightMeele-2', [[[88, 347, 59, spriteHeight], [30, 52]], PushBox.IDLE]],
+        ['lightMeele-1', [[[14, 345, spriteWidth, spriteHeight], [35, 54]], PushBox.IDLE, HurtBoxSpork.IDLE]],
+        ['lightMeele-2', [[[88, 347, 59, spriteHeight], [30, 52]], PushBox.IDLE, HurtBoxSpork.IDLE]],
 
 
-          ['medMeele-1', [[[14, 345, spriteWidth, spriteHeight], [21, 52]], PushBox.IDLE]],
-         ['medMeele-2', [[[179, 346, spriteWidth, spriteHeight], [21, 52]], PushBox.IDLE]],
+          ['medMeele-1', [[[14, 345, spriteWidth, spriteHeight], [21, 52]], PushBox.IDLE, HurtBoxSpork.IDLE]],
+         ['medMeele-2', [[[179, 346, spriteWidth, spriteHeight], [21, 52]], PushBox.IDLE, HurtBoxSpork.IDLE]],
        
 
-        ['heavyMeele-1', [[[15, 409, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE]],
-        ['heavyMeele-2', [[[91, 409, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE]],
-        ['heavyMeele-3', [[[174, 409, 76, spriteHeight], [21, 55]], PushBox.IDLE]],
+        ['heavyMeele-1', [[[15, 409, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE, HurtBoxSpork.IDLE]],
+        ['heavyMeele-2', [[[91, 409, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE, HurtBoxSpork.IDLE]],
+        ['heavyMeele-3', [[[174, 409, 76, spriteHeight], [21, 55]], PushBox.IDLE, HurtBoxSpork.PUNCHHEAVY]],
 
-        ['lightKick-1', [[[15, 488, 54, spriteHeight], [35, 54]], PushBox.IDLE]],
-        ['lightKick-2', [[[71, 491, 59, spriteHeight], [30, 52]], PushBox.IDLE]],
+        ['lightKick-1', [[[15, 488, 54, spriteHeight], [35, 54]], PushBox.IDLE, HurtBoxSpork.KICK]],
+        ['lightKick-2', [[[71, 491, 59, spriteHeight], [30, 52]], PushBox.IDLE, HurtBoxSpork.KICK]],
 
 
-         ['medKick-1', [[[15, 488, 54, spriteHeight], [21, 52]], PushBox.IDLE]],
-         ['medKick-2', [[[71, 491, 59, spriteHeight], [21, 52]], PushBox.IDLE]],
+         ['medKick-1', [[[15, 488, 54, spriteHeight], [21, 52]], PushBox.IDLE, HurtBoxSpork.KICK]],
+         ['medKick-2', [[[71, 491, 59, spriteHeight], [21, 52]], PushBox.IDLE, HurtBoxSpork.KICK]],
        
 
-        ['heavyKick-1', [[[15, 568, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE]],
-        ['heavyKick-2', [[[75, 570, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE]],
-        ['heavyKick-3', [[[144, 571, 59, spriteHeight], [21, 55]], PushBox.IDLE]],
-      
+        ['heavyKick-1', [[[15, 568, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE, HurtBoxSpork.KICK]],
+        ['heavyKick-2', [[[75, 570, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE, HurtBoxSpork.KICK]],
+        ['heavyKick-3', [[[144, 571, 59, spriteHeight], [21, 55]], PushBox.IDLE, HurtBoxSpork.KICK]],      
       ]);
 
          this.animations = {

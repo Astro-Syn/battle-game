@@ -346,7 +346,7 @@ export class Fighter {
     if(this.hasCollidedWithOpponent()){
         if(this.position.x <= this.opponent.position.x){
             this.position.x = Math.max(
-                (this.opponent.position.x + this.opponent.pushBox.x) - (this.boxes.push.x + this.boxes.push.width),
+                (this.opponent.position.x + this.opponent.boxes.push.x) - (this.boxes.push.x + this.boxes.push.width),
                 camera.position.x + this.boxes.push.width,
             );
         
@@ -360,7 +360,7 @@ export class Fighter {
 
         if(this.position.x >= this.opponent.position.x){
             this.position.x = Math.min(
-                (this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width) + (this.boxes.push.width + this.boxes.push.x),
+                (this.opponent.position.x + this.opponent.boxes.push.x + this.opponent.boxes.push.width) + (this.boxes.push.width + this.boxes.push.x),
                 camera.position.x + ctx.canvas.width - this.boxes.push.width,
             );
               if([
@@ -405,29 +405,44 @@ export class Fighter {
     this.updateStageConstraints(time, ctx, camera);
     }
 
-    drawDebug(ctx, camera){
-        const [frameKey] = this.animations[this.currentState][this.animationFrame];
-        const boxes = this.getBoxes(frameKey);
+    drawDebugBox(ctx, camera, dimensions, baseCol){
+        if(!Array.isArray(dimensions)) return;
 
-        ctx.beginPath();
-        ctx.strokeStyle = 'lime';
-        ctx.fillStyle = '#ff55cc55'
+        const [x = 0, y = 0, width = 0, height = 0] = dimensions;
+
+                ctx.beginPath();
+        ctx.strokeStyle = baseCol + 'AA';
+        ctx.fillStyle = baseCol + '44';
         ctx.fillRect(
-            Math.floor(this.position.x + (boxes.push.x * this.direction) - camera.position.x) + 0.5,
-            Math.floor(this.position.y + boxes.push.y - camera.position.y) + 0.5,
-            boxes.push.width * this.direction,
-            boxes.push.height,
+            Math.floor(this.position.x + (x * this.direction) - camera.position.x) + 0.5,
+            Math.floor(this.position.y + y - camera.position.y) + 0.5,
+            width * this.direction,
+            height,
         );
         
 
         ctx.rect(
-            Math.floor(this.position.x + (boxes.push.x * this.direction) - camera.position.x) + 0.5,
-            Math.floor(this.position.y + boxes.push.y - camera.position.y) + 0.5,
-            boxes.push.width * this.direction,
-            boxes.push.height,
+            Math.floor(this.position.x + (x * this.direction) - camera.position.x) + 0.5,
+            Math.floor(this.position.y + y - camera.position.y) + 0.5,
+            width * this.direction,
+            height,
         )
 
         ctx.stroke();
+    }
+
+    drawDebug(ctx, camera){
+        const [frameKey] = this.animations[this.currentState][this.animationFrame];
+        const boxes = this.getBoxes(frameKey);
+
+        
+        this.drawDebugBox(ctx, camera, Object.values(boxes.push), '#FFFFFF');
+
+        //hurt boxes 
+
+        for (const hurtbox of boxes.hurt) {
+            this.drawDebugBox(ctx, camera, hurtbox, '#C0FF00');
+        }
 
         ctx.lineWidth = 1;
         ctx.beginPath();
