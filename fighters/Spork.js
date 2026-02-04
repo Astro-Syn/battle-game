@@ -69,7 +69,7 @@ import { CharacterState, FrameDelay, PushBox, HurtBoxSpork } from "../src/consta
 
         ['heavyMeele-1', [[[15, 409, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE, HurtBoxSpork.IDLE]],
         ['heavyMeele-2', [[[91, 409, spriteWidth, spriteHeight], [21, 55]], PushBox.IDLE, HurtBoxSpork.IDLE]],
-        ['heavyMeele-3', [[[174, 409, 76, spriteHeight], [21, 55]], PushBox.IDLE, HurtBoxSpork.PUNCHHEAVY]],
+        ['heavyMeele-3', [[[174, 409, 76, spriteHeight], [21, 55]], PushBox.IDLE, HurtBoxSpork.PUNCHHEAVY, [11, -85, 50, 18]]],
 
         ['lightKick-1', [[[15, 488, 54, spriteHeight], [35, 54]], PushBox.IDLE, HurtBoxSpork.KICK]],
         ['lightKick-2', [[[71, 491, 59, spriteHeight], [30, 52]], PushBox.IDLE, HurtBoxSpork.KICK]],
