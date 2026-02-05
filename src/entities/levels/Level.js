@@ -1,8 +1,11 @@
 import { drawFrame } from "../../utils/ctx.js";
 
 export class Level {
+    music = document.querySelector('audio#track-1');
     constructor() {
         this.image = document.querySelector('img[alt="bg"]');
+        
+        this.music.play();
         this.frames = new Map([
             ['level-bg', [70, 30, 508, 200]],
             ['level-buildings-back', [92, 367, 869, 289]],
@@ -14,6 +17,10 @@ export class Level {
     update(){
         
     }
+
+    
+        
+    
 
       drawFrame(ctx, frameKey, x, y){
      drawFrame(ctx, this.image, this.frames.get(frameKey), x, y);

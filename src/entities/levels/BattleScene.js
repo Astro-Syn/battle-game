@@ -17,6 +17,7 @@ export class BattleScene {
     
 
     constructor(){
+        
         this.stage = new Level();
 
          this.overlays = [

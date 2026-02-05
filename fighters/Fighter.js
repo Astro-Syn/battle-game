@@ -22,7 +22,7 @@ export class Fighter {
         this.animationFrame = 0;
         this.animationTimer = 0;
         this.animations = {};
-
+        this.attackStruck = false;
         this.image = new Image();
 
         this.opponent;
@@ -468,6 +468,8 @@ export class Fighter {
             const strength = this.states[this.currentState].attackStrength;
 
             gameState.characters[this.playerId].score += CharacterAttackBaseData[strength].score;
+
+            gameState.characters[this.opponent.playerId].hitPoints -= CharacterAttackBaseData[strength].damage;
 
             console.log(`${gameState.characters[this.playerId].id} has hit ${gameState.characters [this.opponent.playerId].id}'s ${hurtName[hurtIndex]}`);
         
