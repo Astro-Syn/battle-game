@@ -60,25 +60,25 @@ import { CharacterState, FrameDelay, PushBox, HurtBoxVexel } from "../src/consta
 
         ['crouch-1', [[[226, 372, spriteWidth, spriteHeight], [20, 55]], PushBox.CROUCH, HurtBoxVexel.CROUCH]],
 
-        ['lightMeele-1', [[[22, 455, 61, spriteHeight], [13, 70]], PushBox.IDLE, HurtBoxVexel.IDLE]],
-        ['lightMeele-2', [[[91, 455, spriteWidth, spriteHeight], [16, 70]], PushBox.IDLE, HurtBoxVexel.IDLE]],
+        ['lightMeele-1', [[[22, 455, 61, spriteHeight], [13, 70]], PushBox.IDLE, HurtBoxVexel.IDLE, [20, -50, 20, 18]]],
+        ['lightMeele-2', [[[91, 455, spriteWidth, spriteHeight], [16, 70]], PushBox.IDLE, HurtBoxVexel.IDLE, [20, -50, 20, 18]]],
 
-        ['medMeele-1', [[[91, 455, spriteWidth, spriteHeight], [16, 70]], PushBox.IDLE, HurtBoxVexel.IDLE]],
-        ['medMeele-2', [[[166, 455, 57, spriteHeight], [16, 70]], PushBox.IDLE, HurtBoxVexel.IDLE]],
+        ['medMeele-1', [[[91, 455, spriteWidth, spriteHeight], [16, 70]], PushBox.IDLE, HurtBoxVexel.IDLE, [20, -50, 20, 18]]],
+        ['medMeele-2', [[[166, 455, 57, spriteHeight], [16, 70]], PushBox.IDLE, HurtBoxVexel.IDLE, [20, -50, 20, 18]]],
 
          ['heavyMeele-1', [[[18, 544, spriteWidth, spriteHeight], [15, 70]], PushBox.IDLE, HurtBoxVexel.IDLE]],
         ['heavyMeele-2', [[[79, 544, spriteWidth, spriteHeight], [15, 70]], PushBox.IDLE, HurtBoxVexel.IDLE]],
-        ['heavyMeele-3', [[[153, 544, 67, spriteHeight], [15, 70]], PushBox.IDLE, HurtBoxVexel.PUNCHHEAVY, [11, -85, 50, 18]]],
+        ['heavyMeele-3', [[[153, 544, 67, spriteHeight], [15, 70]], PushBox.IDLE, HurtBoxVexel.PUNCHHEAVY, [20, -50, 20, 18]]],
 
-          ['lightKick-1', [[[15, 649, spriteWidth, spriteHeight], [13, 70]], PushBox.IDLE, HurtBoxVexel.KICK]],
-        ['lightKick-2', [[[81, 653, 61, spriteHeight], [16, 70]], PushBox.IDLE, HurtBoxVexel.KICK]],
+          ['lightKick-1', [[[15, 649, spriteWidth, spriteHeight], [13, 70]], PushBox.IDLE, HurtBoxVexel.KICK, [20, -50, 20, 18]]],
+        ['lightKick-2', [[[81, 653, 61, spriteHeight], [16, 70]], PushBox.IDLE, HurtBoxVexel.KICK, [20, -50, 20, 18]]],
 
-           ['medKick-1', [[[15, 649, spriteWidth, spriteHeight], [13, 70]], PushBox.IDLE, HurtBoxVexel.KICK]],
-        ['medKick-2', [[[81, 653, 61, spriteHeight], [16, 70]], PushBox.IDLE, HurtBoxVexel.KICK]],
+           ['medKick-1', [[[15, 649, spriteWidth, spriteHeight], [13, 70]], PushBox.IDLE, HurtBoxVexel.KICK, [20, -50, 20, 18]]],
+        ['medKick-2', [[[81, 653, 61, spriteHeight], [16, 70]], PushBox.IDLE, HurtBoxVexel.KICK, [20, -50, 20, 18]]],
 
-         ['heavyKick-1', [[[20, 741, spriteWidth, spriteHeight], [15, 70]], PushBox.IDLE, HurtBoxVexel.KICK]],
-        ['heavyKick-2', [[[87, 741, spriteWidth, spriteHeight], [15, 70]], PushBox.IDLE, HurtBoxVexel.KICK]],  
-        ['heavyKick-3', [[[166, 741, 62, spriteHeight], [15, 70]], PushBox.IDLE, HurtBoxVexel.KICK]],
+         ['heavyKick-1', [[[20, 741, spriteWidth, spriteHeight], [15, 70]], PushBox.IDLE, HurtBoxVexel.KICK, [20, -50, 20, 18]]],
+        ['heavyKick-2', [[[87, 741, spriteWidth, spriteHeight], [15, 70]], PushBox.IDLE, HurtBoxVexel.KICK, [20, -50, 20, 18]]],  
+        ['heavyKick-3', [[[166, 741, 62, spriteHeight], [15, 70]], PushBox.IDLE, HurtBoxVexel.KICK, [20, -50, 20, 18]]],
         ]);
 
           this.animations = {

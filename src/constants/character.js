@@ -6,6 +6,11 @@ export const characterDirection = {
     RIGHT: 1,
 }
 
+export const CharacterAttackType = {
+    PUNCH: 'punch',
+    KICK: 'kick',
+}
+
 export const CharacterState = {
     IDLE: 'idle',
     RUN_FORWARD: 'runForward',

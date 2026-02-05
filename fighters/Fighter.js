@@ -1,8 +1,9 @@
-import { CHARACTER_START_DISTANCE, characterDirection, CharacterState } from "../src/constants/character.js";
+import { CHARACTER_START_DISTANCE, characterDirection, CharacterState, CharacterAttackType } from "../src/constants/character.js";
 import { Ctrl } from "../src/constants/ctrl.js";
 import { BATTLE_FLOOR, BATTLE_MID_POINT, BATTLE_PADDING } from "../src/constants/stage.js";
 import * as ctrl from "../src/InputHandler.js";
-import { rectsOverlap } from "../src/utils/collisions.js";
+import { getActualBoxDimensions, rectsOverlap } from "../src/utils/collisions.js";
+
 
 export class Fighter {
     constructor(name, playerId){
@@ -101,31 +102,37 @@ export class Fighter {
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD],
             }, 
             [CharacterState.LIGHT_MEELE]: {
+                attackType: CharacterAttackType.PUNCH,
                 init: this.handleLightMeeleInit.bind(this),
                 update: this.handleLightMeeleState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
             },
              [CharacterState.MED_MEELE]: {
+                attackType: CharacterAttackType.PUNCH,
                 init: this.handleMedMeeleInit.bind(this),
                 update: this.handleMedMeeleState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
             },
              [CharacterState.HEAVY_MEELE]: {
+                attackType: CharacterAttackType.PUNCH,
                 init: this.handleHeavyMeeleInit.bind(this),
                 update: this.handleMedMeeleState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
             },
             [CharacterState.LIGHT_KICK]: {
+                attackType: CharacterAttackType.KICK,
                 init: this.handleLightMeeleInit.bind(this),
                 update: this.handleLightKickState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
             },
              [CharacterState.MED_KICK]: {
+                attackType: CharacterAttackType.KICK,
                 init: this.handleMedMeeleInit.bind(this),
                 update: this.handleMedMeeleState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
             },
              [CharacterState.HEAVY_KICK]: {
+                attackType: CharacterAttackType.KICK,
                 init: this.handleHeavyMeeleInit.bind(this),
                 update: this.handleMedKickState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
@@ -392,6 +399,21 @@ export class Fighter {
 
     }
 
+    updateAttackBoxCollided(time){
+        if(!this.states[this.currentState].attackType) return;
+
+        const actualHitBox = getActualBoxDimensions(this.position, this.direction, this.boxes.hit);
+
+        for (const hurt of this.opponent.boxes.hurt){
+            const [x, y, width, height] = hurt;
+            const actualOpponentHurtBox = getActualBoxDimensions(
+                this.opponent.position,
+                this.opponent.direction,
+                {x, y, width, height}
+            )
+        }
+    }
+
     update(time, ctx, camera) {
          
     this.position.x += (this.velocity.x * this.direction) * time.secondsPassed;
@@ -406,6 +428,7 @@ export class Fighter {
     this.states[this.currentState].update(time, ctx);
     this.updateAnimation(time);
     this.updateStageConstraints(time, ctx, camera);
+    this.updateAttackBoxCollided(time)
     }
 
     drawDebugBox(ctx, camera, dimensions, baseCol){
