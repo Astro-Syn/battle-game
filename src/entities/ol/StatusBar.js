@@ -158,9 +158,9 @@ export class StatusBar {
         this.drawFrame(ctx, 'player-2-score', 250, 2);
         
 
-        this.drawScore(ctx, 1, 45);
+        this.drawScore(ctx, gameState.characters[0].score, 45);
         this.drawScore(ctx, 60000, 177);
-        this.drawScore(ctx, 1, 309);
+        this.drawScore(ctx, gameState.characters[1].score, 309);
     }
 
     draw(ctx) {

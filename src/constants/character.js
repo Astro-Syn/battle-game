@@ -16,6 +16,28 @@ export const CharacterAttackType = {
     KICK: 'kick',
 }
 
+export const CharacterAttackStrength = {
+    LIGHT: 'light',
+    MEDIUM: 'medium',
+    HEAVY: 'heavy',
+}
+
+export const CharacterAttackBaseData = {
+    [CharacterAttackStrength.LIGHT]: {
+        score: 100,
+        damage: 12,
+    },
+      [CharacterAttackStrength.MEDIUM]: {
+        score: 300,
+        damage: 20,
+    },
+      [CharacterAttackStrength.HEAVY]: {
+        score: 500, 
+        damage: 25,
+    },
+
+}
+
 export const CharacterState = {
     IDLE: 'idle',
     RUN_FORWARD: 'runForward',
