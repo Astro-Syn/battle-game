@@ -1,7 +1,8 @@
-import { CHARACTER_START_DISTANCE, characterDirection, CharacterState, CharacterAttackType } from "../src/constants/character.js";
+import { CHARACTER_START_DISTANCE, characterDirection, CharacterState, CharacterAttackType, CharacterAttackStrength, CharacterAttackBaseData } from "../src/constants/character.js";
 import { Ctrl } from "../src/constants/ctrl.js";
 import { BATTLE_FLOOR, BATTLE_MID_POINT, BATTLE_PADDING } from "../src/constants/stage.js";
 import * as ctrl from "../src/InputHandler.js";
+import { gameState } from "../src/state/gameState.js";
 import { boxOverlap, getActualBoxDimensions, rectsOverlap } from "../src/utils/collisions.js";
 
 
@@ -103,36 +104,42 @@ export class Fighter {
             }, 
             [CharacterState.LIGHT_MEELE]: {
                 attackType: CharacterAttackType.PUNCH,
+                attackStrength: CharacterAttackStrength.LIGHT,
                 init: this.handleLightMeeleInit.bind(this),
                 update: this.handleLightMeeleState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
             },
              [CharacterState.MED_MEELE]: {
                 attackType: CharacterAttackType.PUNCH,
+                 attackStrength: CharacterAttackStrength.MEDIUM,
                 init: this.handleMedMeeleInit.bind(this),
                 update: this.handleMedMeeleState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
             },
              [CharacterState.HEAVY_MEELE]: {
                 attackType: CharacterAttackType.PUNCH,
+                 attackStrength: CharacterAttackStrength.HEAVY,
                 init: this.handleHeavyMeeleInit.bind(this),
                 update: this.handleMedMeeleState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
             },
             [CharacterState.LIGHT_KICK]: {
                 attackType: CharacterAttackType.KICK,
+                 attackStrength: CharacterAttackStrength.LIGHT,
                 init: this.handleLightMeeleInit.bind(this),
                 update: this.handleLightKickState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
             },
              [CharacterState.MED_KICK]: {
                 attackType: CharacterAttackType.KICK,
+                 attackStrength: CharacterAttackStrength.MEDIUM,
                 init: this.handleMedMeeleInit.bind(this),
                 update: this.handleMedMeeleState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
             },
              [CharacterState.HEAVY_KICK]: {
                 attackType: CharacterAttackType.KICK,
+                 attackStrength: CharacterAttackStrength.HEAVY,
                 init: this.handleHeavyMeeleInit.bind(this),
                 update: this.handleMedKickState.bind(this),
                 validFrom: [CharacterState.IDLE, CharacterState.RUN_FORWARD, CharacterState.RUN_BACKWARD]
@@ -458,6 +465,9 @@ export class Fighter {
 
             const hurtIndex = this.opponent.boxes.hurt.indexOf(hurt);
             const hurtName = ['head', 'body', 'legs'];
+            const strength = this.states[this.currentState].attackStrength;
+
+            gameState.characters[this.playerId].score += CharacterAttackBaseData[strength].score;
 
             console.log(`${gameState.characters[this.playerId].id} has hit ${gameState.characters [this.opponent.playerId].id}'s ${hurtName[hurtIndex]}`);
         
