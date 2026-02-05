@@ -6,6 +6,11 @@ export const characterDirection = {
     RIGHT: 1,
 }
 
+export const CharacterId = {
+    SPORK: 'Spork',
+    VEXEL: 'Vexel',
+}
+
 export const CharacterAttackType = {
     PUNCH: 'punch',
     KICK: 'kick',

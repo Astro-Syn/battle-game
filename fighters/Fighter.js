@@ -2,7 +2,7 @@ import { CHARACTER_START_DISTANCE, characterDirection, CharacterState, Character
 import { Ctrl } from "../src/constants/ctrl.js";
 import { BATTLE_FLOOR, BATTLE_MID_POINT, BATTLE_PADDING } from "../src/constants/stage.js";
 import * as ctrl from "../src/InputHandler.js";
-import { getActualBoxDimensions, rectsOverlap } from "../src/utils/collisions.js";
+import { boxOverlap, getActualBoxDimensions, rectsOverlap } from "../src/utils/collisions.js";
 
 
 export class Fighter {
@@ -156,8 +156,7 @@ export class Fighter {
     );
 
     resetVelocities(){
-        this.velocity.x = 0;
-        this.velocity.y = 0;
+       this.velocity = {x: 0, y: 0};
     }
 
 
@@ -188,7 +187,10 @@ export class Fighter {
     }
 
     changeState(newState){ 
-        if(newState === this.currentState || !this.states[newState].validFrom.includes(this.currentState)) return;
+        if(newState === this.currentState || !this.states[newState].validFrom.includes(this.currentState)){
+            console.warn(`Warning. ${this.currentState} to ${newState}`);
+            return;
+        } 
         this.currentState = newState;
         this.animationFrame = 0;
         this.states[this.currentState].init();
@@ -271,12 +273,53 @@ export class Fighter {
         if(!ctrl.isForward(this.playerId, this.direction)) this.changeState(CharacterState.IDLE);
         if(ctrl.isUp(this.playerId)) this.changeState(CharacterState.JUMP_START);
         if(ctrl.isDown(this.playerId)) this.changeState(CharacterState.CROUCH_DOWN);
+
+        if (ctrl.isLightPunch(this.playerId)){
+        this.changeState(CharacterState.LIGHT_MEELE);
+    }
+      else if (ctrl.isMedMeele(this.playerId)){
+        this.changeState(CharacterState.MED_MEELE);
+    }
+      else if (ctrl.isHeavyMeele(this.playerId)){
+        this.changeState(CharacterState.HEAVY_MEELE);
+    }
+     else if (ctrl.isLightKick(this.playerId)){
+        this.changeState(CharacterState.LIGHT_KICK);
+    }
+      else if (ctrl.isMedKick(this.playerId)){
+        this.changeState(CharacterState.MED_KICK);
+    }
+      else if (ctrl.isHeavyKick(this.playerId)){
+        this.changeState(CharacterState.HEAVY_KICK);
+    }
+
+    this.direction = this.getDirection();
     }
 
     handleRunBackwardState(){
         if(!ctrl.isBackward(this.playerId, this.direction)) this.changeState(CharacterState.IDLE);
          if(ctrl.isUp(this.playerId)) this.changeState(CharacterState.JUMP_START);
          if(ctrl.isDown(this.playerId)) this.changeState(CharacterState.CROUCH_DOWN);
+
+         if (ctrl.isLightPunch(this.playerId)){
+        this.changeState(CharacterState.LIGHT_MEELE);
+    }
+      else if (ctrl.isMedMeele(this.playerId)){
+        this.changeState(CharacterState.MED_MEELE);
+    }
+      else if (ctrl.isHeavyMeele(this.playerId)){
+        this.changeState(CharacterState.HEAVY_MEELE);
+    }
+     else if (ctrl.isLightKick(this.playerId)){
+        this.changeState(CharacterState.LIGHT_KICK);
+    }
+      else if (ctrl.isMedKick(this.playerId)){
+        this.changeState(CharacterState.MED_KICK);
+    }
+      else if (ctrl.isHeavyKick(this.playerId)){
+        this.changeState(CharacterState.HEAVY_KICK);
+    }
+    this.direction = this.getDirection();
     }
 
     handleCrouchDownState(){
@@ -341,7 +384,6 @@ export class Fighter {
     }
 
 
-   
 
 
     updateStageConstraints(time, ctx, camera){
@@ -410,7 +452,15 @@ export class Fighter {
                 this.opponent.position,
                 this.opponent.direction,
                 {x, y, width, height}
-            )
+            );
+
+            if(!boxOverlap(actualHitBox, actualOpponentHurtBox)) return;
+
+            const hurtIndex = this.opponent.boxes.hurt.indexOf(hurt);
+            const hurtName = ['head', 'body', 'legs'];
+
+            console.log(`${this.name} has hit ${this.opponent.name}'s ${hurtName[hurtIndex]}`);
+        
         }
     }
 

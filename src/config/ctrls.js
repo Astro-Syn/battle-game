@@ -1,0 +1,71 @@
+import { GamepadThumbStick, Ctrl } from "../constants/ctrl.js"
+
+export const ctrls = [
+    {
+
+         gamePad: {
+
+            [GamepadThumbStick.DEADZONE]: 0.5,
+            [GamepadThumbStick.HORIZONTAL_AXE_ID]: 0,
+            [GamepadThumbStick. VERTICAL_AXE_ID]: 1,
+
+            [Ctrl.LEFT]: 14,
+            [Ctrl.RIGHT]: 15,
+            [Ctrl.UP]: 12,
+            [Ctrl.DOWN]: 13,
+            [Ctrl.LIGHT_MEELE]: 2,
+            [Ctrl.MED_MEELE]: 3,
+            [Ctrl.HEAVY_MEELE]: 5,
+            [Ctrl.LIGHT_KICK]: 0, 
+            [Ctrl.MED_KICK]: 1,
+            [Ctrl.HEAVY_KICK]: 4,
+
+        },
+
+        keyboard: {
+            [Ctrl.LEFT]: 'ArrowLeft',
+            [Ctrl.RIGHT]: 'ArrowRight',
+            [Ctrl.UP]: 'ArrowUp',
+            [Ctrl.DOWN]: 'ArrowDown',
+            [Ctrl.LIGHT_MEELE]: 'ControlLeft',
+             [Ctrl.MED_MEELE]: 'AltLeft',
+            [Ctrl.HEAVY_MEELE]: 'Space',
+            [Ctrl.LIGHT_KICK]: 'ShiftLeft', 
+            [Ctrl.MED_KICK]: 'KeyO',
+            [Ctrl.HEAVY_KICK]: 'KeyP',
+        },
+        },
+        {
+         gamePad: {
+
+            [GamepadThumbStick.DEADZONE]: 0.5,
+            [GamepadThumbStick.HORIZONTAL_AXE_ID]: 0,
+            [GamepadThumbStick. VERTICAL_AXE_ID]: 1,
+
+            
+            [Ctrl.LEFT]: 14,
+            [Ctrl.RIGHT]: 15,
+            [Ctrl.UP]: 12,
+            [Ctrl.DOWN]: 13,
+             [Ctrl.LIGHT_MEELE]: 2,
+            [Ctrl.MED_MEELE]: 3,
+            [Ctrl.HEAVY_MEELE]: 5,
+            [Ctrl.LIGHT_KICK]: 0, 
+            [Ctrl.MED_KICK]: 1,
+            [Ctrl.HEAVY_KICK]: 4,
+        },
+    
+          keyboard: {
+            [Ctrl.LEFT]: 'KeyA',
+            [Ctrl.RIGHT]: 'KeyD',
+            [Ctrl.UP]: 'KeyW',
+            [Ctrl.DOWN]: 'KeyS',
+            [Ctrl.LIGHT_MEELE]: 'KeyQ',
+             [Ctrl.MED_MEELE]: 'KeyV',
+            [Ctrl.HEAVY_MEELE]: 'KeyE',
+            [Ctrl.LIGHT_KICK]: 'KeyF', 
+            [Ctrl.MED_KICK]: 'KeyR',
+            [Ctrl.HEAVY_KICK]: 'KeyT',
+        },
+    },
+]

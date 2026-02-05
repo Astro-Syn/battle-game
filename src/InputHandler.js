@@ -1,6 +1,8 @@
+import { ctrls } from "./config/ctrls.js";
+import { GamepadThumbStick, Ctrl } from "./constants/ctrl.js";
 import { characterDirection } from "./constants/character.js";
-import { Ctrl, ctrls } from "./constants/ctrl.js";
-import { GamepadThumbStick } from "./constants/ctrl.js";
+
+
 
 const heldKeys = new Set();
 const gamePads = new Map();

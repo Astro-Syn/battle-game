@@ -1,4 +1,4 @@
-import { drawFrame } from "../utils/ctx.js";
+import { drawFrame } from "../../utils/ctx.js";
 
 export class Level {
     constructor() {
