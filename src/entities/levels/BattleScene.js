@@ -6,6 +6,8 @@ import { Shadow } from "../../../fighters/Shadow.js";
 import { StatusBar } from "../ol/StatusBar.js";
 import {FpsCounter} from "../FpsCounter.js";
 import { BATTLE_MID_POINT, BATTLE_PADDING } from "../../constants/stage.js";
+import { gameState } from "../../state/gameState.js";
+import { CharacterId } from "../../constants/character.js";
 
 export class BattleScene {
     characters = [];
@@ -27,8 +29,24 @@ export class BattleScene {
             this.shadows = this.characters.map(charater => new Shadow(charater));
     }
 
+    getCharacterEntityClass(id){
+        switch (id) {
+            case CharacterId.SPORK:
+                return Spork;
+            case CharacterId.VEXEL:
+                return Vexel;
+            default:
+                throw new Error('Character request cannot be made')
+        }
+    }
+
+    getCharacterEntity(characterState, index){
+        const CharacterEntityClass = this.getCharacterEntityClass(characterState.id);
+        return new CharacterEntityClass(index);
+    }
+
     getCharacterEntities(){
-        const characterEntities = [new Spork(0), new Vexel(1)];
+        const characterEntities = gameState.characters.map(this.getCharacterEntity.bind(this));
 
     characterEntities[0].opponent = characterEntities[1];
     characterEntities[1].opponent = characterEntities[0];

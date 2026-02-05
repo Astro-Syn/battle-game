@@ -1,4 +1,4 @@
-import { TIME_DELAY, TIME_FRAME_KEYS, TIME_RED_DELAY } from "../../constants/battle.js";
+import { HEALTH_DAMAGE_COLOR, HEALTH_MAX_HIT_POINTS, TIME_DELAY, TIME_FRAME_KEYS, TIME_RED_DELAY } from "../../constants/battle.js";
 import { gameState } from "../../state/gameState.js";
 import { drawFrame } from "../../utils/ctx.js";
 
@@ -12,6 +12,14 @@ export class StatusBar {
         this.timeTimer = 0;
         this.timeRedTimer = 0;
         this.useRedFrames = false;
+
+        this.healthBars = [{
+            timer: 0,
+            hitPoints: HEALTH_MAX_HIT_POINTS,
+        }, {
+            timer: 0,
+            hitPoints: HEALTH_MAX_HIT_POINTS,
+        }];
         
 
         this.frames = new Map([
@@ -71,6 +79,8 @@ export class StatusBar {
      drawFrame(ctx, this.image, this.frames.get(frameKey), x, y, direction);
     }
 
+
+
     updateTime(time){
         if(time.previous > this.timeTimer + TIME_DELAY){
             this.time -= 1;
@@ -83,13 +93,34 @@ export class StatusBar {
         }
     }
 
+
+    updateHealthBars(time){
+        for (const index in this.healthBars){
+            if (this.healthBars[index].hitPoints <= gameState.characters[index].hitPoints) continue;
+            this.healthBars[index].hitPoints = Math.max(0, this.healthBars[index].hitPoints - (time.secondsPassed * 60))
+        }
+    }
+
     update(time) {
         this.updateTime(time);
+        this.updateHealthBars(time);
     }
 
     healthBarDisplay(ctx){
          this.drawFrame(ctx, 'health-bar-1', 250, 20);
         this.drawFrame(ctx, 'health-bar-2', 50, 20);
+
+        ctx.fillStyle = HEALTH_DAMAGE_COLOR;
+        ctx.beginPath();
+        ctx.fillRect(
+            32, 21,
+            HEALTH_MAX_HIT_POINTS - Math.floor(this.healthBars[0].hitPoints), 9,
+        );
+
+        ctx.fillRect(
+            208 + Math.floor(this.healthBars[1].hitPoints), 21,
+            HEALTH_MAX_HIT_POINTS - Math.floor(this.healthBars[1].hitPoints), 9
+        )
     }
 
     
