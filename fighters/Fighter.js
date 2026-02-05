@@ -6,8 +6,8 @@ import { boxOverlap, getActualBoxDimensions, rectsOverlap } from "../src/utils/c
 
 
 export class Fighter {
-    constructor(name, playerId){
-        this.name = name;        
+    constructor(playerId){
+               
         this.playerId = playerId;
         this.position = {
             x: BATTLE_MID_POINT + BATTLE_PADDING + (playerId === 0 ? -CHARACTER_START_DISTANCE : CHARACTER_START_DISTANCE), 
@@ -459,7 +459,7 @@ export class Fighter {
             const hurtIndex = this.opponent.boxes.hurt.indexOf(hurt);
             const hurtName = ['head', 'body', 'legs'];
 
-            console.log(`${this.name} has hit ${this.opponent.name}'s ${hurtName[hurtIndex]}`);
+            console.log(`${gameState.characters[this.playerId].id} has hit ${gameState.characters [this.opponent.playerId].id}'s ${hurtName[hurtIndex]}`);
         
         }
     }

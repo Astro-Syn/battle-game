@@ -3,7 +3,7 @@ import { CharacterState, FrameDelay, PushBox, HurtBoxVexel } from "../src/consta
 
  export class Vexel extends Fighter {
     constructor(playerId){
-        super('Vexel', playerId);
+        super(playerId);
         this.image = document.querySelector('img[alt="vexel"]');
 
         

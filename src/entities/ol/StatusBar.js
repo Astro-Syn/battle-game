@@ -1,17 +1,18 @@
 import { TIME_DELAY, TIME_FRAME_KEYS, TIME_RED_DELAY } from "../../constants/battle.js";
+import { gameState } from "../../state/gameState.js";
 import { drawFrame } from "../../utils/ctx.js";
 
 
 
 export class StatusBar {
-    constructor(characters){
+    constructor(){
         this.image = document.querySelector('img[alt="randol"]');
 
         this.time = 99;
         this.timeTimer = 0;
         this.timeRedTimer = 0;
         this.useRedFrames = false;
-        this.characters = characters;
+        
 
         this.frames = new Map([
             ['health-bar-1', [6, 6, 150, 15]],
@@ -22,8 +23,6 @@ export class StatusBar {
             ['player-2-score', [48, 119, 33, 16]],
 
            
-
-
             [`${TIME_FRAME_KEYS[0]}-1`, [3, 66, 14, 16]],
             [`${TIME_FRAME_KEYS[0]}-2`, [14, 66, 14, 16]],
             [`${TIME_FRAME_KEYS[0]}-3`, [28, 66, 14, 16]],
@@ -59,6 +58,10 @@ export class StatusBar {
         
 
         ]);        
+
+        this.names = gameState.characters.map(({id}) => `tag-${id.toLowerCase()}`);
+
+
     }
 
     

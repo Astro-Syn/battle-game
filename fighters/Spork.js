@@ -4,7 +4,7 @@ import { CharacterState, FrameDelay, PushBox, HurtBoxSpork } from "../src/consta
 
  export class Spork extends Fighter {
     constructor(playerId){
-        super('Spork', playerId);
+        super(playerId);
         this.image = document.querySelector('img[alt="spork"]');
 
         const spriteWidth = 50;
