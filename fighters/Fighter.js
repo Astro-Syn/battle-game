@@ -1,5 +1,4 @@
 import { CHARACTER_START_DISTANCE, characterDirection, CharacterState, CharacterAttackType, CharacterAttackStrength, CharacterAttackBaseData } from "../src/constants/character.js";
-import { Ctrl } from "../src/constants/ctrl.js";
 import { BATTLE_FLOOR, BATTLE_MID_POINT, BATTLE_PADDING } from "../src/constants/stage.js";
 import * as ctrl from "../src/InputHandler.js";
 import { gameState } from "../src/state/gameState.js";
@@ -212,7 +211,6 @@ export class Fighter {
         this.velocity.x = this.initialVelocity.x[this.currentState] ?? 0;
     }
 
-  
     handleJumpInit() {
         this.velocity.y = this.initialVelocity.jump;
         this.handleMoveInit();
@@ -355,7 +353,6 @@ export class Fighter {
 
     handleJumpState(time) {
         this.velocity.y += this.gravity * time.secondsPassed;
-        
         if (this.position.y > BATTLE_FLOOR){
             this.position.y = BATTLE_FLOOR;
             this.changeState(CharacterState.IDLE);
@@ -389,8 +386,6 @@ export class Fighter {
         if(!this.isAnimationCompleted()) return;
         this.changeState(CharacterState.IDLE);
     }
-
-
 
 
     updateStageConstraints(time, ctx, camera){
@@ -486,7 +481,6 @@ export class Fighter {
     }
 
     
-
     this.states[this.currentState].update(time, ctx);
     this.updateAnimation(time);
     this.updateStageConstraints(time, ctx, camera);
@@ -524,20 +518,20 @@ export class Fighter {
         const boxes = this.getBoxes(frameKey);
 
         
-        this.drawDebugBox(ctx, camera, Object.values(boxes.push), '#FFFFFF');
+        this.drawDebugBox(ctx, camera, Object.values(boxes.push), '#ffffff00');
 
         //hurt boxes 
 
         for (const hurtbox of boxes.hurt) {
-            this.drawDebugBox(ctx, camera, hurtbox, '#C0FF00');
+            this.drawDebugBox(ctx, camera, hurtbox, '#bfff0000');
         }
 
         //Hit boxes
-         this.drawDebugBox(ctx, camera, Object.values(boxes.hit), '#FF0000');
+         this.drawDebugBox(ctx, camera, Object.values(boxes.hit), '#ff000000');
 
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.strokeStyle = 'lime';
+        ctx.strokeStyle = '#ff000000';
         ctx.moveTo(Math.floor(this.position.x - camera.position.x) - 4, Math.floor(this.position.y - camera.position.y) - 0.5);
         ctx.lineTo(Math.floor(this.position.x - camera.position.x) + 5, Math.floor(this.position.y - camera.position.y) - 0.5);
         ctx.moveTo(Math.floor(this.position.x - camera.position.x), + 0.5, Math.floor(this.position.y - camera.position.y) - 5);

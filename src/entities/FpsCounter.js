@@ -8,10 +8,10 @@ export class FpsCounter {
     }
 
     draw(ctx){
-        ctx.font = "bold 16px monospace";
-        ctx.fillStyle = "lime";
-        ctx.textAlign = "center";
-        ctx.fillText(`FPS: ${this.fps}`, ctx.canvas.width / 2, 30);
+        //ctx.font = "bold 16px monospace";
+        //ctx.fillStyle = "lime";
+        //ctx.textAlign = "center";
+        //ctx.fillText(`FPS: ${this.fps}`, ctx.canvas.width / 2, 30);
 
     }
 }
