@@ -96,7 +96,7 @@ import { CharacterState, FrameDelay, PushBox, HurtBoxSpork } from "../src/consta
             [CharacterState.RUN_BACKWARD]: [['backwards-1', 75],  ['backwards-2', 75], ['backwards-3', 75], ['backwards-4', 75], ['backwards-5', 75], ['backwards-6', 75], ['backwards-7', 75], ['backwards-8', 75]],
 
             [CharacterState.JUMP_START]: [
-               ['jumpFinish', 50], ['jumpFinish', 50], ['jumpFinish', 50], ['jumpFinish', 50], ['jumpFinish', 50], ['jumpFinish', 50], ['jumpFinish', 50], ['jumpFinish', FrameDelay.TRANSITION], 
+               ['jumpFinish', 50], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2], ['jumpFinish', -2],['jumpFinish', -2], ['jumpFinish', -2],['jumpFinish', -2],
             ],
 
             [CharacterState.JUMP_UP]: [
