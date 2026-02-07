@@ -125,8 +125,8 @@ export class StatusBar {
 
     
     nameDisplay(ctx){
-        this.drawFrame(ctx, 'spork-name', 250, 35);
-        this.drawFrame(ctx, 'vexel-name', 50, 35);
+        this.drawFrame(ctx, 'vexel-name', 250, 35);
+        this.drawFrame(ctx, 'spork-name', 50, 35);
     }
 
     timeDisplay(ctx){
