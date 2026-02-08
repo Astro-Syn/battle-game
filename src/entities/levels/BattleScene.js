@@ -1,8 +1,8 @@
 import { Level } from "./Level.js";
-import { Spork } from "../../../fighters/Spork.js";
-import { Vexel } from "../../../fighters/Vexel.js";
+import { Spork } from '../../fighters/Spork.js';
+import { Vexel } from "../../fighters/Vexel.js";
 import { Camera } from "../../Camera.js";
-import { Shadow } from "../../../fighters/Shadow.js";
+import { Shadow } from "../../fighters/Shadow.js";
 import { StatusBar } from "../ol/StatusBar.js";
 import {FpsCounter} from "../FpsCounter.js";
 import { BATTLE_MID_POINT, BATTLE_PADDING } from "../../constants/stage.js";

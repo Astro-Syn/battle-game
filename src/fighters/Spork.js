@@ -1,5 +1,5 @@
-import { Fighter } from "./Fighter.js";
-import { CharacterState, FrameDelay, PushBox, HurtBoxSpork } from "../src/constants/character.js";
+import { Fighter } from "../fighters/Fighter.js";
+import { CharacterState, FrameDelay, PushBox, HurtBoxSpork } from "../constants/character.js";
 
 
  export class Spork extends Fighter {

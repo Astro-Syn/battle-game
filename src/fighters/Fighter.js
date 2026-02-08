@@ -1,8 +1,8 @@
-import { CHARACTER_START_DISTANCE, characterDirection, CharacterState, CharacterAttackType, CharacterAttackStrength, CharacterAttackBaseData } from "../src/constants/character.js";
-import { BATTLE_FLOOR, BATTLE_MID_POINT, BATTLE_PADDING } from "../src/constants/stage.js";
-import * as ctrl from "../src/InputHandler.js";
-import { gameState } from "../src/state/gameState.js";
-import { boxOverlap, getActualBoxDimensions, rectsOverlap } from "../src/utils/collisions.js";
+import { CHARACTER_START_DISTANCE, characterDirection, CharacterState, CharacterAttackType, CharacterAttackStrength, CharacterAttackBaseData } from "../constants/character.js";
+import { BATTLE_FLOOR, BATTLE_MID_POINT, BATTLE_PADDING } from "../constants/stage.js";
+import * as ctrl from "../InputHandler.js";
+import { gameState } from "../state/gameState.js";
+import { boxOverlap, getActualBoxDimensions, rectsOverlap } from "../utils/collisions.js";
 
 
 export class Fighter {

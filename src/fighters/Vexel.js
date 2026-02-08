@@ -1,5 +1,5 @@
-import { Fighter } from "./Fighter.js";
-import { CharacterState, FrameDelay, PushBox, HurtBoxVexel } from "../src/constants/character.js";
+import { Fighter } from "../fighters/Fighter.js";
+import { CharacterState, FrameDelay, PushBox, HurtBoxVexel } from "../constants/character.js";
 
  export class Vexel extends Fighter {
     constructor(playerId){

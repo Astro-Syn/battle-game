@@ -1,4 +1,4 @@
-import { BATTLE_FLOOR } from "../src/constants/stage.js";
+import { BATTLE_FLOOR } from "../constants/stage.js";
 
 export class Shadow {
     constructor(character){
