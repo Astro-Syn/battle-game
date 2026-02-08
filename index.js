@@ -1,4 +1,4 @@
-import { BattleGame } from "./BattleGame.js";
+import { BattleGame } from "./src/BattleGame.js";
 
 
 
