@@ -1,11 +1,19 @@
 import { drawFrame } from "../../utils/ctx.js";
 
+const audio = new Audio('./sounds/Track1mp3.mp3');
+
+document.addEventListener('click', () => {
+    audio.play();
+});
+
+audio.volume = 0.5;
+
 export class Level {
-    music = document.querySelector('audio#track-1');
+   
     constructor() {
         this.image = document.querySelector('img[alt="bg"]');
         
-        this.music.play();
+        
         this.frames = new Map([
             ['level-bg', [70, 30, 508, 200]],
             ['level-buildings-back', [92, 367, 869, 289]],
