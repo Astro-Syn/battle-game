@@ -159,7 +159,7 @@ export class StatusBar {
         
 
         this.drawScore(ctx, gameState.characters[0].score, 45);
-        this.drawScore(ctx, 60000, 177);
+        this.drawScore(ctx, 0, 177);
         this.drawScore(ctx, gameState.characters[1].score, 309);
     }
 
