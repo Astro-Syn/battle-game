@@ -1,60 +1,50 @@
 
 import { pollGamepads, registerKeyEvents, regGamepadEvents } from "./InputHandler.js";
-
 import { getContext } from "./utils/ctx.js";
+import { StartScreen } from "./entities/levels/StartScreen.js";
 import { BattleScene } from "./entities/levels/BattleScene.js";
 
 
 export class BattleGame {
     ctx = getContext();
-    
+
     frameTime = {
         previous: 0,
         secondsPassed: 0,
     };
-    constructor(){
-    this.level = new BattleScene();
 
+    constructor() {
+     
+        this.setScene(
+            new StartScreen(() => {
+                this.setScene(new BattleScene());
+            })
+        );
     }
 
-   
-
-
-update(){
-    this.camera.update(this.frameTime, this.ctx);
-     for (const entity of this.entities){
-        entity.update(this.frameTime, this.ctx, this.camera);
+    setScene(scene) {
+        this.scene = scene;
     }
-}
 
-draw(){
-    
-     for (const entity of this.entities){
-        entity.draw(this.ctx, this.camera);
-    }
-}
-
- frame(time) {
+    frame(time) {
         window.requestAnimationFrame(this.frame.bind(this));
 
-    this.frameTime = {
-        secondsPassed: (time - this.frameTime.previous) / 1000,
-        previous:  time
-        }
+        this.frameTime = {
+            secondsPassed: (time - this.frameTime.previous) / 1000,
+            previous: time,
+        };
+
         pollGamepads();
-        this.level.update(this.frameTime, this.ctx);
-        this.level.draw(this.ctx);
+
+        this.scene.update(this.frameTime, this.ctx);
+        this.scene.draw(this.ctx);
     }
 
-
-
-    start(){
-       registerKeyEvents();
+    start() {
+        registerKeyEvents();
         regGamepadEvents();
-
-    window.requestAnimationFrame(this.frame.bind(this));
+        window.requestAnimationFrame(this.frame.bind(this));
     }
-      
 }
 
 

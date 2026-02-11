@@ -1,16 +1,19 @@
 import { drawFrame } from "../../utils/ctx.js";
 
-const audio = new Audio('./sounds/Track1mp3.mp3');
 
-document.addEventListener('click', () => {
-    audio.play();
-});
-
-audio.volume = 0.5;
 
 export class Level {
+
+    
    
     constructor() {
+                const audio = new Audio('./sounds/Track1mp3.mp3');
+
+                document.addEventListener('click', () => {
+                audio.play();
+                    });
+
+audio.volume = 0.5;
         this.image = document.querySelector('img[alt="bg"]');
         
         
@@ -21,6 +24,7 @@ export class Level {
             ['level-buildings-front', [88, 686, 1015, 85]],
         ]);
     }
+    
 
     update(){
         
