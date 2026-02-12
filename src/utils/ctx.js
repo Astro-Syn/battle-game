@@ -8,13 +8,25 @@
 
 
 
-export function drawFrame(ctx, image, dimensions, x, y, direction = 1){
-            const [srcX, srcY, srcWidth, srcHeight] = dimensions;
-    
-            ctx.scale(direction, 1);
-            ctx.drawImage(
-                image, 
-                srcX, srcY, srcWidth, srcHeight, x * direction, y, srcWidth, srcHeight,
-            )
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-        }
+export function drawFrame(ctx, image, dimensions, x, y, direction = 1, scaleX = 1, scaleY = 1) {
+    const [srcX, srcY, srcWidth, srcHeight] = dimensions;
+
+    ctx.save(); 
+
+    ctx.translate(x, y); 
+    ctx.scale(direction * scaleX, scaleY); 
+    ctx.drawImage(
+        image,
+        srcX,
+        srcY,
+        srcWidth,
+        srcHeight,
+        0, 
+        0,
+        srcWidth,
+        srcHeight
+    );
+
+    ctx.restore(); 
+}
+

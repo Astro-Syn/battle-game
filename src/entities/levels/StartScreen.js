@@ -60,9 +60,11 @@ export class StartScreen {
                 ctx,
                 this.title,
                 this.frames.get('matrix-strife'),
-                ctx.canvas.width / 0.5 - 100,
+                ctx.canvas.width / 2 - 110,
                 30,
-                0.5,
+                0.6,
+                1,
+                1
                 
             );
         }
