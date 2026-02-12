@@ -1,9 +1,8 @@
-
 import { pollGamepads, registerKeyEvents, regGamepadEvents } from "./InputHandler.js";
 import { getContext } from "./utils/ctx.js";
 import { StartScreen } from "./entities/levels/StartScreen.js";
 import { BattleScene } from "./entities/levels/BattleScene.js";
-
+import { playMusic} from "./utils/AudioManager.js";
 
 export class BattleGame {
     ctx = getContext();
@@ -14,7 +13,14 @@ export class BattleGame {
     };
 
     constructor() {
-     
+        const firstUserGesture = () => {
+            playMusic('./sounds/MS-opening.mp3');
+            window.removeEventListener('click', firstUserGesture);
+            window.removeEventListener('keydown', firstUserGesture);
+        };
+        window.addEventListener('click', firstUserGesture);
+        window.addEventListener('keydown', firstUserGesture);
+
         this.setScene(
             new StartScreen(() => {
                 this.setScene(new BattleScene());
@@ -23,7 +29,15 @@ export class BattleGame {
     }
 
     setScene(scene) {
+        if (this.scene && this.scene.destroy) {
+            this.scene.destroy();
+        }
+
         this.scene = scene;
+
+        if (scene instanceof BattleScene) {
+            playMusic('./sounds/Track1mp3.mp3');
+        }
     }
 
     frame(time) {
@@ -36,8 +50,10 @@ export class BattleGame {
 
         pollGamepads();
 
-        this.scene.update(this.frameTime, this.ctx);
-        this.scene.draw(this.ctx);
+        if (this.scene) {
+            this.scene.update(this.frameTime, this.ctx);
+            this.scene.draw(this.ctx);
+        }
     }
 
     start() {
@@ -46,5 +62,3 @@ export class BattleGame {
         window.requestAnimationFrame(this.frame.bind(this));
     }
 }
-
-
