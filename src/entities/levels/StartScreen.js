@@ -25,7 +25,7 @@ export class StartScreen {
         this.smiley = document.querySelector('img[alt="wingding"]');
 
         this.frames = new Map([
-            ['matrix-strife', [5, 20, 800, 680]],
+            ['matrix-strife', [0, 0, 420, 50]],
             ['smiley', [0, 20, 100, 100]],
         ]);
     }
@@ -60,9 +60,10 @@ export class StartScreen {
                 ctx,
                 this.title,
                 this.frames.get('matrix-strife'),
-                ctx.canvas.width / 1.5 - 170,
-                20,
-                0.5
+                ctx.canvas.width / 0.5 - 100,
+                30,
+                0.5,
+                
             );
         }
 
