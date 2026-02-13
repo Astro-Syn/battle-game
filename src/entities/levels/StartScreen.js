@@ -28,6 +28,17 @@ export class StartScreen {
             ['smiley', [0, 20, 100, 100]],
         ]);
 
+        this.bgFrames = [];
+        this.bgCurrentFrame = 0;
+        this.bgTimer = 0;
+        this.bgDelay = 300;
+
+        for (let i = 1; i <= 5; i++){
+            const img = new Image();
+            img.src = `/Images/ms-start-bg${i}.png`;
+            this.bgFrames.push(img);
+        }
+
       
         this.titleFrames = [];
         this.currentFrame = 0;
@@ -55,8 +66,19 @@ export class StartScreen {
     }
 
 update(frameTime) {
+
+    
     const delta = frameTime?.delta ?? 16; 
 
+    //bg stuff
+    this.bgTimer += delta;
+
+    if(this.bgTimer > this.bgDelay){
+        this.bgTimer -= this.bgDelay;
+        this.bgCurrentFrame = (this.bgCurrentFrame + 1) % this.bgFrames.length;
+    }
+
+    //title stuff
     this.frameTimer += delta;
 
     if (this.frameTimer >= this.frameDelay) {
@@ -71,8 +93,22 @@ update(frameTime) {
     draw(ctx){
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        const bg = this.bgFrames[this.bgCurrentFrame];
+        if (bg && bg.complete){
+            ctx.drawImage(
+                bg, 
+                0, 
+                0, 
+                ctx.canvas.width,
+                ctx.canvas.height
+            );
+        }
+
+
+
+    
+       
 
        
         const frame = this.titleFrames[this.currentFrame];
@@ -89,16 +125,7 @@ update(frameTime) {
         }
 
      
-        if (this.smiley) {
-            drawFrame(
-                ctx,
-                this.smiley,
-                this.frames.get('smiley'),
-                ctx.canvas.width / 1.5 - 10,
-                120,
-                1
-            );
-        }
+      
 
         ctx.fillStyle = "white";
         ctx.font = "monospace";
