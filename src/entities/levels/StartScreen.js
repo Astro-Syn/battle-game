@@ -21,13 +21,24 @@ export class StartScreen {
         document.addEventListener('click', this.clickHandler);
         window.addEventListener('keydown', this.keyHandler);
 
-        this.title = document.querySelector('img[alt="title"]');
+      
         this.smiley = document.querySelector('img[alt="wingding"]');
 
         this.frames = new Map([
-            ['matrix-strife', [0, 0, 420, 50]],
             ['smiley', [0, 20, 100, 100]],
         ]);
+
+      
+        this.titleFrames = [];
+        this.currentFrame = 0;
+        this.frameTimer = 0;
+        this.frameDelay = 150; 
+
+        for (let i = 2; i <= 12; i++){
+            const img = new Image();
+            img.src = `/Images/matrix-strife-title${i}.png`;
+            this.titleFrames.push(img);
+        }
     }
 
     stopMusic(){
@@ -43,11 +54,19 @@ export class StartScreen {
         window.removeEventListener('keydown', this.keyHandler);
     }
 
-    update(frameTime, ctx){}
+update(frameTime) {
+    const delta = frameTime?.delta ?? 16; 
 
-    drawFrame(ctx, frameKey, x, y){
-        drawFrame(ctx, this.image, this.frames.get(frameKey), x, y);
+    this.frameTimer += delta;
+
+    if (this.frameTimer >= this.frameDelay) {
+        this.frameTimer -= this.frameDelay;
+        this.currentFrame =
+            (this.currentFrame + 1) % this.titleFrames.length;
     }
+}
+
+
 
     draw(ctx){
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -55,20 +74,21 @@ export class StartScreen {
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        if (this.title) {
-            drawFrame(
-                ctx,
-                this.title,
-                this.frames.get('matrix-strife'),
-                ctx.canvas.width / 2 - 110,
+       
+        const frame = this.titleFrames[this.currentFrame];
+
+        if (frame && frame.complete) {
+            ctx.drawImage(
+                frame,
+                ctx.canvas.width / 1.5 - 200,
                 30,
-                0.6,
-                1,
-                1
+                frame.width * 0.7,
+                frame.height * 0.7
                 
             );
         }
 
+     
         if (this.smiley) {
             drawFrame(
                 ctx,
