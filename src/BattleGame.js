@@ -1,6 +1,7 @@
 import { pollGamepads, registerKeyEvents, regGamepadEvents } from "./InputHandler.js";
 import { getContext } from "./utils/ctx.js";
 import { StartScreen } from "./entities/levels/StartScreen.js";
+import { LevelSelect } from "./entities/levels/LevelSelect.js";
 import { BattleScene } from "./entities/levels/BattleScene.js";
 import { playMusic} from "./utils/AudioManager.js";
 
@@ -22,10 +23,14 @@ export class BattleGame {
         window.addEventListener('keydown', firstUserGesture);
 
         this.setScene(
-            new StartScreen(() => {
-                this.setScene(new BattleScene());
+    new StartScreen(() => {
+        this.setScene(
+            new LevelSelect((levelIndex) => {
+                this.setScene(new BattleScene(levelIndex));
             })
         );
+    })
+);
     }
 
     setScene(scene) {
