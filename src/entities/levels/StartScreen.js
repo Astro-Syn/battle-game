@@ -1,11 +1,17 @@
 import { drawFrame } from "../../utils/ctx.js";
 
+
+
 export class StartScreen {
     constructor(onStart){
         this.audio = new Audio('./sounds/MS-opening.mp3');
         this.audio.loop = true;
-
         this.onStart = onStart;
+         this.shipX = -100;
+            this.shipY = 80;
+            this.shipSpeed = 60;
+            this.ship2X = -300;
+            this.ship2Speed = 40;
 
         this.clickHandler = () => {
             this.audio.play();
@@ -16,6 +22,7 @@ export class StartScreen {
                 this.stopMusic();
                 this.onStart();
             }
+           
         };
 
         document.addEventListener('click', this.clickHandler);
@@ -23,10 +30,15 @@ export class StartScreen {
 
       
         this.smiley = document.querySelector('img[alt="wingding"]');
+        this.ship1 = document.querySelector('img[alt="flyingCars"]');
+        this.ship2 = document.querySelector('img[alt="flyingCars"]');
 
         this.frames = new Map([
-            ['smiley', [0, 20, 100, 100]],
+            ['ship1', [0, 10, 90, 20]],
+            ['ship2', [0, 30, 80, 60]]
         ]);
+
+        
 
         this.bgFrames = [];
         this.bgCurrentFrame = 0;
@@ -66,8 +78,6 @@ export class StartScreen {
     }
 
 update(frameTime) {
-
-    
     const delta = frameTime?.delta ?? 16; 
 
     //bg stuff
@@ -86,13 +96,26 @@ update(frameTime) {
         this.currentFrame =
             (this.currentFrame + 1) % this.titleFrames.length;
     }
+
+    this.shipX += this.shipSpeed * (delta / 1000);
+    this.ship2X += this.ship2Speed * (delta/ 1000);
+
+    if (this.shipX > 900) {
+        this.shipX = -100;
+    }
+
+    if (this.ship2X > 900) {
+        this.ship2X = -200;
+    }
+    
 }
 
 
 
     draw(ctx){
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
+        const [sx, sy, sw, sh] = this.frames.get('ship1');
+        const [sx2, sy2, sw2, sh2] = this.frames.get('ship2');
 
         const bg = this.bgFrames[this.bgCurrentFrame];
         if (bg && bg.complete){
@@ -103,6 +126,23 @@ update(frameTime) {
                 ctx.canvas.width,
                 ctx.canvas.height
             );
+
+            const ship1 = this.ship1;
+            ctx.drawImage (
+                ship1, 
+                sx, sy, sw, sh, 
+                this.shipX, this.shipY, 
+                sw, sh
+            );
+
+            const ship2 = this.ship2;
+            ctx.drawImage (
+                ship2,
+                sx2, sy2, sw2, sh2,
+                this.shipX + -200,
+                 this.shipY + 40,
+                sw2, sh2
+            )
         }
 
 
