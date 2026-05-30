@@ -5,7 +5,7 @@ export class LevelSelect {
         this.levels = ["Level 1", "Level 2", "Level 3"];
         this.selected = 0;
         this.cloudsX = 1;
-        this.cloudsXSpeed = 10;
+        this.cloudsXSpeed = 3;
 
 
         this.keyHandler = (e) => {
@@ -102,7 +102,7 @@ export class LevelSelect {
         if (this.levelSelectClouds) {
             ctx.drawImage(
                 this.levelSelectClouds,
-                0, 
+                this.cloudsX, 
                 0, 
                 ctx.canvas.width, 
                 ctx.canvas.height
