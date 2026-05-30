@@ -23,6 +23,7 @@ export class LevelSelect {
         window.addEventListener("keydown", this.keyHandler);
 
         this.levelSelectBg = document.querySelector('img[alt="levelSelect-bg"]');
+        this.levelSelectClouds = document.querySelector('img[alt="clouds"]')
         this.levelSelect = document.querySelector('img[alt="selectLevel"]');
 
         this.levelImages = [
@@ -53,6 +54,16 @@ export class LevelSelect {
             );
         }
 
+        if (this.levelSelectClouds) {
+            ctx.drawImage(
+                this.levelSelectClouds,
+                0, 
+                0, 
+                ctx.canvas.width, 
+                ctx.canvas.height
+            )
+        }
+
         if (this.levelSelect) {
             const img = this.levelSelect;
 
@@ -80,7 +91,7 @@ export class LevelSelect {
         this.levels.forEach((level, i) => {
             const x = startX + i * spacing;
 
-            ctx.fillStyle = "#111";
+            ctx.fillStyle = "orange";
             ctx.fillRect(
                 x - boxSize / 2,
                 y - boxSize / 2,
