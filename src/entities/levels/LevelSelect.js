@@ -4,6 +4,9 @@ export class LevelSelect {
 
         this.levels = ["Level 1", "Level 2", "Level 3"];
         this.selected = 0;
+        this.cloudsX = 1;
+        this.cloudsXSpeed = 10;
+
 
         this.keyHandler = (e) => {
             if (e.code === "ArrowRight") {
@@ -23,8 +26,21 @@ export class LevelSelect {
         window.addEventListener("keydown", this.keyHandler);
 
         this.levelSelectBg = document.querySelector('img[alt="levelSelect-bg"]');
+
+        //clouds
         this.levelSelectClouds = document.querySelector('img[alt="clouds"]')
+
+        //select level
         this.levelSelect = document.querySelector('img[alt="selectLevel"]');
+
+        this.frames = new Map([
+            ['levelSelectClouds', [0, 10, 90, 20]]
+        ]);
+
+        this.bgFrames = [];
+        this.bgCurrentFrame = 0;
+        this.bgTimer = 0;
+        this.bgDelay = 300;
 
         this.levelImages = [
             document.querySelector('img[alt="level1"]'),
@@ -37,7 +53,36 @@ export class LevelSelect {
         window.removeEventListener("keydown", this.keyHandler);
     }
 
-    update() {}
+   update(frameTime) {
+    const delta = frameTime?.delta ?? 16; 
+
+    //bg stuff
+    this.bgTimer += delta;
+
+    if(this.bgTimer > this.bgDelay){
+        this.bgTimer -= this.bgDelay;
+        this.bgCurrentFrame = (this.bgCurrentFrame + 1) % this.bgFrames.length;
+    }
+
+    //title stuff
+    this.frameTimer += delta;
+
+    if (this.frameTimer >= this.frameDelay) {
+        this.frameTimer -= this.frameDelay;
+        this.currentFrame =
+            (this.currentFrame + 1) % this.titleFrames.length;
+    }
+
+    this.cloudsX += this.cloudsXSpeed * (delta / 1000);
+   
+
+    if (this.cloudsX > 900) {
+        this.cloudsX = -100;
+    }
+
+ 
+    
+}
 
     draw(ctx) {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
