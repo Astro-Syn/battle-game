@@ -39,11 +39,11 @@ export class SunsetCity {
         
         this.drawFrame(ctx, 'clouds-lg', Math.floor(10 - (camera.position.x / 10)), 50 - camera.position.y);
 
-        this.drawFrame(ctx, 'bridge-buildings', Math.floor(-170 - (camera.position.x / 2)), -280 -camera.position.y);
+        this.drawFrame(ctx, 'bridge-buildings', Math.floor(50 - (camera.position.x / 2)), -280 -camera.position.y);
 
             this.drawFrame(ctx, 'ground', Math.floor(25 - (camera.position.x / 1.58)), 150 -camera.position.y);
 
-             this.drawFrame(ctx, 'back-buildings', Math.floor(25 - (camera.position.x / 1.58)), -200 -camera.position.y);
+             this.drawFrame(ctx, 'back-buildings', Math.floor(25 - (camera.position.x / 1.58)), -170 -camera.position.y);
 
         this.drawFrame(ctx, 'front-buildings', Math.floor(50 - (camera.position.x / 1.5)), -250 - camera.position.y);
 

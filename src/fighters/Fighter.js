@@ -398,7 +398,11 @@ export class Fighter {
     }
 
     if(this.hasCollidedWithOpponent()){
-        if(this.position.x <= this.opponent.position.x){
+        
+        if(
+    this.position.x <= this.opponent.position.x &&
+    this.playerId === 0
+){
             this.position.x = Math.max(
                 (this.opponent.position.x + this.opponent.boxes.push.x) - (this.boxes.push.x + this.boxes.push.width),
                 camera.position.x + this.boxes.push.width,
@@ -412,7 +416,10 @@ export class Fighter {
             }
         }
 
-        if(this.position.x >= this.opponent.position.x){
+       if(
+    this.position.x >= this.opponent.position.x &&
+    this.playerId === 0
+){
             this.position.x = Math.min(
                 (this.opponent.position.x + this.opponent.boxes.push.x + this.opponent.boxes.push.width) + (this.boxes.push.width + this.boxes.push.x),
                 camera.position.x + ctx.canvas.width - this.boxes.push.width,

@@ -1,4 +1,4 @@
-export const PUSH_FRICTION = 66;
+export const PUSH_FRICTION = 50;
 export const CHARACTER_START_DISTANCE = 88;
 
 export const characterDirection = {
