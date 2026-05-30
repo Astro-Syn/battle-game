@@ -4,18 +4,11 @@ import { drawFrame } from "../../../utils/ctx.js";
 
 export class SunsetCity {
 
-   
+
     constructor() {
-                const audio = new Audio('./sounds/Track1mp3.mp3');
-
-                document.addEventListener('click', () => {
-                audio.play();
-                    });
-
-audio.volume = 0.5;
+              
         this.image = document.querySelector('img[alt="sunset-circuit"]');
 
-        
         
         this.frames = new Map([
             ['sky', [84, 1094, 1000, 1000]],
@@ -40,21 +33,21 @@ audio.volume = 0.5;
     }
 
     draw(ctx, camera){
-        this.drawFrame(ctx, 'sky', Math.floor(0 - (camera.position.x / 40)), 15 -camera.position.y);
+        this.drawFrame(ctx, 'sky', Math.floor(0 - (camera.position.x / 20)), 15 -camera.position.y);
 
-        this.drawFrame(ctx, 'clouds-sm', Math.floor(0 - (camera.position.x / 40)), 15 -camera.position.y);
+        this.drawFrame(ctx, 'clouds-sm', Math.floor(0 - (camera.position.x / 10)), 15 -camera.position.y);
         
-        this.drawFrame(ctx, 'clouds-lg', Math.floor(10 - (camera.position.x / 40)), 50 - camera.position.y);
+        this.drawFrame(ctx, 'clouds-lg', Math.floor(10 - (camera.position.x / 10)), 50 - camera.position.y);
 
-        this.drawFrame(ctx, 'bridge-buildings', Math.floor(25 - (camera.position.x / 1.58)), 30 -camera.position.y);
+        this.drawFrame(ctx, 'bridge-buildings', Math.floor(-170 - (camera.position.x / 2)), -280 -camera.position.y);
 
             this.drawFrame(ctx, 'ground', Math.floor(25 - (camera.position.x / 1.58)), 150 -camera.position.y);
 
-             this.drawFrame(ctx, 'back-buildings', Math.floor(25 - (camera.position.x / 1.58)), 30 -camera.position.y);
+             this.drawFrame(ctx, 'back-buildings', Math.floor(25 - (camera.position.x / 1.58)), -200 -camera.position.y);
 
-        this.drawFrame(ctx, 'front-buildings', Math.floor(30 - (camera.position.x / 5)), -250 - camera.position.y);
+        this.drawFrame(ctx, 'front-buildings', Math.floor(50 - (camera.position.x / 1.5)), -250 - camera.position.y);
 
-         this.drawFrame(ctx, 'front-greenery', Math.floor(30 - (camera.position.x / 4)), -250 - camera.position.y);
+         this.drawFrame(ctx, 'front-greenery', Math.floor(30 - (camera.position.x / 1.58)), -280 - camera.position.y);
     }
 }
 

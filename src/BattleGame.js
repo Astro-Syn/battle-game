@@ -37,6 +37,7 @@ export class BattleGame {
                         this.setScene(new BattleBeachScene())
                     }
                     else if (levelIndex === 2) {
+                        
                         this.setScene(new SunsetCityScene())
                     
                 };
@@ -57,6 +58,10 @@ export class BattleGame {
 
         if (scene instanceof BattleScene) {
             playMusic('./sounds/Track1mp3.mp3');
+        }
+        else if (scene instanceof SunsetCityScene){
+            playMusic('./sounds/sunset-city-battle.mp3');
+            
         }
     }
 
